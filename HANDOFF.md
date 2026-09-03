@@ -38,20 +38,34 @@
 - `syncHash()` / `pageFromHash()` — URL 해시(`#p3`)와 현재 페이지 동기화. 특정 페이지 링크 공유·새로고침 복원 가능
 - `onDown/onMove/onUp` — 마우스·터치 드래그로 페이지 넘기기
 - 키보드: ←/→, PageUp/PageDown, Space(Shift+Space 뒤로), Home, End
-- 접근성: 상단 진행바(`#progressBar`), 스크린리더용 `aria-live` 영역(`#liveRegion`)이 페이지 전환을 읽어줌
-- 760px 이상: 데스크탑 펼침책(스프레드) 뷰 / 미만: 모바일 단일 페이지 뷰로 CSS 미디어쿼리 자동 전환
+- 모바일: 화면 왼쪽 30% 탭 = 뒤로, 그 외 탭 = 다음. 좌우 스와이프로도 넘김(스와이프 방향이 방향 결정). 세로 드래그는 본문 스크롤로 통과
+- 데스크탑: 펼침책의 좌/우 절반을 잡고 드래그
+- 접근성: 상단 진행바(`#progressBar`), 스크린리더용 `aria-live` 영역(`#liveRegion`)
+- 760px 이상: 데스크탑 펼침책(스프레드) 뷰 / 미만: 모바일 단일 페이지 뷰
 
-## 남은 TODO (사용자 쪽에서 채워 넣을 부분)
-- **"마을 이야기" 페이지**: 스크립트 최상단 `STORIES` 배열과 `YT_CHANNEL` 상수만 수정하면 됩니다.
+## 사진 넣기 — `PHOTOS` 객체 (스크립트 최상단)
+```js
+var PHOTOS = {
+  'village' : 'photos/village.jpg',
+  'day1-1'  : 'photos/day1-1.jpg', 'day1-2': '...', 'day1-3': '...',
+  'day2-1'  : '...', 'day2-2': '...', 'day2-3': '...',
+  'team-1'..'team-4', 'glance-1'..'glance-3', 'cover', 'credits'
+};
+```
+- `photos/` 폴더를 만들고 파일을 넣은 뒤 위 객체에 `키: '경로'` 추가 → 해당 자리의 "사진 자리" 플레이스홀더가 실제 `<img>`로 교체됨. 키는 각 `<figure class="snap" data-photo="...">` 에 이미 박혀 있음.
+- 사진은 CSS `filter`로 따뜻한 톤 보정(`sepia .12 / saturate .9 / contrast .96`).
+- 폴라로이드 프레임·마스킹테이프·회전은 자동.
+
+## 남은 TODO
+- **"마을 이야기" 페이지**: `STORIES` 배열 + `YT_CHANNEL`.
   ```js
-  var YT_CHANNEL = 'https://www.youtube.com/@그린나래채널';  // 비우면 안내 문구만 표시
   var STORIES = [
-    { name: '김○○ 어르신', note: '한 줄 소개(선택)', video: 'https://youtu.be/xxxx' },
+    { name: '김○○ 어르신', photo: 'photos/story-1.jpg', video: 'https://youtu.be/xxxx' },
     ...
   ];
   ```
-  `video`가 있으면 카드가 영상 링크로, 없으면 "영상 준비중"으로 표시됩니다. 배열 길이는 자유(2열 그리드).
-- 어르신 실제 프로필 사진은 아직 미반영 — 넣으려면 카드 아이콘(`person` SVG) 자리에 `<img>` 교체 필요 (요청 시 작업)
+  `photo` 있으면 인물 사진, 없으면 플레이스홀더. `video` 있으면 카드가 영상 링크 + "▶ 영상" 뱃지.
+- 실제 사진 파일 (위 PHOTOS / STORIES.photo)
 - 크레딧 페이지 인스타그램 핸들 확인(@smu_thewings)
 
 ## 참고 — 확정된 실제 데이터
