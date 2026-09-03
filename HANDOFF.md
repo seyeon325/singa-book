@@ -31,10 +31,16 @@
 
 폰트: 제목 `Jua`, 본문 `Gowun Dodum`, 손글씨 `Gaegu` / `Nanum Pen Script`.
 
-## 실사 종이 텍스처 더 강화하려면
-지금은 SVG 조명 필터로 종이 질감을 만듭니다(파일 0개). 진짜 촬영 텍스처를 쓰려면:
-`textures/paper.jpg`, `textures/tape.png` 를 넣고 `.journal { background-image: url(textures/paper.jpg) }`,
-`.print::before { background: url(textures/tape.png) }` 로 교체 — 요청 시 작업.
+## 톤
+리소 프린트 / 플랫 컷페이퍼 셰이프 (전주도서관 여행 포스터 레퍼런스). 크림 종이 + 리소 그레인 오버레이(`.grain`), 제한 팔레트(green/blue/yellow/coral/black), 손글씨(Gaegu·Nanum Pen Script). 셰이프는 `<svg><use href="#sh-...">` (treecloud/tree/book/pencil/aster/flower/drop/blob/arrow/face/camera).
+- 표지: 크림 배경에 플랫 셰이프 산개 배치(`.cv-s1`~`.cv-s7` 위치 조정), 큰 손글씨 제목
+- 사진(`figure.shot`): 뒤에 컬러 블록(`--mount`) 깔린 플랫 인화 (폴라로이드·그림자 없음)
+
+## 마을 이야기 — 3 x 5 = 15명
+스크립트 `STORIES` 배열 15개. 각 항목 `{ name, photo, video }`.
+- `photo` 있으면 원형 프레임에 사진, 없으면 실루엣 플레이스홀더
+- `video` 있으면 카드 전체가 링크(사진 클릭 → 영상), 없으면 "영상 준비중"
+- `YT_CHANNEL` 채우면 하단 노트가 채널 링크로 바뀜
 
 ## 사진 넣기 — `PHOTOS` 객체 (스크립트 최상단)
 ```js
