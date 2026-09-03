@@ -1,6 +1,22 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>신가1리 이야기</title>
+<meta name="description" content="2026년 여름, 상명대학교 그린나래가 충남 천안 신가1리에서 보낸 1박 2일의 기록. 건강복지·디지털교육·콘텐츠디자인·문화체험 네 팀의 농촌재능나눔 필드저널.">
+<meta name="author" content="상명사회봉사단 그린나래">
+<meta name="theme-color" content="#2FAE5C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="신가1리 이야기">
+<meta property="og:description" content="2026년 여름, 상명대학교 그린나래와 함께한 신가1리 필드저널.">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='16'%20fill='%232FAE5C'/%3E%3Cpath%20d='M16%207c5%203%207%208%205%2013-5%202-10%200-12-5%203%201%206%200%207-3-1-2-1-4%200-5z'%20fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gaegu:wght@400;700&display=swap">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gaegu:wght@400;700&display=swap');
 
   :root{
     --bg:#F3EFDF;
@@ -154,6 +170,17 @@
     background:linear-gradient(135deg, transparent 50%, rgba(28,40,22,.10) 50%);
     pointer-events:none;
   }
+  /* gutter shadow near the spine — adds depth to the open book */
+  .face.front::after{
+    content:""; position:absolute; top:0; bottom:0; left:0; width:36px;
+    background:linear-gradient(90deg, rgba(28,40,22,.11), transparent);
+    pointer-events:none;
+  }
+  .face.back::after{
+    content:""; position:absolute; top:0; bottom:0; right:0; width:36px;
+    background:linear-gradient(270deg, rgba(28,40,22,.13), transparent);
+    pointer-events:none;
+  }
 
   .p-meta{
     display:flex; justify-content:space-between; align-items:center;
@@ -268,10 +295,16 @@
   .team p{ margin:0; font-size:.79rem; color:var(--ink-soft); line-height:1.6; }
 
   .story-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px 14px; padding-top:4px; }
-  .story-card{ padding:14px 8px 12px; text-align:center; }
+  .story-card{ padding:14px 8px 12px; text-align:center; display:block; }
+  a.story-card{ text-decoration:none; color:inherit; transition:transform .15s ease; }
+  a.story-card:hover{ transform:translateY(-2px); }
+  a.story-card:focus-visible{ outline:2px solid var(--leaf); outline-offset:2px; }
   .story-card .tile-ico{ margin:0 auto 8px; }
   .story-card .nm{ font-size:.78rem; color:var(--ink); font-weight:700; }
+  .story-card .nt{ font-size:.68rem; color:var(--ink-soft); line-height:1.5; margin-top:3px; }
   .story-card .yt{ font-family:'Gaegu'; font-weight:700; font-size:.7rem; color:var(--leaf-deep); margin-top:4px; }
+  a.note-box{ display:block; text-decoration:none; }
+  a.note-box:hover{ filter:brightness(.97); }
   .note-box{
     font-size:.75rem; color:var(--ink); background:var(--butter);
     border-radius:10px; padding:10px 12px; margin-top:14px;
@@ -312,14 +345,28 @@
   @media (min-width:760px){ .hint-swipe{ display:none; } }
 
   @media (max-height:640px){ .brandline{ display:none; } }
+
+  /* ---------- progress + a11y ---------- */
+  .progress{ position:fixed; top:0; left:0; right:0; height:3px; z-index:950; background:rgba(28,40,22,.08); }
+  .progress i{ display:block; height:100%; width:0; background:var(--leaf); transition:width .5s cubic-bezier(.61,0,.29,1); }
+  .sr-only{
+    position:absolute !important; width:1px; height:1px;
+    padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+  .leafslot.no-anim .leaf{ transition:none !important; }
+  .book-frame:focus-visible{ outline:2px solid var(--leaf-deep); outline-offset:4px; }
 </style>
+</head>
+<body>
 
 <div class="dotgrid"></div>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+<p class="sr-only" aria-live="polite" id="liveRegion"></p>
 
 <div class="reader" id="reader">
   <div class="brandline hand">그린나래<span class="dot"></span>신가1리 필드저널<span class="dot"></span>2026</div>
 
-  <div class="book-frame" id="bookFrame">
+  <div class="book-frame" id="bookFrame" tabindex="0" role="region" aria-label="신가1리 이야기 — 책장을 넘겨 읽는 필드저널. 좌우 화살표 키로 이동합니다.">
     <div class="endpaper"><div class="seal hand">그린나래<br/>×<br/>신가1리</div></div>
     <div class="spine-bar"></div>
     <div class="leafslot" id="leafslot">
@@ -495,13 +542,8 @@
           <div class="p-body">
             <h2 class="display pt" style="font-size:1.18rem">마을 이야기</h2>
             <p class="lede" style="margin-bottom:6px;">어르신 한 분 한 분을 하나의 개인으로 기록하고, 그 삶의 이야기에 귀 기울인 시간이었어요.</p>
-            <div class="story-grid">
-              <div class="story-card stamp"><div class="tile-ico" style="--tc:var(--sage)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.1 7-6.1s7 2.2 7 6.1"/></svg></div><div class="nm">성함 입력 예정</div><div class="yt">▶ 영상 준비중</div></div>
-              <div class="story-card stamp"><div class="tile-ico" style="--tc:var(--butter)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.1 7-6.1s7 2.2 7 6.1"/></svg></div><div class="nm">성함 입력 예정</div><div class="yt">▶ 영상 준비중</div></div>
-              <div class="story-card stamp"><div class="tile-ico" style="--tc:var(--sky)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.1 7-6.1s7 2.2 7 6.1"/></svg></div><div class="nm">성함 입력 예정</div><div class="yt">▶ 영상 준비중</div></div>
-              <div class="story-card stamp"><div class="tile-ico" style="--tc:var(--blush)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.1 7-6.1s7 2.2 7 6.1"/></svg></div><div class="nm">성함 입력 예정</div><div class="yt">▶ 영상 준비중</div></div>
-            </div>
-            <p class="note-box hand">인터뷰 영상은 그린나래 유튜브 채널에 순차적으로 업로드됩니다 ✎</p>
+            <div class="story-grid" id="storyGrid"></div>
+            <p class="note-box hand" id="storyNote">인터뷰 영상은 그린나래 유튜브 채널에 순차적으로 업로드됩니다 ✎</p>
           </div>
           <div class="p-foot"><span>콘텐츠디자인팀</span><span>page 07</span></div>
           <div class="corner-fold"></div>
@@ -557,6 +599,50 @@
 
 <script>
 (function(){
+
+  /* ══════════════════════════════════════════════════════════════
+     채워 넣는 곳 — 이 두 값만 수정하면 7번 "마을 이야기" 페이지에 반영됩니다.
+     ────────────────────────────────────────────────────────────── */
+  var YT_CHANNEL = '';   // 예: 'https://www.youtube.com/@greennarae'  (비우면 링크 없음)
+  var STORIES = [
+    // { name: '김○○ 어르신', note: '올해 여든셋, 평생 이 마을에서', video: 'https://youtu.be/xxxxxxxx' },
+    { name: '성함 입력 예정', note: '', video: '' },
+    { name: '성함 입력 예정', note: '', video: '' },
+    { name: '성함 입력 예정', note: '', video: '' },
+    { name: '성함 입력 예정', note: '', video: '' }
+  ];
+  /* ══════════════════════════════════════════════════════════════ */
+
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  (function renderStories(){
+    var grid = document.getElementById('storyGrid');
+    if(!grid) return;
+    var tints = ['--sage','--butter','--sky','--blush'];
+    var person = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.1 7-6.1s7 2.2 7 6.1"/></svg>';
+    grid.innerHTML = STORIES.map(function(s, i){
+      var tc = 'var(' + tints[i % tints.length] + ')';
+      var inner =
+        '<div class="tile-ico" style="--tc:' + tc + '">' + person + '</div>' +
+        '<div class="nm">' + esc(s.name) + '</div>' +
+        (s.note ? '<div class="nt">' + esc(s.note) + '</div>' : '') +
+        '<div class="yt">' + (s.video ? '▶ 인터뷰 영상 보기' : '▶ 영상 준비중') + '</div>';
+      return s.video
+        ? '<a class="story-card stamp" href="' + esc(encodeURI(s.video)) + '" target="_blank" rel="noopener">' + inner + '</a>'
+        : '<div class="story-card stamp">' + inner + '</div>';
+    }).join('');
+
+    var note = document.getElementById('storyNote');
+    if(note && YT_CHANNEL){
+      var a = document.createElement('a');
+      a.className = 'note-box hand'; a.id = 'storyNote';
+      a.href = YT_CHANNEL; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = '▶ 그린나래 유튜브 채널에서 인터뷰 영상 보기';
+      note.replaceWith(a);
+    }
+  })();
+
   var leaves = Array.prototype.slice.call(document.querySelectorAll('.leaf'));
   var total = leaves.length;
   var current = 0;
@@ -567,7 +653,17 @@
   var curEl = document.getElementById('cur');
   var totalEl = document.getElementById('total');
   var frame = document.getElementById('bookFrame');
+  var slot = document.getElementById('leafslot');
+  var progressBar = document.getElementById('progressBar');
+  var liveRegion = document.getElementById('liveRegion');
   totalEl.textContent = String(total).padStart(2,'0');
+
+  // human-readable title per leaf, for the screen-reader announcement + hash
+  var titles = leaves.map(function(leaf){
+    var h = leaf.querySelector('h1, h2');
+    var tag = leaf.querySelector('.p-tag, .cover-mark');
+    return (h ? h.textContent : (tag ? tag.textContent : '')).replace(/\s+/g,' ').trim();
+  });
 
   function layout(){
     leaves.forEach(function(leaf, i){
@@ -579,7 +675,38 @@
     curEl.textContent = String(current+1).padStart(2,'0');
     prevBtn.disabled = current === 0;
     nextBtn.disabled = current === total - 1;
+    progressBar.style.width = (current/(total-1)*100) + '%';
+    liveRegion.textContent = (current+1) + ' / ' + total + ' 페이지' + (titles[current] ? ' · ' + titles[current] : '');
+    syncHash();
   }
+
+  /* ---------- deep-linking via URL hash (#p3) ---------- */
+  var hashLock = false;
+  function syncHash(){
+    var want = current === 0 ? '' : '#p' + (current+1);
+    if(want === (location.hash || '')) return;
+    hashLock = true;
+    history.replaceState(null, '', want || (location.pathname + location.search));
+    hashLock = false;
+  }
+  function pageFromHash(){
+    var m = /^#p(\d+)$/.exec(location.hash);
+    return m ? Math.max(0, Math.min(total-1, parseInt(m[1],10) - 1)) : 0;
+  }
+  function jump(target){
+    target = Math.max(0, Math.min(total-1, target));
+    if(target === current) return;
+    slot.classList.add('no-anim');
+    while(current < target) doAdvance(false);
+    while(current > target) doRetreat(false);
+    void slot.offsetWidth;            // flush styles before re-enabling transitions
+    slot.classList.remove('no-anim');
+    animating = false;
+  }
+  window.addEventListener('hashchange', function(){
+    if(hashLock) return;
+    if(!animating) jump(pageFromHash());
+  });
   function doAdvance(withAnim){
     if(current >= total-1) return;
     animating = true;
@@ -603,11 +730,18 @@
 
   layout();
   updateUI();
+  if(pageFromHash() > 0) jump(pageFromHash());
   nextBtn.addEventListener('click', next);
   prevBtn.addEventListener('click', prev);
   window.addEventListener('keydown', function(e){
-    if(e.key === 'ArrowRight') next();
-    if(e.key === 'ArrowLeft') prev();
+    if(e.defaultPrevented) return;
+    switch(e.key){
+      case 'ArrowRight': case 'PageDown': next(); break;
+      case 'ArrowLeft':  case 'PageUp':   prev(); break;
+      case ' ': e.preventDefault(); e.shiftKey ? prev() : next(); break;
+      case 'Home': e.preventDefault(); if(!animating) jump(0); break;
+      case 'End':  e.preventDefault(); if(!animating) jump(total-1); break;
+    }
   });
 
   document.getElementById('tocList').addEventListener('click', function(e){
@@ -677,3 +811,5 @@
   frame.addEventListener('touchstart', onDown, {passive:true});
 })();
 </script>
+</body>
+</html>

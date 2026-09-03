@@ -1,8 +1,9 @@
 # 신가1리 이야기 — 웹사이트 인수인계 노트
 
 ## 파일 구성
-- `singa-book.html` — 완성된 단일 HTML 파일. 인라인 CSS/JS만 사용하고 외부 의존성은 Google Fonts(Jua, Gowun Dodum, Gaegu) 하나뿐입니다.
+- `index.html` — 완성된 단일 HTML 파일 (원본 `singa-book.html`을 리네임). 인라인 CSS/JS만 사용하고 외부 의존성은 Google Fonts(Jua, Gowun Dodum, Gaegu) 하나뿐입니다.
 - 빌드 과정 없음 (React·번들러·npm 없음). 더블클릭해서 브라우저로 바로 열리고, `file://` 경로에서도 정상 동작합니다.
+- git 저장소로 관리됩니다 (`~/source/repos/singa-book`).
 
 ## Claude Code에서 이어가는 방법
 1. `singa-book.html`을 원하는 프로젝트 폴더(또는 새 git 저장소)에 넣습니다.
@@ -27,13 +28,25 @@
 ## 인터랙션 구조 (스크립트 하단 IIFE)
 - `doAdvance()` / `doRetreat()` — 실제 페이지 상태 변경
 - `layout()` — z-index 스택 관리
-- `goTo(target)` — 목차 클릭 시 자동 넘김(폴링 방식)
+- `goTo(target)` — 목차 클릭 시 자동 넘김(애니메이션, 폴링 방식)
+- `jump(target)` — 애니메이션 없이 즉시 이동 (URL 해시 복원·Home/End 키)
+- `syncHash()` / `pageFromHash()` — URL 해시(`#p3`)와 현재 페이지 동기화. 특정 페이지 링크 공유·새로고침 복원 가능
 - `onDown/onMove/onUp` — 마우스·터치 드래그로 페이지 넘기기
+- 키보드: ←/→, PageUp/PageDown, Space(Shift+Space 뒤로), Home, End
+- 접근성: 상단 진행바(`#progressBar`), 스크린리더용 `aria-live` 영역(`#liveRegion`)이 페이지 전환을 읽어줌
 - 760px 이상: 데스크탑 펼침책(스프레드) 뷰 / 미만: 모바일 단일 페이지 뷰로 CSS 미디어쿼리 자동 전환
 
 ## 남은 TODO (사용자 쪽에서 채워 넣을 부분)
-- "마을 이야기" 페이지(7번): 어르신 성함, 실제 프로필 사진, 인터뷰 영상 링크 — 현재 플레이스홀더
-- 그린나래 유튜브 채널 링크 삽입
+- **"마을 이야기" 페이지**: 스크립트 최상단 `STORIES` 배열과 `YT_CHANNEL` 상수만 수정하면 됩니다.
+  ```js
+  var YT_CHANNEL = 'https://www.youtube.com/@그린나래채널';  // 비우면 안내 문구만 표시
+  var STORIES = [
+    { name: '김○○ 어르신', note: '한 줄 소개(선택)', video: 'https://youtu.be/xxxx' },
+    ...
+  ];
+  ```
+  `video`가 있으면 카드가 영상 링크로, 없으면 "영상 준비중"으로 표시됩니다. 배열 길이는 자유(2열 그리드).
+- 어르신 실제 프로필 사진은 아직 미반영 — 넣으려면 카드 아이콘(`person` SVG) 자리에 `<img>` 교체 필요 (요청 시 작업)
 - 크레딧 페이지 인스타그램 핸들 확인(@smu_thewings)
 
 ## 참고 — 확정된 실제 데이터
