@@ -10,38 +10,31 @@
 - GitHub Pages, `main` 브랜치 루트에서 자동 배포. `main`에 push하면 1~2분 뒤 반영됩니다.
 - 수정 → 배포: `git add -A && git commit -m "..." && git push`
 
-## Claude Code에서 이어가는 방법
-1. `singa-book.html`을 원하는 프로젝트 폴더(또는 새 git 저장소)에 넣습니다.
-2. 그 폴더에서 `claude` 실행 후 "이 파일 열어서 ○○ 부분 고쳐줘" 식으로 요청하면 됩니다. 파일 하나짜리라 별도 설정 없이 바로 인식합니다.
-3. 배포까지 하려면 Claude Code에게 "GitHub Pages(혹은 Vercel/Netlify)로 배포해줘"라고 하면 됩니다.
+## 구조 (하이브리드: 표지 → 스크롤 저널)
+- **표지(`.cover`)** — 책상 위에 놓인 다이어리. `펼쳐보기` 버튼 → `.journal` 로 전환하며 스크롤 시작
+- **저널(`.journal`)** — 세로 스크롤. 챕터 하나 = `<section class="chapter" id="c-...">`
+  - 순서: `c-prologue` → `c-village` → `c-glance` → `c-day1` → `c-day2` → `c-teams` → `c-stories` → `c-credits`
+  - 각 챕터: 킥커(`.ch-kicker`) + 제목(`.ch-title`) + 큰 사진(`figure.print`) + 본문
+- 상단 sticky 바: 홈 버튼(표지로) + 챕터 이동 드롭다운(`#jump`)
+- URL 해시(`#c-village`)로 특정 챕터 링크 공유 / 새로고침 복원 / 뒤로가기. 스크롤하면 해시·드롭다운·진행바 자동 갱신
+- `Esc` 또는 "처음으로 돌아가기" → 표지로
 
 ## 디자인 토큰 (`:root` CSS 변수)
 | 변수 | 값 | 용도 |
 |---|---|---|
-| `--leaf` | #2FAE5C | 메인 그린 |
-| `--leaf-deep` | #1C7A3E | 진한 그린(스탬프 텍스트 등) |
-| `--bg` | #F3EFDF | 책 바깥 배경(크림) |
-| `--paper` / `--paper-shade` | #FFFDF6 / #EFE8D2 | 페이지 종이색 |
-| `--ink` / `--ink-soft` | #20301C / #63715A | 본문 텍스트 |
-| `--butter` `--sky` `--blush` `--sage` | 파스텔 4색 | 카드/태그 컬러 로테이션 |
+| `--leaf` / `--leaf-deep` | #3AA95E / #1C7A3E | 메인 그린 |
+| `--bg` | #E7DFC6 | 바깥 배경 |
+| `--paper` / `--paper-warm` | #FBF6E8 / #F5EDD8 | 종이색 |
+| `--ink` / `--ink-soft` | #26331D / #5E6B52 | 텍스트 |
+| `--butter` `--sky` `--blush` `--sage` | 파스텔 4색 | 태그·카드 로테이션 |
+| `--paper-tex` | SVG feDiffuseLighting | 절차적 "실사풍" 종이 엠보싱 (외부 이미지 0개) |
 
-폰트: 제목 `Jua`, 본문 `Gowun Dodum`, 손글씨 포인트 `Gaegu`.
+폰트: 제목 `Jua`, 본문 `Gowun Dodum`, 손글씨 `Gaegu` / `Nanum Pen Script`.
 
-## 페이지 구성 (총 9장, 책장 넘김)
-0. 표지 → 1. 프롤로그(목차, 클릭 시 해당 페이지로 자동 이동) → 2. 마을 소개 → 3. 한눈에 보는 활동(통계) → 4. Day1 → 5. Day2 → 6. 네 팀의 역할 → 7. 마을 이야기(어르신 카드) → 8. 크레딧/마무리
-
-## 인터랙션 구조 (스크립트 하단 IIFE)
-- `doAdvance()` / `doRetreat()` — 실제 페이지 상태 변경
-- `layout()` — z-index 스택 관리
-- `goTo(target)` — 목차 클릭 시 자동 넘김(애니메이션, 폴링 방식)
-- `jump(target)` — 애니메이션 없이 즉시 이동 (URL 해시 복원·Home/End 키)
-- `syncHash()` / `pageFromHash()` — URL 해시(`#p3`)와 현재 페이지 동기화. 특정 페이지 링크 공유·새로고침 복원 가능
-- `onDown/onMove/onUp` — 마우스·터치 드래그로 페이지 넘기기
-- 키보드: ←/→, PageUp/PageDown, Space(Shift+Space 뒤로), Home, End
-- 모바일: 화면 왼쪽 30% 탭 = 뒤로, 그 외 탭 = 다음. 좌우 스와이프로도 넘김(스와이프 방향이 방향 결정). 세로 드래그는 본문 스크롤로 통과
-- 데스크탑: 펼침책의 좌/우 절반을 잡고 드래그
-- 접근성: 상단 진행바(`#progressBar`), 스크린리더용 `aria-live` 영역(`#liveRegion`)
-- 760px 이상: 데스크탑 펼침책(스프레드) 뷰 / 미만: 모바일 단일 페이지 뷰
+## 실사 종이 텍스처 더 강화하려면
+지금은 SVG 조명 필터로 종이 질감을 만듭니다(파일 0개). 진짜 촬영 텍스처를 쓰려면:
+`textures/paper.jpg`, `textures/tape.png` 를 넣고 `.journal { background-image: url(textures/paper.jpg) }`,
+`.print::before { background: url(textures/tape.png) }` 로 교체 — 요청 시 작업.
 
 ## 사진 넣기 — `PHOTOS` 객체 (스크립트 최상단)
 ```js
