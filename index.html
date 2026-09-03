@@ -1,1025 +1,689 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" class="locked">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>신가1리 이야기</title>
 <meta name="description" content="2026년 여름, 상명대학교 그린나래가 충남 천안 신가1리에서 보낸 1박 2일의 기록. 건강복지·디지털교육·콘텐츠디자인·문화체험 네 팀의 농촌재능나눔 필드저널.">
 <meta name="author" content="상명사회봉사단 그린나래">
-<meta name="theme-color" content="#2FAE5C">
+<meta name="theme-color" content="#EDE6D0">
 <meta property="og:type" content="website">
 <meta property="og:title" content="신가1리 이야기">
 <meta property="og:description" content="2026년 여름, 상명대학교 그린나래와 함께한 신가1리 필드저널.">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='16'%20fill='%232FAE5C'/%3E%3Cpath%20d='M16%207c5%203%207%208%205%2013-5%202-10%200-12-5%203%201%206%200%207-3-1-2-1-4%200-5z'%20fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='16'%20fill='%233AA95E'/%3E%3Cpath%20d='M16%207c5%203%207%208%205%2013-5%202-10%200-12-5%203%201%206%200%207-3-1-2-1-4%200-5z'%20fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gaegu:wght@400;700&family=Nanum+Pen+Script&display=swap">
 <style>
-
   :root{
-    --bg:#EDE6D0;
+    --bg:#E7DFC6;
     --paper:#FBF6E8;
-    --paper-2:#F6EFDC;
-    --paper-shade:#E8DFC4;
-    --ink:#24331E;
+    --paper-warm:#F5EDD8;
+    --ink:#26331D;
     --ink-soft:#5E6B52;
     --leaf:#3AA95E;
     --leaf-deep:#1C7A3E;
-    --butter:#F4D98A;
-    --sky:#AEDAD1;
-    --blush:#F0BCAC;
-    --sage:#C4DCA2;
-    --tape:rgba(244,217,138,.62);
-    --pw:min(400px,92vw);
-    --turn:.68s;
+    --butter:#F2D586;
+    --sky:#A9D7CE;
+    --blush:#EEB9A8;
+    --sage:#BFD89C;
+    --tape:#f0dfa8;
+    --shadow-1:0 1px 2px rgba(38,51,29,.08), 0 6px 18px rgba(38,51,29,.10);
+    --shadow-2:0 2px 6px rgba(38,51,29,.12), 0 14px 40px rgba(38,51,29,.16);
+    --maxw:660px;
+
+    /* procedural "real paper" — soft directional fibre emboss */
+    --paper-tex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.026' numOctaves='4' seed='11' result='n'/%3E%3CfeDiffuseLighting in='n' lighting-color='%23ffffff' surfaceScale='1.5' result='l'%3E%3CfeDistantLight azimuth='235' elevation='58'/%3E%3C/feDiffuseLighting%3E%3CfeColorMatrix in='l' type='matrix' values='0 0 0 0 0.15 0 0 0 0 0.18 0 0 0 0 0.11 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='340' height='340' filter='url(%23p)'/%3E%3C/svg%3E");
+    --grain-tex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
   }
-  @media (min-width:760px){ :root{ --pw:min(400px,42vw); --turn:.8s; } }
 
   *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html,body{ height:100%; }
+  html{ scroll-behavior:smooth; }
   body{
-    margin:0;
+    margin:0; min-height:100%;
     background:var(--bg);
     color:var(--ink);
     font-family:'Gowun Dodum','Malgun Gothic',sans-serif;
+    font-size:17px; line-height:1.75;
     -webkit-font-smoothing:antialiased;
-    overflow:hidden;
   }
-  .display{ font-family:'Jua','Gowun Dodum',sans-serif; font-weight:400; }
-  .hand{ font-family:'Gaegu','Gowun Dodum',sans-serif; font-weight:700; letter-spacing:.01em; }
+  html.locked{ overflow:hidden; height:100%; }
+  html.locked body{ overflow:hidden; height:100%; }
+  .display{ font-family:'Jua','Gowun Dodum',sans-serif; }
+  .hand{ font-family:'Gaegu','Gowun Dodum',sans-serif; font-weight:700; }
   .pen{ font-family:'Nanum Pen Script','Gaegu',cursive; }
   ::selection{ background:var(--leaf); color:#fff; }
-  button{ font-family:inherit; }
   a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  @media (prefers-reduced-motion:reduce){ *{ transition-duration:.001s!important; animation-duration:.001s!important; } html{ scroll-behavior:auto; } }
 
-  @media (prefers-reduced-motion: reduce){
-    *{ transition-duration:.001s !important; animation-duration:.001s !important; }
-  }
+  .grain{ position:fixed; inset:0; z-index:200; pointer-events:none; background:var(--grain-tex); opacity:.035; }
+  .journal{ overflow-x:clip; }
 
-  /* faint dot grid over everything (keeps the stamp cut-outs seamless) */
-  .dotgrid{
-    position:fixed; inset:0; pointer-events:none; z-index:900;
-    background-image:radial-gradient(rgba(28,60,34,.5) 1px, transparent 1.4px);
-    background-size:16px 16px;
-    opacity:.05;
-  }
+  /* ================= progress ================= */
+  .progress{ position:fixed; top:0; left:0; right:0; height:4px; z-index:150; background:rgba(38,51,29,.08); opacity:0; transition:opacity .3s; }
+  body.opened .progress{ opacity:1; }
+  .progress i{ display:block; height:100%; width:0; background:var(--leaf); transition:width .25s ease; }
 
-  /* ---------- reader shell ---------- */
-  .reader{
-    height:100vh; height:100dvh;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:clamp(10px,2.2vh,22px);
-    padding:clamp(10px,3vw,26px);
-    position:relative;
-  }
-  .brandline{
-    position:absolute; top:clamp(8px,2vh,20px); left:0; right:0;
-    display:flex; justify-content:center; align-items:center; gap:9px;
-    color:var(--ink-soft); font-size:1rem;
-  }
-  .brandline .dot{ width:5px; height:5px; border-radius:50%; background:var(--leaf); transform:rotate(8deg); }
+  .sr-only{ position:absolute!important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
-  /* ---------- book geometry ---------- */
-  .book-frame{
-    position:relative;
-    width:var(--pw);
-    height:min(88dvh, 640px);
-    perspective:2200px;
-    overflow:hidden;
-    border-radius:3px;
-    touch-action:pan-y;
-    cursor:grab;
-    user-select:none;
-    -webkit-user-select:none;
-  }
-  .book-frame:active{ cursor:grabbing; }
-  @media (min-width:760px){
-    .book-frame{ width:calc(var(--pw)*2 + 16px); height:min(80dvh, 680px); overflow:visible; border-radius:0; cursor:auto; }
-  }
-  .book-shadow{
-    position:absolute; left:3%; right:3%; bottom:-16px; height:30px;
-    background:radial-gradient(ellipse at center, rgba(24,40,20,.3) 0%, transparent 72%);
-    filter:blur(4px); z-index:0;
-  }
-
-  .endpaper{
-    display:none;
-    position:absolute; top:0; left:0; width:var(--pw); height:100%;
-    background:var(--paper-shade);
-    border-radius:4px 0 0 4px;
-    box-shadow:inset -12px 0 24px rgba(24,40,20,.1);
-    z-index:1;
-    align-items:center; justify-content:center;
-  }
-  .endpaper .seal{
-    width:110px; height:110px; border-radius:50%;
-    border:2px dashed var(--leaf); rotate:-4deg;
+  /* ================= COVER (intro) ================= */
+  .cover{
+    position:fixed; inset:0; z-index:100;
     display:flex; align-items:center; justify-content:center;
-    color:var(--leaf-deep); font-size:1.05rem; text-align:center; line-height:1.35;
+    padding:24px;
+    background:
+      radial-gradient(120% 90% at 50% 0%, #8a6b4a 0%, #6f5238 45%, #5a4029 100%);
+    transition:opacity .7s ease, transform .7s ease;
   }
-  @media (min-width:760px){ .endpaper{ display:flex; } }
-
-  .spine-bar{
-    display:none;
-    position:absolute; top:-2%; bottom:-2%; left:var(--pw); width:16px;
-    background:linear-gradient(90deg,var(--leaf-deep),var(--leaf) 40%,var(--leaf-deep));
-    box-shadow:0 0 18px rgba(24,40,20,.35);
-    z-index:500;
+  .cover::after{ /* table grain */
+    content:""; position:absolute; inset:0; background:var(--grain-tex); opacity:.12; mix-blend-mode:overlay; pointer-events:none;
   }
-  @media (min-width:760px){ .spine-bar{ display:block; } }
-  .spine-bar::before{
-    content:""; position:absolute; top:5%; bottom:5%; left:50%;
-    border-left:2px dashed rgba(255,255,255,.5);
+  body.opened .cover{ opacity:0; transform:scale(1.08); pointer-events:none; }
+
+  .book{
+    position:relative; width:min(360px, 82vw); aspect-ratio:3/4;
+    transform:rotate(-1.4deg);
+    filter:drop-shadow(0 30px 45px rgba(0,0,0,.42));
   }
-
-  .leafslot{ position:absolute; top:0; left:0; width:var(--pw); height:100%; }
-  @media (min-width:760px){ .leafslot{ left:calc(var(--pw) + 16px); } }
-
-  .leaf{
-    position:absolute; inset:0;
-    transform-style:preserve-3d;
-    transform-origin:left center;
-    transition:transform var(--turn) cubic-bezier(.62,.01,.3,1);
-  }
-  .leaf.flipped{ transform:rotateY(-178deg); }
-  .leaf.dragging{ transition:none; }
-
-  .face{
-    position:absolute; inset:0;
-    backface-visibility:hidden;
-    background-color:var(--paper);
-    background-image:
-      radial-gradient(circle at 18% 12%, rgba(196,220,162,.22), transparent 42%),
-      radial-gradient(circle at 88% 88%, rgba(244,217,138,.20), transparent 40%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-    box-shadow:2px 6px 22px rgba(24,40,20,.24);
-    padding:clamp(20px,5.4%,34px) clamp(18px,5.6%,32px);
+  .book-cover{
+    position:absolute; inset:0; border-radius:6px 10px 10px 6px;
+    background:
+      linear-gradient(105deg, rgba(255,255,255,.16), rgba(0,0,0,.06) 55%, rgba(0,0,0,.14)),
+      var(--butter);
+    background-blend-mode:overlay, normal;
+    box-shadow:
+      inset 3px 0 0 rgba(255,255,255,.28),
+      inset -14px 0 26px rgba(0,0,0,.16),
+      inset 0 0 0 1px rgba(0,0,0,.06);
+    padding:40px 30px;
     display:flex; flex-direction:column;
     overflow:hidden;
   }
-  .face.back{
-    background-color:var(--paper-2);
-    transform:rotateY(180deg);
-    align-items:center; justify-content:center; text-align:center;
+  .book-cover::before{ /* spine */
+    content:""; position:absolute; left:0; top:0; bottom:0; width:16px;
+    background:linear-gradient(90deg, rgba(0,0,0,.22), rgba(0,0,0,.05) 60%, transparent);
   }
-  .face.back .seal{
-    width:120px; height:120px; border-radius:50%;
-    border:2px dashed var(--leaf); rotate:-5deg;
-    display:flex; align-items:center; justify-content:center;
-    color:var(--leaf-deep); font-size:1.15rem; line-height:1.3;
+  .book-cover::after{ content:""; position:absolute; inset:0; background:var(--paper-tex); background-size:300px; opacity:.5; mix-blend-mode:multiply; pointer-events:none; }
+  .bc-band{ font-family:'Gaegu'; font-weight:700; font-size:.82rem; letter-spacing:.05em; color:var(--leaf-deep); }
+  .bc-mid{ flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .bc-mid h1{ margin:0; font-family:'Jua'; font-size:clamp(2.2rem,9vw,2.9rem); line-height:1.18; color:var(--ink); }
+  .bc-mid .sub{ font-family:'Nanum Pen Script'; font-size:1.35rem; color:var(--ink-soft); margin-top:8px; }
+  .bc-foot{ display:flex; align-items:flex-end; justify-content:space-between; }
+  .bc-date{ font-family:'Nanum Pen Script'; font-size:1.15rem; color:var(--ink-soft); }
+  .bc-open{
+    border:0; cursor:pointer; font-family:'Gaegu'; font-weight:700; font-size:1rem;
+    color:#fff; background:var(--leaf-deep);
+    padding:9px 20px; border-radius:999px;
+    box-shadow:0 4px 0 rgba(0,0,0,.18), var(--shadow-1);
+    display:inline-flex; align-items:center; gap:7px;
+    transition:transform .15s ease, box-shadow .15s ease;
   }
-  .corner-fold{
-    position:absolute; right:0; bottom:0; width:26px; height:26px;
-    background:linear-gradient(135deg, transparent 50%, rgba(24,40,20,.1) 50%);
-    pointer-events:none;
+  .bc-open:hover{ transform:translateY(-1px); }
+  .bc-open:active{ transform:translateY(2px); box-shadow:0 1px 0 rgba(0,0,0,.18); }
+  .bc-sprig{ position:absolute; right:14px; top:34px; width:58px; opacity:.85; color:var(--leaf); transform:rotate(8deg); }
+
+  /* ================= JOURNAL (scroll) ================= */
+  .journal{ display:none; }
+  body.opened .journal{ display:block; animation:fadein .4s ease both; }
+  @keyframes fadein{ from{ opacity:.15; } to{ opacity:1; } }
+
+  .j-bar{
+    position:sticky; top:0; z-index:120;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:10px clamp(14px,4vw,26px);
+    background:rgba(231,223,198,.86); backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(38,51,29,.1);
   }
-  /* gutter shading near the spine */
-  .face.front::after{
-    content:""; position:absolute; top:0; bottom:0; left:0; width:40px;
-    background:linear-gradient(90deg, rgba(24,40,20,.12), transparent);
-    pointer-events:none;
-  }
-  .face.back::after{
-    content:""; position:absolute; top:0; bottom:0; right:0; width:40px;
-    background:linear-gradient(270deg, rgba(24,40,20,.14), transparent);
-    pointer-events:none;
+  .j-bar .home{ display:inline-flex; align-items:center; gap:7px; font-family:'Gaegu'; font-weight:700; font-size:.95rem; color:var(--ink); background:none; border:0; cursor:pointer; }
+  .j-bar .home svg{ width:16px; height:16px; }
+  .j-bar select{
+    font-family:inherit; font-size:.9rem; color:var(--ink);
+    background:var(--paper); border:1.6px solid var(--ink); border-radius:9px;
+    padding:5px 9px; max-width:52vw;
   }
 
-  .p-meta{
-    display:flex; justify-content:space-between; align-items:center;
-    padding-bottom:10px; flex:0 0 auto;
+  .chapter{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:clamp(34px,7vw,58px) clamp(18px,5vw,26px);
+    border-bottom:1px dashed rgba(38,51,29,.18);
+    scroll-margin-top:62px;
   }
-  .p-tag{
-    display:inline-flex; align-items:center; gap:5px;
-    background:var(--leaf); color:#fff;
-    font-family:'Gaegu'; font-weight:700; font-size:.86rem; letter-spacing:.02em;
-    padding:3px 13px; border-radius:4px 11px 5px 12px;
-    rotate:-1.5deg; box-shadow:1.5px 1.5px 0 rgba(24,40,20,.18);
-  }
-  .p-no{ color:var(--ink-soft); font-family:'Nanum Pen Script'; font-size:1.15rem; rotate:3deg; }
-  .p-body{ flex:1 1 auto; display:flex; flex-direction:column; min-height:0; overflow-y:auto; padding:6px 2px 14px; -webkit-overflow-scrolling:touch; }
-  .p-body::-webkit-scrollbar{ width:0; height:0; }
-  .p-foot{ flex:0 0 auto; display:flex; justify-content:space-between; align-items:flex-end; font-family:'Nanum Pen Script'; font-size:1rem; color:var(--ink-soft); padding-top:8px; }
+  .chapter:last-child{ border-bottom:0; }
 
-  h1,h2,h3{ margin:0; font-weight:400; text-wrap:balance; }
-  h2.pt{ font-size:1.4rem; color:var(--ink); margin-bottom:14px; position:relative; display:inline-block; line-height:1.3; }
-  h2.pt::after{
-    content:""; position:absolute; left:-4px; right:-8px; bottom:-6px; height:11px;
-    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' preserveAspectRatio='none'%3E%3Cpath d='M3 8 Q 45 2 90 6 T 175 5 T 237 8' fill='none' stroke='%233AA95E' stroke-width='4.5' stroke-linecap='round'/%3E%3C/svg%3E") left center/100% 100% no-repeat;
-    opacity:.6; pointer-events:none;
+  .ch-kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Gaegu'; font-weight:700; font-size:.8rem; letter-spacing:.04em;
+    color:#fff; background:var(--leaf); padding:4px 13px;
+    border-radius:5px 12px 6px 12px; transform:rotate(-1.5deg);
+    box-shadow:1.5px 1.5px 0 rgba(38,51,29,.18);
   }
-
-  /* ---- hand-drawn scrap box ---- */
-  .scrap{
-    position:relative;
-    background:var(--paper);
-    border:2px solid var(--ink);
-    border-radius:255px 14px 225px 15px / 15px 225px 14px 255px;
-    box-shadow:2px 3px 0 -1px rgba(24,40,20,.22);
+  .ch-title{
+    font-family:'Jua'; font-size:clamp(1.7rem,5.6vw,2.3rem); line-height:1.28;
+    margin:14px 0 0; color:var(--ink); position:relative;
+    display:block; width:-moz-fit-content; width:fit-content;
   }
-  .scrap.alt{ border-radius:14px 255px 15px 225px / 225px 15px 255px 14px; }
-  .scrap.tint{ background:var(--tc,var(--sage)); }
-
-  /* ---- scalloped "stamp" card ---- */
-  .stamp{
-    position:relative; background:var(--paper);
-    border:1.6px solid var(--ink); border-radius:3px;
+  .ch-title::after{
+    content:""; position:absolute; left:-3px; right:-10px; bottom:-7px; height:12px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' preserveAspectRatio='none'%3E%3Cpath d='M3 8 Q 50 2 100 6 T 200 5 T 237 8' fill='none' stroke='%23F2D586' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") left center/100% 100% no-repeat;
   }
-  .stamp::before,.stamp::after{
-    content:""; position:absolute; left:-1px; right:-1px; height:11px;
-    background:radial-gradient(circle at 5.5px 5.5px, var(--paper) 5.3px, transparent 5.5px) 0 0/11px 11px repeat-x;
-  }
-  .stamp::before{ top:-6px; }
-  .stamp::after{ bottom:-6px; }
-  .stamp.tint{ background:var(--tc,var(--sage)); }
-  .stamp.tint::before,.stamp.tint::after{
-    background:radial-gradient(circle at 5.5px 5.5px, var(--tc,var(--sage)) 5.3px, transparent 5.5px) 0 0/11px 11px repeat-x;
-  }
-
-  /* ---- doodles ---- */
-  .doodle{ position:absolute; pointer-events:none; color:var(--leaf); opacity:.9; z-index:3; }
-  .doodle svg{ width:100%; height:100%; display:block; overflow:visible; }
-  .doodle.ink{ color:var(--ink); opacity:.55; }
-  .doodle.soft{ opacity:.4; }
-
-  /* ---- polaroid snapshot ---- */
-  .snap{
-    --rot:-2deg; --tape-rot:-4deg;
-    position:relative; margin:0;
-    background:#fff; padding:8px 8px 30px;
-    box-shadow:0 7px 18px rgba(24,40,20,.2), 0 1px 0 rgba(0,0,0,.05);
-    transform:rotate(var(--rot));
-    max-width:100%;
-  }
-  .snap::before{ /* washi tape */
-    content:""; position:absolute; top:-11px; left:50%;
-    width:66px; height:22px; transform:translateX(-50%) rotate(var(--tape-rot));
-    background:var(--tape);
-    box-shadow:0 1px 3px rgba(0,0,0,.1);
-    border-left:1px dashed rgba(255,255,255,.5); border-right:1px dashed rgba(255,255,255,.5);
-  }
-  .snap img, .snap .snap-ph{
-    display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;
-    filter:sepia(.12) saturate(.9) contrast(.96) brightness(1.02);
-  }
-  .snap.portrait img, .snap.portrait .snap-ph{ aspect-ratio:3/4; }
-  .snap .snap-ph{
-    background:var(--tc,var(--sage));
-    border:2px dashed rgba(36,51,30,.38); border-radius:3px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
-    color:var(--ink-soft); font-family:'Gaegu'; font-weight:700; font-size:.82rem;
-    filter:none;
-  }
-  .snap .snap-ph svg{ width:26px; height:26px; opacity:.6; }
-  .snap figcaption{
-    position:absolute; left:6px; right:6px; bottom:7px; text-align:center;
-    font-family:'Nanum Pen Script'; font-size:1.05rem; color:var(--ink); line-height:1.1;
-  }
-
-  /* ---- cover ---- */
-  .cover{ justify-content:space-between; }
-  .cover-blob{
-    position:absolute; top:-16%; right:-20%; width:80%; height:58%;
-    background:var(--leaf); border-radius:44% 56% 62% 38% / 48% 40% 60% 52%;
-    opacity:.14;
-  }
-  .cover-mark{
-    display:inline-flex; align-items:center; gap:6px; position:relative;
-    background:var(--leaf); color:#fff; font-family:'Gaegu'; font-weight:700; font-size:.86rem;
-    padding:4px 13px; border-radius:5px 12px 6px 11px; width:fit-content; rotate:-2deg;
-    box-shadow:1.5px 1.5px 0 rgba(24,40,20,.2);
-  }
-  .cover-mid{ flex:0 1 auto; display:flex; flex-direction:column; justify-content:center; gap:10px; position:relative; margin-top:6%; }
-  .cover-mid h1{ font-family:'Jua'; font-size:clamp(2.3rem,8vw,3rem); line-height:1.2; color:var(--ink); position:relative; }
-  .cover-mid h1::after{
-    content:""; position:absolute; left:-2%; bottom:-10px; width:64%; height:14px;
-    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='14' preserveAspectRatio='none'%3E%3Cpath d='M3 9 Q 50 3 100 7 T 197 8' fill='none' stroke='%23F4D98A' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E") left center/100% 100% no-repeat;
-  }
-  .cover-mid .sub{ font-family:'Nanum Pen Script'; color:var(--ink-soft); font-size:1.25rem; }
-  .cover-snap{ --rot:4deg; width:52%; align-self:flex-end; margin:2% 6% 0 0; }
-  .cover-foot{ display:flex; justify-content:space-between; align-items:flex-end; position:relative; }
-  .cover-hint{
-    font-family:'Gaegu'; font-weight:700; font-size:.86rem; color:#fff; background:var(--leaf-deep);
-    display:flex; align-items:center; gap:5px; padding:5px 13px; border-radius:11px 5px 12px 6px; rotate:2deg;
-  }
-  .cover-date{ font-family:'Nanum Pen Script'; font-size:1.15rem; color:var(--ink-soft); }
-
-  /* ---- content pieces ---- */
-  .lede{ color:var(--ink-soft); font-size:.98rem; line-height:1.85; margin:0 0 16px; }
-  .idx{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px; }
-  .idx button{
-    all:unset; cursor:pointer; display:flex; gap:12px; align-items:center;
-    padding:8px 6px; font-size:.98rem; width:100%; color:var(--ink); border-radius:10px;
-    transition:background .15s ease, transform .15s ease;
-  }
-  .idx button:hover{ background:rgba(196,220,162,.35); transform:translateX(3px); }
-  .idx button:focus-visible{ outline:2px solid var(--leaf); outline-offset:1px; }
-  .idx .n{
-    flex:0 0 auto; width:30px; height:30px;
-    background:var(--tc,var(--sage)); color:var(--ink);
-    border:1.6px solid var(--ink); border-radius:60% 40% 55% 45% / 45% 55% 45% 55%;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Jua'; font-size:.9rem; rotate:-4deg;
-  }
-  .idx li:nth-child(2n) .n{ rotate:5deg; border-radius:45% 55% 40% 60% / 55% 45% 60% 40%; }
-
-  .kv{ display:flex; flex-direction:column; gap:12px; }
-  .kv-row{ display:flex; gap:12px; align-items:flex-start; font-size:.95rem; }
-  .kv-row .k{
-    flex:0 0 auto; font-family:'Gaegu'; font-weight:700; font-size:.82rem; color:var(--ink);
-    background:var(--tc,var(--sky)); padding:3px 12px; border-radius:5px 11px 6px 12px;
-    border:1.5px solid var(--ink); margin-top:1px; rotate:-2deg;
-  }
-  .kv-row:nth-child(2n) .k{ rotate:2deg; }
-  .kv-row .v{ flex:1; color:var(--ink); padding-top:3px; line-height:1.55; }
-
-  .acts{ display:flex; flex-direction:column; gap:20px; padding-top:4px; }
-  .act{ display:flex; gap:14px; align-items:flex-start; }
-  .act:nth-child(2n){ flex-direction:row-reverse; }
-  .act .snap{ --rot:-3deg; flex:0 0 36%; width:36%; }
-  .act:nth-child(2n) .snap{ --rot:3deg; }
-  .act .t{ flex:1; min-width:0; padding-top:6px; }
-  .act h4{ font-size:1.05rem; margin:0 0 4px; font-weight:700; font-family:'Gaegu'; }
-  .act p{ margin:0; font-size:.86rem; color:var(--ink-soft); line-height:1.6; }
-  .act .team{
-    font-family:'Nanum Pen Script'; font-size:1.05rem; color:var(--leaf-deep);
-    display:inline-block; margin-top:5px;
-  }
-  .margin-note{
-    font-family:'Nanum Pen Script'; font-size:1.15rem; color:var(--ink-soft);
-    text-align:right; margin:12px 4px 0; rotate:-1.5deg;
-  }
+  .ch-lede{ font-size:1.06rem; color:var(--ink-soft); margin:20px 0 0; }
+  .ch-body{ margin-top:26px; }
+  .margin-note{ font-family:'Nanum Pen Script'; font-size:1.3rem; color:var(--ink-soft); margin:26px 0 0; transform:rotate(-1deg); }
   .margin-note::before{ content:"✎ "; }
 
-  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px 14px; padding-top:6px; }
-  .stat{ padding:16px 8px 14px; text-align:center; }
-  .stat:nth-child(3n+1){ rotate:-2deg; }
-  .stat:nth-child(3n+2){ rotate:1.5deg; }
-  .stat:nth-child(3n){ rotate:-.5deg; }
-  .stat .n{ font-family:'Jua'; font-size:2.1rem; color:var(--ink); line-height:1; }
-  .stat .l{ font-family:'Gaegu'; font-weight:700; font-size:.76rem; color:var(--ink-soft); margin-top:7px; }
-  .snap-row{ display:flex; justify-content:center; gap:0; margin-top:22px; padding:0 6px; }
-  .snap-row .snap{ width:38%; margin:0 -4%; }
-  .snap-row .snap:nth-child(1){ --rot:-6deg; z-index:1; }
-  .snap-row .snap:nth-child(2){ --rot:3deg; z-index:3; }
-  .snap-row .snap:nth-child(3){ --rot:-2deg; z-index:2; }
+  /* ---- big photo prints ---- */
+  .print{
+    --rot:-1.6deg;
+    position:relative; margin:26px 0 0;
+    background:#fffdf7; padding:12px 12px 46px;
+    border-radius:2px;
+    box-shadow:var(--shadow-2);
+    transform:rotate(var(--rot));
+  }
+  .print + .print{ margin-top:40px; }
+  .print::before{ /* washi tape */
+    content:""; position:absolute; top:-14px; left:50%; width:104px; height:30px;
+    transform:translateX(-50%) rotate(-3deg);
+    background:
+      linear-gradient(90deg, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,.25) 55%, rgba(255,255,255,0) 80%),
+      var(--tape);
+    background-blend-mode:overlay, normal;
+    opacity:.9;
+    box-shadow:0 2px 5px rgba(38,51,29,.14);
+    -webkit-mask:linear-gradient(90deg, transparent 0, #000 6px, #000 calc(100% - 6px), transparent 100%);
+            mask:linear-gradient(90deg, transparent 0, #000 6px, #000 calc(100% - 6px), transparent 100%);
+  }
+  .print img, .print .ph{
+    width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:1px;
+    filter:sepia(.14) saturate(.9) contrast(.97) brightness(1.02);
+  }
+  .print.tall img, .print.tall .ph{ aspect-ratio:3/4; }
+  .print .ph{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    background:var(--sage);
+    background-image:var(--paper-tex); background-size:280px; background-blend-mode:multiply;
+    color:var(--ink-soft); font-family:'Gaegu'; font-weight:700; font-size:.95rem;
+    filter:none; border:1px dashed rgba(38,51,29,.3);
+  }
+  .print .ph svg{ width:34px; height:34px; opacity:.55; }
+  .print figcaption{
+    position:absolute; left:12px; right:12px; bottom:12px; text-align:center;
+    font-family:'Nanum Pen Script'; font-size:1.2rem; color:var(--ink); line-height:1.15;
+  }
+  .print:nth-of-type(2n){ --rot:1.6deg; }
+  .print:nth-of-type(2n)::before{ transform:translateX(-50%) rotate(3deg); }
 
-  .team-list{ display:flex; flex-direction:column; gap:16px; padding-top:2px; }
-  .team{ display:flex; gap:13px; align-items:flex-start; }
-  .team .snap{ --rot:-3deg; flex:0 0 30%; width:30%; }
-  .team:nth-child(2n){ flex-direction:row-reverse; }
-  .team:nth-child(2n) .snap{ --rot:3deg; }
-  .team .tw{ flex:1; min-width:0; }
+  /* ---- key/value ---- */
+  .kv{ display:flex; flex-direction:column; gap:16px; margin-top:6px; }
+  .kv-row{ display:flex; gap:14px; align-items:flex-start; }
+  .kv-row .k{
+    flex:0 0 auto; font-family:'Gaegu'; font-weight:700; font-size:.9rem; color:var(--ink);
+    background:var(--tc,var(--sky)); border:1.6px solid var(--ink);
+    border-radius:6px 12px 6px 13px; padding:3px 13px; transform:rotate(-2deg);
+  }
+  .kv-row:nth-child(2n) .k{ transform:rotate(2deg); }
+  .kv-row .v{ padding-top:3px; }
+
+  /* ---- activities (day 1 / 2) ---- */
+  .act{ margin-top:38px; }
+  .act:first-child{ margin-top:26px; }
+  .act h3{ font-family:'Gaegu'; font-weight:700; font-size:1.28rem; margin:18px 0 4px; }
+  .act .team{ font-family:'Nanum Pen Script'; font-size:1.2rem; color:var(--leaf-deep); }
+  .act p{ margin:6px 0 0; color:var(--ink-soft); }
+
+  /* ---- stats ---- */
+  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:6px; }
+  .stat{
+    position:relative; text-align:center; padding:22px 10px 18px;
+    background:var(--tc,var(--sage)); border:1.8px solid var(--ink);
+    border-radius:255px 16px 225px 18px / 18px 225px 16px 255px;
+    box-shadow:2px 3px 0 -1px rgba(38,51,29,.2);
+  }
+  .stat:nth-child(2n){ border-radius:16px 255px 18px 225px / 225px 18px 255px 16px; }
+  .stat:nth-child(3n+1){ transform:rotate(-1.6deg); }
+  .stat:nth-child(3n+2){ transform:rotate(1.4deg); }
+  .stat .n{ font-family:'Jua'; font-size:2.4rem; line-height:1; color:var(--ink); }
+  .stat .l{ font-family:'Gaegu'; font-weight:700; font-size:.82rem; color:var(--ink-soft); margin-top:8px; }
+
+  /* ---- teams ---- */
+  .team{ margin-top:30px; }
+  .team:first-child{ margin-top:10px; }
   .team-name{
-    display:inline-flex; font-family:'Gaegu'; font-weight:700; font-size:.9rem; color:var(--ink);
-    background:var(--tc,var(--sage)); padding:2px 12px; border-radius:6px 12px 5px 11px;
-    border:1.6px solid var(--ink); margin-bottom:6px; rotate:-2deg;
+    display:inline-flex; font-family:'Gaegu'; font-weight:700; font-size:1rem; color:var(--ink);
+    background:var(--tc,var(--sage)); border:1.7px solid var(--ink);
+    border-radius:7px 13px 6px 12px; padding:2px 14px; transform:rotate(-1.5deg); margin-bottom:8px;
   }
-  .team p{ margin:0; font-size:.84rem; color:var(--ink-soft); line-height:1.65; }
+  .team p{ margin:0; color:var(--ink-soft); }
 
-  .story-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px 18px; padding:10px 4px 4px; }
-  .story-card{ display:block; text-decoration:none; color:inherit; }
-  .story-card.snap{ padding:7px 7px 30px; }
-  .story-card .nm{ position:absolute; left:6px; right:6px; bottom:8px; text-align:center; font-family:'Nanum Pen Script'; font-size:1.15rem; color:var(--ink); }
-  .story-card .yt{
-    position:absolute; right:-8px; top:-8px; rotate:6deg;
-    font-family:'Gaegu'; font-weight:700; font-size:.66rem; color:#fff; background:var(--leaf-deep);
-    padding:3px 8px; border-radius:8px 4px 9px 4px; box-shadow:1px 1px 0 rgba(24,40,20,.2);
+  /* ---- stories ---- */
+  .story-grid{ display:grid; grid-template-columns:1fr 1fr; gap:30px 22px; margin-top:8px; }
+  @media (max-width:460px){ .story-grid{ grid-template-columns:1fr; gap:36px; } }
+  .story{ position:relative; display:block; text-decoration:none; color:inherit; }
+  .story .print{ margin:0; }
+  .story .yt{
+    position:absolute; right:-10px; top:-12px; z-index:2; transform:rotate(6deg);
+    font-family:'Gaegu'; font-weight:700; font-size:.72rem; color:#fff; background:var(--leaf-deep);
+    padding:4px 10px; border-radius:9px 4px 10px 4px; box-shadow:1.5px 1.5px 0 rgba(38,51,29,.2);
   }
-  a.story-card{ transition:transform .16s ease; }
-  a.story-card:hover{ transform:rotate(var(--rot)) scale(1.04); }
-  a.story-card:focus-visible{ outline:2px solid var(--leaf); outline-offset:3px; }
+  a.story:hover .print{ transform:rotate(var(--rot)) translateY(-3px); transition:transform .16s ease; }
 
-  .note-box{
+  .note{
+    font-family:'Gaegu'; font-weight:700; font-size:1rem; color:var(--ink);
+    background:var(--butter); border:1.8px solid var(--ink);
+    border-radius:16px 240px 20px 240px / 240px 18px 240px 20px;
+    padding:14px 18px; margin-top:28px; transform:rotate(-.8deg);
+    box-shadow:2px 3px 0 -1px rgba(38,51,29,.2); display:block; text-decoration:none;
+  }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+  .chips span{
     font-family:'Gaegu'; font-weight:700; font-size:.86rem; color:var(--ink);
-    background:var(--butter);
-    border:1.8px solid var(--ink); border-radius:14px 240px 18px 240px / 240px 16px 240px 18px;
-    padding:12px 16px; margin-top:18px; rotate:-1deg; display:block; text-decoration:none;
-    box-shadow:2px 3px 0 -1px rgba(24,40,20,.2);
+    background:var(--tc,var(--sage)); border:1.6px solid var(--ink);
+    border-radius:8px 13px 6px 12px; padding:3px 13px;
   }
-  a.note-box:hover{ filter:brightness(.98); }
+  .chips span:nth-child(2n){ transform:rotate(-2.5deg); }
+  .chips span:nth-child(2n+1){ transform:rotate(1.5deg); }
 
-  .credit-list{ display:flex; flex-wrap:wrap; gap:9px; margin:14px 0 0; }
-  .credit-list span{
-    font-family:'Gaegu'; font-weight:700; font-size:.8rem; color:var(--ink);
-    background:var(--tc,var(--sage)); border:1.5px solid var(--ink);
-    border-radius:8px 13px 6px 12px; padding:3px 12px;
+  .insta{
+    margin-top:22px; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Gaegu'; font-weight:700; font-size:1rem; color:#fff; text-decoration:none;
+    background:var(--leaf); border:1.8px solid var(--ink); border-radius:9px 15px 8px 14px;
+    padding:8px 17px; transform:rotate(-1.4deg); box-shadow:2px 2px 0 rgba(38,51,29,.2);
   }
-  .credit-list span:nth-child(2n){ rotate:-3deg; }
-  .credit-list span:nth-child(2n+1){ rotate:2deg; }
-  .insta-link{
-    margin-top:18px; display:inline-flex; align-items:center; gap:7px;
-    font-family:'Gaegu'; font-weight:700; font-size:.9rem; color:#fff; text-decoration:none;
-    background:var(--leaf); border:1.8px solid var(--ink); border-radius:8px 15px 7px 14px;
-    padding:6px 15px; width:fit-content; rotate:-1.5deg;
-    box-shadow:2px 2px 0 rgba(24,40,20,.2);
-  }
-  .thanks{ margin-top:18px; padding-top:14px; border-top:2px dashed var(--paper-shade); }
-  .thanks p{ margin:0 0 7px; font-size:.86rem; color:var(--ink-soft); line-height:1.75; }
-  .thanks .big{ font-family:'Nanum Pen Script'; font-size:1.3rem; color:var(--ink); }
-  .sponsor{ font-size:.68rem; color:var(--ink-soft); }
+  .thanks{ margin-top:28px; padding-top:20px; border-top:2px dashed rgba(38,51,29,.2); }
+  .thanks .big{ font-family:'Nanum Pen Script'; font-size:1.5rem; color:var(--ink); margin:0 0 8px; line-height:1.35; }
+  .thanks .sponsor{ font-size:.82rem; color:var(--ink-soft); margin:0; }
 
-  /* ---------- controls ---------- */
-  .controls{ display:flex; align-items:center; gap:18px; z-index:2; }
-  .ctl-btn{
-    width:46px; height:46px; border:2px solid var(--ink); border-radius:64% 36% 57% 43% / 43% 57% 43% 57%;
-    background:var(--paper); color:var(--ink); cursor:pointer;
-    box-shadow:2px 3px 0 -1px rgba(24,40,20,.25);
-    display:flex; align-items:center; justify-content:center;
-    transition:background .18s ease, transform .18s ease, opacity .18s ease;
+  .j-end{ text-align:center; padding:50px 20px 70px; color:var(--ink-soft); font-family:'Nanum Pen Script'; font-size:1.35rem; }
+  .j-end button{
+    display:block; margin:16px auto 0; border:1.7px solid var(--ink); background:var(--paper);
+    font-family:'Gaegu'; font-weight:700; font-size:.95rem; color:var(--ink);
+    border-radius:10px 16px 9px 15px; padding:8px 18px; cursor:pointer;
   }
-  .ctl-btn:nth-child(1){ rotate:-4deg; }
-  .ctl-btn:last-child{ rotate:4deg; }
-  .ctl-btn:hover:not(:disabled){ background:var(--sage); }
-  .ctl-btn:active:not(:disabled){ transform:scale(.88); }
-  .ctl-btn:disabled{ opacity:.3; cursor:default; }
-  .ctl-btn:focus-visible{ outline:2px solid var(--leaf-deep); outline-offset:3px; }
-  .pageno{ color:var(--ink-soft); font-family:'Nanum Pen Script'; font-size:1.15rem; min-width:64px; text-align:center; }
-  .pageno b{ color:var(--ink); font-family:'Jua'; font-weight:400; font-size:1.05rem; }
-  .hint-swipe{ position:absolute; bottom:2px; left:0; right:0; text-align:center; color:var(--ink-soft); font-family:'Nanum Pen Script'; font-size:1.05rem; z-index:2; }
-  @media (min-width:760px){ .hint-swipe{ display:none; } }
 
-  @media (max-height:640px){ .brandline{ display:none; } }
-
-  /* ---------- progress + a11y ---------- */
-  .progress{ position:fixed; top:0; left:0; right:0; height:4px; z-index:950; background:rgba(24,40,20,.08); }
-  .progress i{ display:block; height:100%; width:0; background:var(--leaf); transition:width .5s cubic-bezier(.62,.01,.3,1); }
-  .sr-only{
-    position:absolute !important; width:1px; height:1px;
-    padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  /* give every chapter the warm paper */
+  .journal{
+    background:var(--paper-warm);
+    background-image:var(--paper-tex);
+    background-size:340px;
+    background-blend-mode:multiply;
   }
-  .leafslot.no-anim .leaf{ transition:none !important; }
-  .book-frame:focus-visible{ outline:2px solid var(--leaf-deep); outline-offset:4px; }
 </style>
 </head>
 <body>
 
-<div class="dotgrid"></div>
-<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
-<p class="sr-only" aria-live="polite" id="liveRegion"></p>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><i id="bar"></i></div>
+<p class="sr-only" aria-live="polite" id="live"></p>
 
-<!-- reusable hand-drawn doodle set -->
+<!-- doodle set -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <g id="d-sun" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round">
-    <circle cx="20" cy="20" r="8.5"/>
-    <path d="M20 3v5M20 32v5M3 20h5M32 20h5M8 8l3.5 3.5M28.5 28.5L32 32M32 8l-3.5 3.5M11.5 28.5L8 32"/>
-  </g>
   <g id="d-sprig" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round">
-    <path d="M20 40C20 28 19 14 22 3"/>
-    <path d="M22 12C27 9 32 10 34 6c-1 5-4 9-9 10-2 .3-3 0-3-4z"/>
-    <path d="M20 22c-5-2-9-1-12-5 1 5 4 8 9 9 2 .3 3 0 3-4z"/>
-    <path d="M22 30c5-2 8-1 11-5-1 5-4 8-8 9-2 .3-3 0-3-4z"/>
+    <path d="M20 44C20 30 19 14 23 3"/>
+    <path d="M23 13C29 9 35 10 37 5c-1 6-4 10-10 11-2 .3-4 0-4-3z"/>
+    <path d="M20 24c-6-2-10-1-13-6 1 6 4 9 10 10 2 .3 4 0 3-4z"/>
+    <path d="M23 33c6-2 9-1 12-6-1 6-4 9-9 10-2 .3-4 0-3-4z"/>
   </g>
-  <g id="d-camera" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <g id="d-camera" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 12c0-1.5 1-2.5 3-2.5h4l2-3h8l2 3h4c2 0 3 1 3 2.5v14c0 1.5-1 2.5-3 2.5H7c-2 0-3-1-3-2.5z"/>
     <circle cx="18" cy="18" r="6"/>
   </g>
-  <g id="d-heart" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M18 31C8 24 3 18 3 12 3 7 7 4 11 4c3 0 5 1.5 7 4 2-2.5 4-4 7-4 4 0 8 3 8 8 0 6-5 12-15 19z"/>
+  <g id="d-house" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 18L20 5l15 13M8 16v16h24V16M16 32V22h8v10"/>
   </g>
-  <g id="d-star" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M18 3l4.5 9.5L33 14l-7.5 7.2L27 32l-9-5-9 5 1.5-10.8L3 14l10.5-1.5z"/>
-  </g>
-  <g id="d-arrow" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 26C10 10 24 6 34 8"/>
-    <path d="M27 5l8 3-4 8"/>
-  </g>
-  <g id="d-house" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5 18L20 5l15 13"/>
-    <path d="M8 16v16h24V16"/>
-    <path d="M16 32V22h8v10"/>
-  </g>
-  <g id="d-cup" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 12h20v10c0 5-4 9-10 9S6 27 6 22z"/>
-    <path d="M26 14c4 0 6 2 6 5s-2 5-6 5"/>
-    <path d="M12 4c-1 2 1 3 0 5M18 4c-1 2 1 3 0 5"/>
+  <g id="d-person" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="18" cy="13" r="5.5"/><path d="M7 32c0-6 5-10 11-10s11 4 11 10"/>
   </g>
 </defs></svg>
 
-<div class="reader" id="reader">
-  <div class="brandline pen">그린나래<span class="dot"></span>신가1리 필드저널<span class="dot"></span>2026</div>
-
-  <div class="book-frame" id="bookFrame" tabindex="0" role="region" aria-label="신가1리 이야기 — 책장을 넘겨 읽는 필드저널. 좌우 화살표 키로 이동합니다.">
-    <div class="endpaper"><div class="seal pen">그린나래<br/>×<br/>신가1리</div></div>
-    <div class="spine-bar"></div>
-    <div class="leafslot" id="leafslot">
-
-      <!-- 0 cover -->
-      <div class="leaf" data-i="0">
-        <div class="face front cover">
-          <div class="cover-blob"></div>
-          <span class="cover-mark">GN · 신가1리</span>
-          <div class="cover-mid">
-            <h1>신가1리<br/>이야기</h1>
-            <p class="sub">2026년 여름, 그린나래와 함께</p>
-          </div>
-          <figure class="snap cover-snap" data-photo="cover" data-cap="신가1리 마을회관">
-            <div class="snap-ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div>
-          </figure>
-          <div class="cover-foot">
-            <span class="cover-date">2026.07.06–07</span>
-            <span class="cover-hint">NEXT
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
-            </span>
-          </div>
-          <div class="doodle" style="top:6%;left:7%;width:38px;height:38px;color:var(--butter)"><svg viewBox="0 0 40 40"><use href="#d-sun"/></svg></div>
-          <div class="doodle" style="right:5%;bottom:6%;width:44px;height:46px"><svg viewBox="0 0 40 44"><use href="#d-sprig"/></svg></div>
-          <div class="corner-fold"></div>
-        </div>
-        <div class="face back"><div class="seal pen">GREEN<br/>NARAE</div></div>
+<!-- ============ COVER ============ -->
+<section class="cover" id="cover">
+  <div class="book" id="book">
+    <div class="book-cover">
+      <span class="bc-band">그린나래 · 신가1리</span>
+      <div class="bc-mid">
+        <h1>신가1리<br>이야기</h1>
+        <p class="sub">2026년 여름, 그린나래와 함께</p>
       </div>
-
-      <!-- 1 prologue -->
-      <div class="leaf" data-i="1">
-        <div class="face front">
-          <div class="p-meta"><span class="p-tag">PROLOGUE</span><span class="p-no">01</span></div>
-          <div class="p-body">
-            <h2 class="display pt">이 기록에 대하여</h2>
-            <p class="lede">2026년 7월 6일부터 7일까지, 상명대학교 그린나래는 충남 천안 신가1리에서 이틀을 보냈습니다. 이 저널은 그 시간의 기록입니다.</p>
-            <ul class="idx" id="tocList">
-              <li><button data-goto="2"><span class="n" style="--tc:var(--sage)">1</span> 신가1리를 소개합니다</button></li>
-              <li><button data-goto="3"><span class="n" style="--tc:var(--butter)">2</span> 한눈에 보는 활동</button></li>
-              <li><button data-goto="4"><span class="n" style="--tc:var(--sky)">3</span> 활동 기록 · Day 1</button></li>
-              <li><button data-goto="5"><span class="n" style="--tc:var(--blush)">4</span> 활동 기록 · Day 2</button></li>
-              <li><button data-goto="6"><span class="n" style="--tc:var(--sage)">5</span> 네 팀의 역할</button></li>
-              <li><button data-goto="7"><span class="n" style="--tc:var(--butter)">6</span> 마을 이야기</button></li>
-              <li><button data-goto="8"><span class="n" style="--tc:var(--sky)">7</span> 함께한 사람들</button></li>
-            </ul>
-          </div>
-          <div class="doodle ink" style="right:8%;top:16%;width:34px;height:34px;rotate:12deg"><svg viewBox="0 0 36 34"><use href="#d-star"/></svg></div>
-          <div class="p-foot"><span>신가1리 마을회관</span><span>page 01</span></div>
-          <div class="corner-fold"></div>
-        </div>
-        <div class="face back"><div class="seal pen">記錄</div></div>
+      <div class="bc-foot">
+        <span class="bc-date">2026.07.06–07</span>
+        <button class="bc-open" id="openBtn">펼쳐보기
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
       </div>
-
-      <!-- 2 village -->
-      <div class="leaf" data-i="2">
-        <div class="face front">
-          <div class="p-meta"><span class="p-tag">VILLAGE</span><span class="p-no">02</span></div>
-          <div class="p-body">
-            <h2 class="display pt">신가1리를 소개합니다</h2>
-            <figure class="snap" data-photo="village" data-cap="논밭이 넓은 성환읍 신가1리" style="--rot:-1.5deg;margin:2px auto 14px;width:72%">
-              <div class="snap-ph"><svg viewBox="0 0 36 36"><use href="#d-house"/></svg>마을 풍경 사진</div>
-            </figure>
-            <p class="lede">충남 천안시 서북구 성환읍, 논과 밭이 넓게 펼쳐진 조용한 마을입니다. 2024년부터 그린나래와 인연을 맺어 올해로 세 번째 여름을 함께합니다.</p>
-            <div class="kv">
-              <div class="kv-row"><div class="k" style="--tc:var(--sage)">위치</div><div class="v">충남 천안시 서북구 성환읍 신가1리 마을회관</div></div>
-              <div class="kv-row"><div class="k" style="--tc:var(--butter)">인연</div><div class="v">2024년부터 3년째 교류</div></div>
-              <div class="kv-row"><div class="k" style="--tc:var(--sky)">일정</div><div class="v">2026.7.6.(월) – 7.7.(화), 1박 2일</div></div>
-            </div>
-          </div>
-          <div class="p-foot"><span>성환읍 신가1리</span><span>page 02</span></div>
-          <div class="corner-fold"></div>
-        </div>
-        <div class="face back"><div class="seal pen">신가1리</div></div>
-      </div>
-
-      <!-- 3 stats -->
-      <div class="leaf" data-i="3">
-        <div class="face front">
-          <div class="p-meta"><span class="p-tag">AT A GLANCE</span><span class="p-no">03</span></div>
-          <div class="p-body">
-            <h2 class="display pt">한눈에 보는 활동</h2>
-            <div class="stat-grid">
-              <div class="stat stamp tint" style="--tc:var(--sage)"><div class="n">19</div><div class="l">그린나래 참여 인원(명)</div></div>
-              <div class="stat stamp tint" style="--tc:var(--butter)"><div class="n">22</div><div class="l">함께한 어르신(명)</div></div>
-              <div class="stat stamp tint" style="--tc:var(--sky)"><div class="n">2</div><div class="l">활동 일수(일)</div></div>
-              <div class="stat stamp tint" style="--tc:var(--blush)"><div class="n">6</div><div class="l">진행 프로그램(개)</div></div>
-              <div class="stat stamp tint" style="--tc:var(--sage)"><div class="n">152</div><div class="l">총 활동시간(h)</div></div>
-              <div class="stat stamp tint" style="--tc:var(--butter)"><div class="n">4</div><div class="l">전공 연계 팀(개)</div></div>
-            </div>
-            <div class="snap-row">
-              <figure class="snap" data-photo="glance-1" style="--tc:var(--sky)"><div class="snap-ph">사진</div></figure>
-              <figure class="snap" data-photo="glance-2" style="--tc:var(--blush)"><div class="snap-ph">사진</div></figure>
-              <figure class="snap" data-photo="glance-3" style="--tc:var(--sage)"><div class="snap-ph">사진</div></figure>
-            </div>
-          </div>
-          <div class="p-foot"><span>2026 농촌재능나눔</span><span>page 03</span></div>
-          <div class="corner-fold"></div>
-        </div>
-        <div class="face back"><div class="seal pen">19 / 22</div></div>
-      </div>
-
-      <!-- 4 day1 -->
-      <div class="leaf" data-i="4">
-        <div class="face front">
-          <div class="p-meta"><span class="p-tag">DAY 1 · 07.06</span><span class="p-no">04</span></div>
-          <div class="p-body">
-            <h2 class="display pt" style="font-size:1.3rem">활동 기록 · 첫째 날</h2>
-            <div class="acts">
-              <div class="act">
-                <figure class="snap" data-photo="day1-1" data-cap="밀푀유 나베"><div class="snap-ph">사진</div></figure>
-                <div class="t"><h4>건강 음식 만들기</h4><p>밀푀유 나베를 함께 만들며 저염·저당 식습관을 이야기했어요.</p><span class="team">문화체험팀</span></div>
-              </div>
-              <div class="act">
-                <figure class="snap" data-photo="day1-2" data-cap="건강 체크"><div class="snap-ph">사진</div></figure>
-                <div class="t"><h4>건강복지 프로그램</h4><p>건강체조, 혈압·혈당 체크, 족욕·마스크팩으로 몸을 살폈어요.</p><span class="team">건강복지팀</span></div>
-              </div>
-              <div class="act">
-                <figure class="snap" data-photo="day1-3" data-cap="스트링아트"><div class="snap-ph">사진</div></figure>
-                <div class="t"><h4>문화체험 프로그램①</h4><p>왁뿌볼, 스트링아트를 만들며 손끝으로 색을 입혔어요.</p><span class="team">문화체험팀</span></div>
-              </div>
-            </div>
-            <p class="margin-note">이날 정말 더웠지만 웃음소리가 회관을 채웠다</p>
-          </div>
-          <div class="p-foot"><span>신가1리 마을회관</span><span>page 04</span></div>
-          <div class="corner-fold"></div>
-        </div>
-        <div class="face back"><div class="seal pen">DAY 1</div></div>
-      </div>
-
-      <!-- 5 day2 -->
-      <div class="leaf" data-i="5">
-        <div class="face front">
-          <div class="p-meta"><span class="p-tag">DAY 2 · 07.07</span><span class="p-no">05</span></div>
-          <div class="p-body">
-            <h2 class="display pt" style="font-size:1.3rem">활동 기록 · 둘째 날</h2>
-            <div class="acts">
-              <div class="act">
-                <figure class="snap" data-photo="day2-1" data-cap="사이버범죄 예방 교육"><div class="snap-ph">사진</div></figure>
-                <div class="t"><h4>사이버범죄 예방 교육</h4><p>휴대폰 사용법과 보이스피싱 예방법을 함께 익혔어요.</p><span class="team">디지털교육팀</span></div>
-              </div>
-              <div class="act">
-                <figure class="snap" data-photo="day2-2" data-cap="어르신 인터뷰"><div class="snap-ph">사진</div></figure>
-                <div class="t"><h4>마을 이야기 프로젝트</h4><p>어르신 한 분 한 분의 프로필 사진과 인터뷰 영상을 담았어요.</p><span class="team">콘텐츠디자인팀</span></div>
-              </div>
-              <div class="act">
-                <figure class="snap" data-photo="day2-3" data-cap="라탄공예 부채"><div class="snap-ph">사진</div></figure>
-                <div class="t"><h4>문화체험 프로그램②</h4><p>지구비누와 라탄공예 부채를 만들며 마무리했어요.</p><span class="team">콘텐츠디자인팀</span></div>
-              </div>
-            </div>
-            <p class="margin-note">헤어질 때 손을 오래 잡아주셨다</p>
-          </div>
-          <div class="p-foot"><span>신가1리 마을회관</span><span>page 05</span></div>
-          <div class="corner-fold"></div>
-        </div>
-        <div class="face back"><div class="seal pen">DAY 2</div></div>
-      </div>
-
-      <!-- 6 teams -->
-      <div class="leaf" data-i="6">
-        <div class="face front">
-          <div class="p-meta"><span class="p-tag">TEAMS</span><span class="p-no">06</span></div>
-          <div class="p-body">
-            <h2 class="display pt" style="font-size:1.3rem">네 팀의 역할</h2>
-            <div class="team-list">
-              <div class="team">
-                <figure class="snap" data-photo="team-1"><div class="snap-ph">사진</div></figure>
-                <div class="tw"><span class="team-name" style="--tc:var(--sage)">건강복지팀</span><p>혈압·혈당 측정, 생활습관 개선 교육, 미용봉사(족욕·마스크팩) 준비</p></div>
-              </div>
-              <div class="team">
-                <figure class="snap" data-photo="team-2"><div class="snap-ph">사진</div></figure>
-                <div class="tw"><span class="team-name" style="--tc:var(--sky)">디지털교육팀</span><p>스마트폰 사용법 교육 자료 제작, 보이스피싱·사이버범죄 예방 교육 진행</p></div>
-              </div>
-              <div class="team">
-                <figure class="snap" data-photo="team-3"><div class="snap-ph">사진</div></figure>
-                <div class="tw"><span class="team-name" style="--tc:var(--blush)">콘텐츠디자인팀</span><p>어르신 프로필 촬영·인화, 활동 사진·영상 기록, 인터뷰 기획 및 질문지 제작</p></div>
-              </div>
-              <div class="team">
-                <figure class="snap" data-photo="team-4"><div class="snap-ph">사진</div></figure>
-                <div class="tw"><span class="team-name" style="--tc:var(--butter)">문화체험팀</span><p>건강 음식 만들기, 공예 체험(왁뿌볼·스트링아트·라탄공예 등) 기획·실습</p></div>
-              </div>
-            </div>
-          </div>
-          <div class="p-foot"><span>4개 전공연계 팀</span><span>page 06</span></div>
-          <div class="corner-fold"></div>
-        </div>
-        <div class="face back"><div class="seal pen">TEAMS</div></div>
-      </div>
-
-      <!-- 7 stories -->
-      <div class="leaf" data-i="7">
-        <div class="face front">
-          <div class="p-meta"><span class="p-tag">STORIES</span><span class="p-no">07</span></div>
-          <div class="p-body">
-            <h2 class="display pt" style="font-size:1.3rem">마을 이야기</h2>
-            <p class="lede" style="margin-bottom:4px;">어르신 한 분 한 분을 하나의 개인으로 기록하고, 그 삶의 이야기에 귀 기울인 시간이었어요.</p>
-            <div class="story-grid" id="storyGrid"></div>
-            <p class="note-box hand" id="storyNote">인터뷰 영상은 그린나래 유튜브 채널에 순차적으로 업로드됩니다 ✎</p>
-          </div>
-          <div class="doodle soft" style="right:6%;top:14%;width:32px;height:32px"><svg viewBox="0 0 36 36"><use href="#d-heart"/></svg></div>
-          <div class="p-foot"><span>콘텐츠디자인팀</span><span>page 07</span></div>
-          <div class="corner-fold"></div>
-        </div>
-        <div class="face back"><div class="seal pen">STORIES</div></div>
-      </div>
-
-      <!-- 8 credits + closing -->
-      <div class="leaf" data-i="8">
-        <div class="face front">
-          <div class="p-meta"><span class="p-tag">CREDITS</span><span class="p-no">08</span></div>
-          <div class="p-body">
-            <h2 class="display pt" style="font-size:1.3rem">함께한 사람들</h2>
-            <figure class="snap" data-photo="credits" data-cap="그린나래 19명 + 신가1리" style="--rot:-2deg;margin:2px auto 14px;width:70%">
-              <div class="snap-ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>단체 사진</div>
-            </figure>
-            <p class="lede">상명사회봉사단 그린나래는 2024년 설립된 상명대학교 사회봉사 동아리로, 간호·스포츠융합·디자인·소프트웨어 등 다양한 전공의 학생 19명이 이번 활동에 함께했습니다.</p>
-            <div class="credit-list">
-              <span style="--tc:var(--sage)">건강복지팀</span><span style="--tc:var(--sky)">디지털교육팀</span><span style="--tc:var(--blush)">콘텐츠디자인팀</span><span style="--tc:var(--butter)">문화체험팀</span>
-            </div>
-            <a class="insta-link" href="https://www.instagram.com/smu_thewings" target="_blank" rel="noopener">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-              @smu_thewings
-            </a>
-            <div class="thanks">
-              <p class="big">신가1리 어르신들, 그리고 함께해준 그린나래 모두에게 감사드립니다.</p>
-              <p class="sponsor">농림축산식품부 · 한국농어촌공사 · 한국대학사회봉사협의회</p>
-            </div>
-          </div>
-          <div class="doodle" style="right:5%;top:9%;width:40px;height:44px;opacity:.5"><svg viewBox="0 0 40 44"><use href="#d-sprig"/></svg></div>
-          <div class="p-foot"><span>© 2026 그린나래</span><span>page 08</span></div>
-        </div>
-        <div class="face back"><div class="seal pen">끝</div></div>
-      </div>
-
+      <svg class="bc-sprig" viewBox="0 0 40 48"><use href="#d-sprig"/></svg>
     </div>
-    <div class="book-shadow"></div>
+  </div>
+</section>
+
+<!-- ============ JOURNAL ============ -->
+<main class="journal" id="journal">
+  <div class="j-bar">
+    <button class="home" id="homeBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l7-7 7 7M6 10v9h12v-9"/></svg>
+      신가1리 이야기
+    </button>
+    <select id="jump" aria-label="장 이동">
+      <option value="c-prologue">이 기록에 대하여</option>
+      <option value="c-village">신가1리를 소개합니다</option>
+      <option value="c-glance">한눈에 보는 활동</option>
+      <option value="c-day1">활동 기록 · Day 1</option>
+      <option value="c-day2">활동 기록 · Day 2</option>
+      <option value="c-teams">네 팀의 역할</option>
+      <option value="c-stories">마을 이야기</option>
+      <option value="c-credits">함께한 사람들</option>
+    </select>
   </div>
 
-  <div class="controls">
-    <button class="ctl-btn" id="prev" aria-label="이전 페이지">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>
-    </button>
-    <div class="pageno"><b id="cur">01</b> / <span id="total">09</span></div>
-    <button class="ctl-btn" id="next" aria-label="다음 페이지">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
-    </button>
+  <section class="chapter" id="c-prologue">
+    <span class="ch-kicker">PROLOGUE</span>
+    <h2 class="ch-title">이 기록에 대하여</h2>
+    <p class="ch-lede">2026년 7월 6일부터 7일까지, 상명대학교 그린나래는 충남 천안 신가1리에서 이틀을 보냈습니다. 이 저널은 그 시간의 기록입니다 — 건강복지·디지털교육·콘텐츠디자인·문화체험, 네 팀이 함께한 1박 2일.</p>
+    <figure class="print" data-photo="cover" data-cap="신가1리 마을회관 앞에서">
+      <div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>표지 사진</div>
+    </figure>
+  </section>
+
+  <section class="chapter" id="c-village">
+    <span class="ch-kicker">VILLAGE</span>
+    <h2 class="ch-title">신가1리를 소개합니다</h2>
+    <figure class="print" data-photo="village" data-cap="논밭이 넓게 펼쳐진 성환읍 신가1리">
+      <div class="ph"><svg viewBox="0 0 36 36"><use href="#d-house"/></svg>마을 풍경 사진</div>
+    </figure>
+    <p class="ch-lede">충남 천안시 서북구 성환읍, 논과 밭이 넓게 펼쳐진 조용한 마을입니다. 2024년부터 그린나래와 인연을 맺어 올해로 세 번째 여름을 함께합니다.</p>
+    <div class="ch-body">
+      <div class="kv">
+        <div class="kv-row"><span class="k" style="--tc:var(--sage)">위치</span><span class="v">충남 천안시 서북구 성환읍 신가1리 마을회관</span></div>
+        <div class="kv-row"><span class="k" style="--tc:var(--butter)">인연</span><span class="v">2024년부터 3년째 교류</span></div>
+        <div class="kv-row"><span class="k" style="--tc:var(--sky)">일정</span><span class="v">2026. 7. 6.(월) – 7. 7.(화), 1박 2일</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="c-glance">
+    <span class="ch-kicker">AT A GLANCE</span>
+    <h2 class="ch-title">한눈에 보는 활동</h2>
+    <p class="ch-lede">이틀 동안 있었던 일을 숫자로 옮겨 보았습니다.</p>
+    <div class="ch-body">
+      <div class="stat-grid">
+        <div class="stat" style="--tc:var(--sage)"><div class="n">19</div><div class="l">그린나래 참여 인원(명)</div></div>
+        <div class="stat" style="--tc:var(--butter)"><div class="n">22</div><div class="l">함께한 어르신(명)</div></div>
+        <div class="stat" style="--tc:var(--sky)"><div class="n">2</div><div class="l">활동 일수(일)</div></div>
+        <div class="stat" style="--tc:var(--blush)"><div class="n">6</div><div class="l">진행 프로그램(개)</div></div>
+        <div class="stat" style="--tc:var(--sage)"><div class="n">152</div><div class="l">총 활동시간(h)</div></div>
+        <div class="stat" style="--tc:var(--butter)"><div class="n">4</div><div class="l">전공 연계 팀(개)</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="c-day1">
+    <span class="ch-kicker">DAY 1 · 07.06</span>
+    <h2 class="ch-title">활동 기록 · 첫째 날</h2>
+    <div class="ch-body">
+      <div class="act">
+        <figure class="print" data-photo="day1-1" data-cap="밀푀유 나베 만들기"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <h3>건강 음식 만들기</h3>
+        <span class="team">문화체험팀</span>
+        <p>밀푀유 나베를 함께 만들며 저염·저당 식습관을 이야기했어요.</p>
+      </div>
+      <div class="act">
+        <figure class="print" data-photo="day1-2" data-cap="혈압·혈당 체크"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <h3>건강복지 프로그램</h3>
+        <span class="team">건강복지팀</span>
+        <p>건강체조, 혈압·혈당 체크, 족욕·마스크팩으로 몸을 살폈어요.</p>
+      </div>
+      <div class="act">
+        <figure class="print" data-photo="day1-3" data-cap="스트링아트 만들기"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <h3>문화체험 프로그램 ①</h3>
+        <span class="team">문화체험팀</span>
+        <p>왁뿌볼, 스트링아트를 만들며 손끝으로 색을 입혔어요.</p>
+      </div>
+      <p class="margin-note">이날 정말 더웠지만 웃음소리가 회관을 채웠다</p>
+    </div>
+  </section>
+
+  <section class="chapter" id="c-day2">
+    <span class="ch-kicker">DAY 2 · 07.07</span>
+    <h2 class="ch-title">활동 기록 · 둘째 날</h2>
+    <div class="ch-body">
+      <div class="act">
+        <figure class="print" data-photo="day2-1" data-cap="사이버범죄 예방 교육"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <h3>사이버범죄 예방 교육</h3>
+        <span class="team">디지털교육팀</span>
+        <p>휴대폰 사용법과 보이스피싱 예방법을 함께 익혔어요.</p>
+      </div>
+      <div class="act">
+        <figure class="print" data-photo="day2-2" data-cap="어르신 인터뷰 촬영"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <h3>마을 이야기 프로젝트</h3>
+        <span class="team">콘텐츠디자인팀</span>
+        <p>어르신 한 분 한 분의 프로필 사진과 인터뷰 영상을 담았어요.</p>
+      </div>
+      <div class="act">
+        <figure class="print" data-photo="day2-3" data-cap="라탄공예 부채 만들기"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <h3>문화체험 프로그램 ②</h3>
+        <span class="team">콘텐츠디자인팀</span>
+        <p>지구비누와 라탄공예 부채를 만들며 마무리했어요.</p>
+      </div>
+      <p class="margin-note">헤어질 때 손을 오래 잡아주셨다</p>
+    </div>
+  </section>
+
+  <section class="chapter" id="c-teams">
+    <span class="ch-kicker">TEAMS</span>
+    <h2 class="ch-title">네 팀의 역할</h2>
+    <p class="ch-lede">전공을 살려 네 팀으로 나누어 준비했습니다.</p>
+    <div class="ch-body">
+      <div class="team">
+        <figure class="print" data-photo="team-1" data-cap="건강복지팀"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <span class="team-name" style="--tc:var(--sage)">건강복지팀</span>
+        <p>혈압·혈당 측정, 생활습관 개선 교육, 미용봉사(족욕·마스크팩) 준비</p>
+      </div>
+      <div class="team">
+        <figure class="print" data-photo="team-2" data-cap="디지털교육팀"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <span class="team-name" style="--tc:var(--sky)">디지털교육팀</span>
+        <p>스마트폰 사용법 교육 자료 제작, 보이스피싱·사이버범죄 예방 교육 진행</p>
+      </div>
+      <div class="team">
+        <figure class="print" data-photo="team-3" data-cap="콘텐츠디자인팀"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <span class="team-name" style="--tc:var(--blush)">콘텐츠디자인팀</span>
+        <p>어르신 프로필 촬영·인화, 활동 사진·영상 기록, 인터뷰 기획 및 질문지 제작</p>
+      </div>
+      <div class="team">
+        <figure class="print" data-photo="team-4" data-cap="문화체험팀"><div class="ph"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div></figure>
+        <span class="team-name" style="--tc:var(--butter)">문화체험팀</span>
+        <p>건강 음식 만들기, 공예 체험(왁뿌볼·스트링아트·라탄공예 등) 기획·실습</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="c-stories">
+    <span class="ch-kicker">STORIES</span>
+    <h2 class="ch-title">마을 이야기</h2>
+    <p class="ch-lede">어르신 한 분 한 분을 하나의 개인으로 기록하고, 그 삶의 이야기에 귀 기울인 시간이었어요.</p>
+    <div class="ch-body">
+      <div class="story-grid" id="storyGrid"></div>
+      <p class="note" id="storyNote">인터뷰 영상은 그린나래 유튜브 채널에 순차적으로 업로드됩니다 ✎</p>
+    </div>
+  </section>
+
+  <section class="chapter" id="c-credits">
+    <span class="ch-kicker">CREDITS</span>
+    <h2 class="ch-title">함께한 사람들</h2>
+    <figure class="print" data-photo="credits" data-cap="그린나래 19명 + 신가1리 어르신들">
+      <div class="ph"><svg viewBox="0 0 36 36"><use href="#d-person"/></svg>단체 사진</div>
+    </figure>
+    <p class="ch-lede">상명사회봉사단 그린나래는 2024년 설립된 상명대학교 사회봉사 동아리로, 간호·스포츠융합·디자인·소프트웨어 등 다양한 전공의 학생 19명이 이번 활동에 함께했습니다.</p>
+    <div class="ch-body">
+      <div class="chips">
+        <span style="--tc:var(--sage)">건강복지팀</span><span style="--tc:var(--sky)">디지털교육팀</span><span style="--tc:var(--blush)">콘텐츠디자인팀</span><span style="--tc:var(--butter)">문화체험팀</span>
+      </div>
+      <a class="insta" href="https://www.instagram.com/smu_thewings" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        @smu_thewings
+      </a>
+      <div class="thanks">
+        <p class="big">신가1리 어르신들, 그리고 함께해준 그린나래 모두에게 감사드립니다.</p>
+        <p class="sponsor">농림축산식품부 · 한국농어촌공사 · 한국대학사회봉사협의회</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="j-end">
+    — 끝 —
+    <button id="topBtn" type="button">처음으로 돌아가기</button>
   </div>
-  <div class="hint-swipe">✎ 넘겨서 보기 · 톡톡 눌러도 넘어가요</div>
-</div>
+</main>
 
 <script>
 (function(){
-
   /* ══════════════════════════════════════════════════════════════
-     채워 넣는 곳 ───────────────────────────────────────────────────
+     채워 넣는 곳
 
-     1) 사진: photos/ 폴더에 넣고 아래 PHOTOS 에 경로만 적으면
-        해당 자리의 "사진 자리" 플레이스홀더가 실제 사진으로 바뀝니다.
-        (파일이 없으면 그대로 플레이스홀더가 보입니다)
-
-     2) 마을 이야기(7쪽): STORIES 배열 + YT_CHANNEL 만 채우면 됩니다.
+     1) 사진 — photos/ 폴더에 넣고 아래 PHOTOS 에 "키: '경로'" 추가.
+        키는 각 <figure class="print" data-photo="..."> 에 이미 있습니다.
+     2) 마을 이야기 — STORIES 배열 + YT_CHANNEL.
      ────────────────────────────────────────────────────────────── */
-
   var PHOTOS = {
-    // 'cover'   : 'photos/cover.jpg',
-    // 'village' : 'photos/village.jpg',
-    // 'glance-1': 'photos/glance-1.jpg', 'glance-2':'photos/glance-2.jpg', 'glance-3':'photos/glance-3.jpg',
-    // 'day1-1'  : 'photos/day1-1.jpg', 'day1-2':'photos/day1-2.jpg', 'day1-3':'photos/day1-3.jpg',
-    // 'day2-1'  : 'photos/day2-1.jpg', 'day2-2':'photos/day2-2.jpg', 'day2-3':'photos/day2-3.jpg',
-    // 'team-1'  : 'photos/team-1.jpg', 'team-2':'photos/team-2.jpg', 'team-3':'photos/team-3.jpg', 'team-4':'photos/team-4.jpg',
-    // 'credits' : 'photos/team.jpg'
+    // 'cover'  : 'photos/cover.jpg',
+    // 'village': 'photos/village.jpg',
+    // 'day1-1' : 'photos/day1-1.jpg', 'day1-2':'photos/day1-2.jpg', 'day1-3':'photos/day1-3.jpg',
+    // 'day2-1' : 'photos/day2-1.jpg', 'day2-2':'photos/day2-2.jpg', 'day2-3':'photos/day2-3.jpg',
+    // 'team-1' : 'photos/team-1.jpg', 'team-2':'photos/team-2.jpg', 'team-3':'photos/team-3.jpg', 'team-4':'photos/team-4.jpg',
+    // 'credits': 'photos/credits.jpg'
   };
-
-  var YT_CHANNEL = '';   // 예: 'https://www.youtube.com/@greennarae'  (비우면 링크 없음)
+  var YT_CHANNEL = '';
   var STORIES = [
-    // { name: '김○○ 어르신', photo: 'photos/story-1.jpg', video: 'https://youtu.be/xxxxxxxx' },
-    { name: '성함 입력 예정', photo: '', video: '' },
-    { name: '성함 입력 예정', photo: '', video: '' },
-    { name: '성함 입력 예정', photo: '', video: '' },
-    { name: '성함 입력 예정', photo: '', video: '' }
+    // { name:'김○○ 어르신', photo:'photos/story-1.jpg', video:'https://youtu.be/xxxx' },
+    { name:'성함 입력 예정', photo:'', video:'' },
+    { name:'성함 입력 예정', photo:'', video:'' },
+    { name:'성함 입력 예정', photo:'', video:'' },
+    { name:'성함 입력 예정', photo:'', video:'' }
   ];
   /* ══════════════════════════════════════════════════════════════ */
 
-  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
-  /* ---- swap photo placeholders for real <img> where a path is given ---- */
-  (function hydratePhotos(){
-    document.querySelectorAll('figure.snap[data-photo]').forEach(function(fig){
-      var src = PHOTOS[fig.getAttribute('data-photo')];
-      if(!src) return;
-      var img = new Image();
-      img.src = src;
-      img.alt = fig.getAttribute('data-cap') || '';
-      img.loading = 'lazy';
-      var ph = fig.querySelector('.snap-ph');
-      if(ph) ph.replaceWith(img); else fig.insertBefore(img, fig.firstChild);
-      if(fig.getAttribute('data-cap') && !fig.querySelector('figcaption')){
-        var cap = document.createElement('figcaption');
-        cap.textContent = fig.getAttribute('data-cap');
-        fig.appendChild(cap);
-      }
-    });
-  })();
+  function hydrate(fig){
+    var src = PHOTOS[fig.getAttribute('data-photo')];
+    if(!src) return;
+    var img = new Image();
+    img.src = src; img.alt = fig.getAttribute('data-cap') || ''; img.loading = 'lazy';
+    var ph = fig.querySelector('.ph');
+    if(ph) ph.replaceWith(img);
+    if(fig.getAttribute('data-cap') && !fig.querySelector('figcaption')){
+      var cap = document.createElement('figcaption');
+      cap.textContent = fig.getAttribute('data-cap');
+      fig.appendChild(cap);
+    }
+  }
+  document.querySelectorAll('figure.print[data-photo]').forEach(hydrate);
 
-  /* ---- village stories page ---- */
-  (function renderStories(){
+  (function stories(){
     var grid = document.getElementById('storyGrid');
     if(!grid) return;
-    var rots = [-3, 2.5, -1.5, 3, -2, 1.5];
-    grid.innerHTML = STORIES.map(function(s, i){
-      var rot = rots[i % rots.length] + 'deg';
+    grid.innerHTML = STORIES.map(function(s){
       var media = s.photo
-        ? '<img src="' + esc(s.photo) + '" alt="' + esc(s.name) + '" loading="lazy">'
-        : '<div class="snap-ph portrait"><svg viewBox="0 0 36 36"><use href="#d-camera"/></svg>사진</div>';
+        ? '<img src="'+esc(s.photo)+'" alt="'+esc(s.name)+'" loading="lazy">'
+        : '<div class="ph"><svg viewBox="0 0 36 36"><use href="#d-person"/></svg>사진</div>';
+      var cap = '<figcaption>'+esc(s.name)+'</figcaption>';
       var badge = s.video ? '<span class="yt">▶ 영상</span>' : '';
-      var inner = media + badge + '<span class="nm">' + esc(s.name) + '</span>';
+      var card = badge+'<figure class="print tall">'+media+cap+'</figure>';
       return s.video
-        ? '<a class="story-card snap portrait" style="--rot:' + rot + '" href="' + esc(encodeURI(s.video)) + '" target="_blank" rel="noopener">' + inner + '</a>'
-        : '<figure class="story-card snap portrait" style="--rot:' + rot + '">' + inner + '</figure>';
+        ? '<a class="story" href="'+esc(encodeURI(s.video))+'" target="_blank" rel="noopener">'+card+'</a>'
+        : '<div class="story">'+card+'</div>';
     }).join('');
-
     var note = document.getElementById('storyNote');
     if(note && YT_CHANNEL){
       var a = document.createElement('a');
-      a.className = 'note-box hand'; a.id = 'storyNote';
-      a.href = YT_CHANNEL; a.target = '_blank'; a.rel = 'noopener';
-      a.textContent = '▶ 그린나래 유튜브 채널에서 인터뷰 영상 보기';
+      a.className='note'; a.href=YT_CHANNEL; a.target='_blank'; a.rel='noopener';
+      a.textContent='▶ 그린나래 유튜브 채널에서 인터뷰 영상 보기';
       note.replaceWith(a);
     }
   })();
 
-  var leaves = Array.prototype.slice.call(document.querySelectorAll('.leaf'));
-  var total = leaves.length;
-  var current = 0;
-  var animating = false;
+  /* ---------- open / close ---------- */
+  var body = document.body, root = document.documentElement;
+  var chapters = Array.prototype.slice.call(document.querySelectorAll('.chapter'));
+  var bar = document.getElementById('bar');
+  var live = document.getElementById('live');
+  var jump = document.getElementById('jump');
 
-  var prevBtn = document.getElementById('prev');
-  var nextBtn = document.getElementById('next');
-  var curEl = document.getElementById('cur');
-  var totalEl = document.getElementById('total');
-  var frame = document.getElementById('bookFrame');
-  var slot = document.getElementById('leafslot');
-  var progressBar = document.getElementById('progressBar');
-  var liveRegion = document.getElementById('liveRegion');
-  totalEl.textContent = String(total).padStart(2,'0');
+  var opening = false;
+  function openJournal(anchor){
+    if(!body.classList.contains('opened')){
+      body.classList.add('opened');
+      root.classList.remove('locked');
+      setTimeout(function(){ document.getElementById('cover').style.display='none'; }, 700);
+    }
+    if(anchor) goToChapter(anchor);
+  }
+  function closeJournal(){
+    document.getElementById('cover').style.display='';
+    body.classList.remove('opened');
+    root.classList.add('locked');
+    window.scrollTo(0,0);
+    history.replaceState(null,'',location.pathname+location.search);
+  }
+  function goToChapter(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    opening = true;
+    if(location.hash !== '#'+id) location.hash = id;   // native anchor jump (respects scroll-margin)
+    try{ el.scrollIntoView({ behavior:'smooth', block:'start' }); }catch(_){ el.scrollIntoView(); }
+    setTimeout(function(){ opening = false; onScroll(); }, 60);
+  }
 
-  var titles = leaves.map(function(leaf){
-    var h = leaf.querySelector('h1, h2');
-    var tag = leaf.querySelector('.p-tag, .cover-mark');
-    return (h ? h.textContent : (tag ? tag.textContent : '')).replace(/\s+/g,' ').trim();
-  });
+  document.getElementById('openBtn').addEventListener('click', function(){ openJournal('c-prologue'); });
+  document.getElementById('homeBtn').addEventListener('click', closeJournal);
+  document.getElementById('topBtn').addEventListener('click', closeJournal);
+  jump.addEventListener('change', function(){ goToChapter(jump.value); });
 
-  function layout(){
-    leaves.forEach(function(leaf, i){
-      var isOpen = leaf.classList.contains('flipped');
-      leaf.style.zIndex = isOpen ? String(2 + i) : String(210 - i);
+  /* ---------- scroll spy: progress + hash + select ---------- */
+  var ticking = false;
+  function onScroll(){
+    if(ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      ticking = false;
+      var vh = window.innerHeight;
+      var st = window.pageYOffset;
+      var max = document.documentElement.scrollHeight - vh;
+      bar.style.width = (max > 0 ? (st / max * 100) : 0) + '%';
+      var probe = vh * 0.35;
+      var cur = chapters[0];
+      for(var i=0;i<chapters.length;i++){
+        if(chapters[i].getBoundingClientRect().top <= probe) cur = chapters[i];
+      }
+      if(cur && jump.value !== cur.id){
+        jump.value = cur.id;
+        if(!opening && ('#'+cur.id) !== location.hash) history.replaceState(null,'','#'+cur.id);
+        var t = cur.querySelector('.ch-title');
+        live.textContent = t ? t.textContent : '';
+      }
     });
   }
-  function updateUI(){
-    curEl.textContent = String(current+1).padStart(2,'0');
-    prevBtn.disabled = current === 0;
-    nextBtn.disabled = current === total - 1;
-    progressBar.style.width = (current/(total-1)*100) + '%';
-    liveRegion.textContent = (current+1) + ' / ' + total + ' 페이지' + (titles[current] ? ' · ' + titles[current] : '');
-    syncHash();
-  }
+  window.addEventListener('scroll', onScroll, {passive:true});
 
-  /* ---------- deep-linking via URL hash (#p3) ---------- */
-  var hashLock = false;
-  function syncHash(){
-    var want = current === 0 ? '' : '#p' + (current+1);
-    if(want === (location.hash || '')) return;
-    hashLock = true;
-    history.replaceState(null, '', want || (location.pathname + location.search));
-    hashLock = false;
-  }
-  function pageFromHash(){
-    var m = /^#p(\d+)$/.exec(location.hash);
-    return m ? Math.max(0, Math.min(total-1, parseInt(m[1],10) - 1)) : 0;
-  }
-  function jump(target){
-    target = Math.max(0, Math.min(total-1, target));
-    if(target === current) return;
-    slot.classList.add('no-anim');
-    while(current < target) doAdvance(false);
-    while(current > target) doRetreat(false);
-    void slot.offsetWidth;
-    slot.classList.remove('no-anim');
-    animating = false;
+  /* ---------- deep-link on load ---------- */
+  var hLoad = location.hash.replace('#','');
+  if(hLoad && document.getElementById(hLoad)){
+    openJournal();
+    setTimeout(function(){ goToChapter(hLoad); }, 20);
   }
   window.addEventListener('hashchange', function(){
-    if(hashLock) return;
-    if(!animating) jump(pageFromHash());
+    if(opening) return;
+    var id = location.hash.replace('#','');
+    if(id && document.getElementById(id)) openJournal(id);
   });
-  function doAdvance(withAnim){
-    if(current >= total-1) return;
-    animating = true;
-    leaves[current].classList.add('flipped');
-    layout();
-    current++;
-    updateUI();
-    setTimeout(function(){ animating = false; }, withAnim===false ? 0 : 820);
-  }
-  function doRetreat(withAnim){
-    if(current <= 0) return;
-    animating = true;
-    current--;
-    leaves[current].classList.remove('flipped');
-    layout();
-    updateUI();
-    setTimeout(function(){ animating = false; }, withAnim===false ? 0 : 820);
-  }
-  function next(){ if(!animating) doAdvance(); }
-  function prev(){ if(!animating) doRetreat(); }
 
-  layout();
-  updateUI();
-  if(pageFromHash() > 0) jump(pageFromHash());
-  nextBtn.addEventListener('click', next);
-  prevBtn.addEventListener('click', prev);
+  /* ---------- keyboard ---------- */
   window.addEventListener('keydown', function(e){
-    if(e.defaultPrevented) return;
-    switch(e.key){
-      case 'ArrowRight': case 'PageDown': next(); break;
-      case 'ArrowLeft':  case 'PageUp':   prev(); break;
-      case ' ': e.preventDefault(); e.shiftKey ? prev() : next(); break;
-      case 'Home': e.preventDefault(); if(!animating) jump(0); break;
-      case 'End':  e.preventDefault(); if(!animating) jump(total-1); break;
-    }
+    if(!body.classList.contains('opened')) return;
+    if(e.key === 'Escape') closeJournal();
   });
-
-  document.getElementById('tocList').addEventListener('click', function(e){
-    var btn = e.target.closest('button[data-goto]');
-    if(!btn) return;
-    goTo(parseInt(btn.getAttribute('data-goto'),10));
-  });
-  function goTo(target){
-    target = Math.max(0, Math.min(total-1, target));
-    var iv = setInterval(function(){
-      if(current === target){ clearInterval(iv); return; }
-      if(!animating){ if(current<target) doAdvance(); else doRetreat(); }
-    }, 90);
-  }
-
-  /* ---------- drag / swipe / tap to turn (unified pointer events) ---------- */
-  var spreadMode = window.matchMedia('(min-width:760px)').matches;
-  window.matchMedia('(min-width:760px)').addEventListener('change', function(e){ spreadMode = e.matches; });
-
-  var g = null;                       // active gesture, or null
-  var decided = false, horizontal = false, prog = 0;
-
-  function releaseListeners(){
-    window.removeEventListener('pointermove', onMove);
-    window.removeEventListener('pointerup', onUp);
-    window.removeEventListener('pointercancel', onUp);
-  }
-  function onDown(e){
-    if(animating || g) return;
-    if(e.pointerType === 'mouse' && e.button !== 0) return;
-    if(e.target.closest('a, button, input, textarea, select, figure.snap')) return;
-    var rect = frame.getBoundingClientRect();
-    var relX = e.clientX - rect.left;
-    var o = { x:e.clientX, y:e.clientY, w:rect.width, dir:null, leaf:null,
-              zone:(relX < rect.width * 0.30 ? 'L' : 'R') };
-    if(spreadMode){                                     // desktop: side of the spread decides
-      var onRight = relX > rect.width / 2;
-      if(onRight && current < total - 1){ o.dir = 'fwd'; o.leaf = leaves[current]; }
-      else if(!onRight && current > 0){ o.dir = 'back'; o.leaf = leaves[current - 1]; }
-      else return;
-      o.w = o.leaf.getBoundingClientRect().width || rect.width;
-    }
-    g = o; decided = false; horizontal = false; prog = 0;
-    window.addEventListener('pointermove', onMove, {passive:false});
-    window.addEventListener('pointerup', onUp);
-    window.addEventListener('pointercancel', onUp);
-  }
-  function onMove(e){
-    if(!g) return;
-    var dx = e.clientX - g.x, dy = e.clientY - g.y;
-    if(!decided){
-      if(Math.abs(dx) + Math.abs(dy) < 8) return;
-      decided = true;
-      horizontal = Math.abs(dx) > Math.abs(dy) * 1.2;
-      if(!horizontal){ releaseListeners(); g = null; return; }   // vertical → native scroll
-      if(!spreadMode){                                  // mobile: swipe direction picks the leaf
-        if(dx < 0 && current < total - 1){ g.dir = 'fwd'; g.leaf = leaves[current]; }
-        else if(dx > 0 && current > 0){ g.dir = 'back'; g.leaf = leaves[current - 1]; }
-        else { releaseListeners(); g = null; return; }
-        g.w = g.leaf.getBoundingClientRect().width || g.w;
-      }
-      if(g.leaf){ g.leaf.classList.add('dragging'); animating = true; }
-    }
-    if(!horizontal || !g.leaf) return;
-    if(e.cancelable) e.preventDefault();
-    if(g.dir === 'fwd'){
-      prog = Math.min(1, Math.max(0, -dx / g.w));
-      g.leaf.style.transform = 'rotateY(' + (-prog * 178) + 'deg)';
-    } else {
-      prog = Math.min(1, Math.max(0, 1 + dx / g.w));
-      g.leaf.style.transform = 'rotateY(' + (-178 + prog * 178) + 'deg)';
-    }
-  }
-  function onUp(){
-    if(!g) return;
-    var s = g; g = null;
-    releaseListeners();
-    if(s.leaf && decided && horizontal){
-      s.leaf.classList.remove('dragging');
-      s.leaf.style.transform = '';
-      animating = false;
-      if(s.dir === 'fwd' && prog > 0.28) doAdvance();
-      else if(s.dir === 'back' && prog > 0.28) doRetreat();
-    } else if(!decided && !spreadMode){                 // a clean tap: left edge = back, else forward
-      if(s.zone === 'L' && current > 0) doRetreat();
-      else if(current < total - 1) doAdvance();
-    }
-  }
-  frame.addEventListener('pointerdown', onDown);
 })();
 </script>
 </body>
