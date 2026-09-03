@@ -3,6 +3,9 @@
 2026년 여름, 상명대학교 그린나래가 충남 천안 신가1리에서 보낸 1박 2일의 기록을
 책장을 넘기듯 읽는 웹 필드저널입니다.
 
+**공개 주소: https://seyeon325.github.io/singa-book/**
+(특정 페이지 링크: 주소 끝에 `#p3` 처럼 붙이면 됩니다)
+
 - 단일 파일: [`index.html`](index.html) — 빌드 없음, 더블클릭으로 바로 열림
 - 외부 의존성: Google Fonts 한 곳
 - 자세한 구조·수정 방법: [`HANDOFF.md`](HANDOFF.md)

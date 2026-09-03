@@ -3,7 +3,12 @@
 ## 파일 구성
 - `index.html` — 완성된 단일 HTML 파일 (원본 `singa-book.html`을 리네임). 인라인 CSS/JS만 사용하고 외부 의존성은 Google Fonts(Jua, Gowun Dodum, Gaegu) 하나뿐입니다.
 - 빌드 과정 없음 (React·번들러·npm 없음). 더블클릭해서 브라우저로 바로 열리고, `file://` 경로에서도 정상 동작합니다.
-- git 저장소로 관리됩니다 (`~/source/repos/singa-book`).
+- git 저장소로 관리됩니다 (`~/source/repos/singa-book`, GitHub: `seyeon325/singa-book`).
+
+## 배포
+- **공개 주소: https://seyeon325.github.io/singa-book/**
+- GitHub Pages, `main` 브랜치 루트에서 자동 배포. `main`에 push하면 1~2분 뒤 반영됩니다.
+- 수정 → 배포: `git add -A && git commit -m "..." && git push`
 
 ## Claude Code에서 이어가는 방법
 1. `singa-book.html`을 원하는 프로젝트 폴더(또는 새 git 저장소)에 넣습니다.
