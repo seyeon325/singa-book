@@ -1,0 +1,679 @@
+<title>신가1리 이야기</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gaegu:wght@400;700&display=swap');
+
+  :root{
+    --bg:#F3EFDF;
+    --paper:#FFFDF6;
+    --paper-shade:#EFE8D2;
+    --ink:#20301C;
+    --ink-soft:#63715A;
+    --leaf:#2FAE5C;
+    --leaf-deep:#1C7A3E;
+    --butter:#F6DE93;
+    --sky:#B9E1DA;
+    --blush:#F3C2B4;
+    --sage:#CBE1AC;
+    --pw:min(380px,88vw);
+  }
+  @media (min-width:760px){ :root{ --pw:min(380px,40vw); } }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Gowun Dodum','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  .display{ font-family:'Jua','Gowun Dodum',sans-serif; font-weight:400; }
+  .hand{ font-family:'Gaegu','Gowun Dodum',sans-serif; font-weight:700; letter-spacing:.02em; }
+  ::selection{ background:var(--leaf); color:var(--paper); }
+  button{ font-family:inherit; }
+  a{ color:inherit; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition-duration:.001s !important; animation-duration:.001s !important; }
+  }
+
+  /* uniform dot-grid painted over the whole page so any color-matched */
+  /* "bite" cut-outs (see .stamp) stay seamless with the surface behind them */
+  .dotgrid{
+    position:fixed; inset:0; pointer-events:none; z-index:900;
+    background-image:radial-gradient(var(--leaf-deep) 1px, transparent 1.3px);
+    background-size:15px 15px;
+    opacity:.09;
+  }
+
+  /* ---------- reader shell ---------- */
+  .reader{
+    height:100vh; height:100dvh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:clamp(10px,2.2vh,22px);
+    padding:clamp(10px,3vw,26px);
+    position:relative;
+  }
+  .brandline{
+    position:absolute; top:clamp(8px,2vh,20px); left:0; right:0;
+    display:flex; justify-content:center; align-items:center; gap:9px;
+    color:var(--ink-soft); font-size:.78rem; letter-spacing:.02em;
+  }
+  .brandline .dot{ width:4px; height:4px; border-radius:50%; background:var(--leaf); }
+
+  /* ---------- book geometry ---------- */
+  .book-frame{
+    position:relative;
+    width:var(--pw);
+    height:calc(var(--pw) * 4 / 3);
+    max-height:min(660px,68dvh);
+    perspective:2800px;
+    overflow:hidden;
+    border-radius:3px;
+    touch-action:pan-y;
+    cursor:grab;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  .book-frame:active{ cursor:grabbing; }
+  @media (min-width:760px){
+    .book-frame{ width:calc(var(--pw)*2 + 14px); overflow:visible; border-radius:0; }
+  }
+  .book-shadow{
+    position:absolute; left:4%; right:4%; bottom:-14px; height:26px;
+    background:radial-gradient(ellipse at center, rgba(28,40,22,.28) 0%, transparent 72%);
+    filter:blur(3px); z-index:0;
+  }
+
+  .endpaper{
+    display:none;
+    position:absolute; top:0; left:0; width:var(--pw); height:100%;
+    background:var(--paper-shade);
+    border-radius:4px 0 0 4px;
+    box-shadow:inset -10px 0 20px rgba(28,40,22,.09);
+    z-index:1;
+    align-items:center; justify-content:center;
+  }
+  .endpaper .seal{
+    width:74px; height:74px; border-radius:50%;
+    border:2.5px dashed var(--leaf);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--leaf-deep); font-size:.68rem; text-align:center; line-height:1.3;
+    opacity:.75;
+  }
+  @media (min-width:760px){ .endpaper{ display:flex; } }
+
+  .spine-bar{
+    display:none;
+    position:absolute; top:-2%; bottom:-2%; left:var(--pw); width:14px;
+    background:var(--leaf);
+    box-shadow:0 0 16px rgba(28,40,22,.32);
+    z-index:500;
+  }
+  @media (min-width:760px){ .spine-bar{ display:block; } }
+  .spine-bar::before{
+    content:""; position:absolute; top:6%; bottom:6%; left:50%; width:0;
+    border-left:2.5px dashed rgba(255,255,255,.55);
+  }
+
+  .leafslot{ position:absolute; top:0; left:0; width:var(--pw); height:100%; }
+  @media (min-width:760px){ .leafslot{ left:calc(var(--pw) + 14px); } }
+
+  .leaf{
+    position:absolute; inset:0;
+    transform-style:preserve-3d;
+    transform-origin:left center;
+    transition:transform .78s cubic-bezier(.61,0,.29,1);
+  }
+  .leaf.flipped{ transform:rotateY(-176deg); }
+  .leaf.dragging{ transition:none; }
+
+  .face{
+    position:absolute; inset:0;
+    backface-visibility:hidden;
+    background:var(--paper);
+    box-shadow:2px 6px 20px rgba(28,40,22,.22);
+    padding:clamp(18px,5%,32px) clamp(18px,5.6%,34px);
+    display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+  .face.back{
+    background:var(--paper-shade);
+    transform:rotateY(180deg);
+    align-items:center; justify-content:center; text-align:center;
+  }
+  .face.back .seal{
+    width:96px; height:96px; border-radius:50%;
+    border:2.5px dashed var(--leaf);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--leaf-deep); font-size:.8rem;
+  }
+  .corner-fold{
+    position:absolute; right:0; bottom:0; width:24px; height:24px;
+    background:linear-gradient(135deg, transparent 50%, rgba(28,40,22,.10) 50%);
+    pointer-events:none;
+  }
+
+  .p-meta{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-bottom:12px;
+    flex:0 0 auto;
+  }
+  .p-tag{
+    display:inline-flex; align-items:center;
+    background:var(--leaf); color:#fff;
+    font-size:.72rem; font-weight:700; letter-spacing:.02em;
+    padding:4px 12px; border-radius:999px;
+  }
+  .p-no{ color:var(--ink-soft); font-size:.76rem; }
+  .p-body{ flex:1 1 auto; display:flex; flex-direction:column; justify-content:flex-start; min-height:0; overflow-y:auto; padding:6px 0 14px; }
+  .p-foot{ flex:0 0 auto; display:flex; justify-content:space-between; align-items:flex-end; font-size:.68rem; color:var(--ink-soft); padding-top:8px; }
+
+  h1,h2,h3{ margin:0; font-weight:400; text-wrap:balance; }
+  h2.pt{ font-size:1.28rem; color:var(--ink); margin-bottom:10px; }
+
+  /* ---- scalloped "stamp" card: bite dots painted in the paper color ---- */
+  .stamp{
+    position:relative;
+    background:var(--paper);
+    border:1.6px solid var(--ink);
+    border-radius:3px;
+  }
+  .stamp::before,.stamp::after{
+    content:"";
+    position:absolute; left:-1px; right:-1px; height:11px;
+    background:radial-gradient(circle at 5.5px 5.5px, var(--paper) 5.3px, transparent 5.5px) 0 0/11px 11px repeat-x;
+  }
+  .stamp::before{ top:-6px; }
+  .stamp::after{ bottom:-6px; }
+  .stamp.tint{ background:var(--tc,var(--sage)); }
+  .stamp.tint::before,.stamp.tint::after{
+    background:radial-gradient(circle at 5.5px 5.5px, var(--tc,var(--sage)) 5.3px, transparent 5.5px) 0 0/11px 11px repeat-x;
+  }
+
+  .tile-ico{
+    width:34px; height:34px; border-radius:9px;
+    background:var(--tc,var(--sage));
+    display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+  }
+
+  /* ---- cover ---- */
+  .cover-blob{
+    position:absolute; top:-14%; right:-18%; width:78%; height:60%;
+    background:var(--leaf); border-radius:44% 56% 62% 38% / 48% 40% 60% 52%;
+    opacity:.16;
+  }
+  .cover-mark{
+    display:inline-flex; align-items:center; gap:7px; position:relative;
+    background:var(--leaf); color:#fff; font-size:.72rem; font-weight:700;
+    padding:5px 12px; border-radius:999px; width:fit-content;
+  }
+  .cover-mid{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px; position:relative; }
+  .cover-mid h1{ font-family:'Jua'; font-size:clamp(2.1rem,7.6vw,2.8rem); line-height:1.22; color:var(--ink); }
+  .cover-mid .sub{ color:var(--ink-soft); font-size:.92rem; }
+  .cover-foot{ display:flex; justify-content:space-between; align-items:flex-end; position:relative; }
+  .cover-hint{
+    font-size:.76rem; font-weight:700; color:#fff; background:var(--leaf-deep);
+    display:flex; align-items:center; gap:5px; padding:6px 12px; border-radius:999px;
+  }
+  .cover-date{ font-size:.72rem; color:var(--ink-soft); }
+  .sprig{ position:absolute; right:-6%; bottom:14%; width:46%; opacity:.9; }
+
+  /* ---- content pieces ---- */
+  .lede{ color:var(--ink-soft); font-size:.93rem; line-height:1.8; margin:0 0 14px; }
+  .idx{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; }
+  .idx button{
+    all:unset; cursor:pointer; display:flex; gap:11px; align-items:center;
+    padding:7px 4px; font-size:.9rem; width:100%; color:var(--ink); border-radius:8px;
+    transition:background .15s ease;
+  }
+  .idx button:hover{ background:var(--paper-shade); }
+  .idx button:focus-visible{ outline:2px solid var(--leaf); outline-offset:1px; }
+  .idx .n{
+    flex:0 0 auto; width:26px; height:26px; border-radius:8px;
+    background:var(--tc,var(--sage)); color:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Jua'; font-size:.78rem;
+  }
+
+  .kv{ display:flex; flex-direction:column; gap:9px; }
+  .kv-row{ display:flex; gap:12px; align-items:flex-start; font-size:.88rem; }
+  .kv-row .k{
+    flex:0 0 auto; font-size:.72rem; color:var(--ink);
+    background:var(--tc,var(--sky)); padding:4px 10px; border-radius:999px; margin-top:1px;
+  }
+  .kv-row .v{ flex:1; color:var(--ink); padding-top:3px; }
+
+  .acts{ display:flex; flex-direction:column; gap:13px; }
+  .act{ display:flex; gap:11px; align-items:flex-start; }
+  .act .t{ flex:1; min-width:0; }
+  .act h4{ font-size:.94rem; margin:0 0 3px; font-weight:700; }
+  .act p{ margin:0; font-size:.79rem; color:var(--ink-soft); line-height:1.55; }
+  .act .team{
+    font-family:'Gaegu'; font-weight:700; font-size:.72rem; color:var(--leaf-deep);
+    display:inline-block; margin-top:3px;
+  }
+
+  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px 12px; padding-top:2px; }
+  .stat{ padding:14px 8px 12px; text-align:center; }
+  .stat .n{ font-family:'Jua'; font-size:1.9rem; color:var(--ink); line-height:1; }
+  .stat .l{ font-size:.7rem; color:var(--ink-soft); margin-top:6px; }
+
+  .team-list{ display:flex; flex-direction:column; gap:13px; }
+  .team-name{
+    display:inline-flex; font-size:.82rem; font-weight:700; color:var(--ink);
+    background:var(--tc,var(--sage)); padding:3px 11px; border-radius:999px; margin-bottom:5px;
+  }
+  .team p{ margin:0; font-size:.79rem; color:var(--ink-soft); line-height:1.6; }
+
+  .story-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px 14px; padding-top:4px; }
+  .story-card{ padding:14px 8px 12px; text-align:center; }
+  .story-card .tile-ico{ margin:0 auto 8px; }
+  .story-card .nm{ font-size:.78rem; color:var(--ink); font-weight:700; }
+  .story-card .yt{ font-family:'Gaegu'; font-weight:700; font-size:.7rem; color:var(--leaf-deep); margin-top:4px; }
+  .note-box{
+    font-size:.75rem; color:var(--ink); background:var(--butter);
+    border-radius:10px; padding:10px 12px; margin-top:14px;
+  }
+
+  .credit-list{ display:flex; flex-wrap:wrap; gap:7px; margin:12px 0 0; }
+  .credit-list span{
+    font-size:.72rem; font-weight:700; color:var(--ink);
+    background:var(--tc,var(--sage)); border-radius:999px; padding:4px 11px;
+  }
+  .insta-link{
+    margin-top:16px; display:inline-flex; align-items:center; gap:6px;
+    font-size:.82rem; font-weight:700; color:#fff; text-decoration:none;
+    background:var(--leaf); border-radius:999px; padding:7px 14px;
+    width:fit-content;
+  }
+  .thanks{ margin-top:16px; padding-top:13px; border-top:1.5px dashed var(--paper-shade); }
+  .thanks p{ margin:0 0 6px; font-size:.82rem; color:var(--ink-soft); line-height:1.7; }
+  .sponsor{ font-size:.66rem; color:var(--ink-soft); }
+  .credits-sprig{ position:absolute; right:3%; top:9%; width:19%; opacity:.4; pointer-events:none; }
+
+  /* ---------- controls ---------- */
+  .controls{ display:flex; align-items:center; gap:16px; z-index:2; }
+  .ctl-btn{
+    width:42px; height:42px; border-radius:50%; border:none;
+    background:var(--paper); color:var(--ink); cursor:pointer;
+    box-shadow:0 2px 8px rgba(28,40,22,.18);
+    display:flex; align-items:center; justify-content:center;
+    transition:background .18s ease, transform .18s ease, opacity .18s ease;
+  }
+  .ctl-btn:hover:not(:disabled){ background:var(--sage); }
+  .ctl-btn:active:not(:disabled){ transform:scale(.9); }
+  .ctl-btn:disabled{ opacity:.35; cursor:default; }
+  .ctl-btn:focus-visible{ outline:2px solid var(--leaf-deep); outline-offset:3px; }
+  .pageno{ color:var(--ink-soft); font-size:.8rem; min-width:60px; text-align:center; }
+  .pageno b{ color:var(--ink); font-family:'Jua'; font-weight:400; }
+  .hint-swipe{ position:absolute; bottom:2px; left:0; right:0; text-align:center; color:var(--ink-soft); font-size:.7rem; z-index:2; font-family:'Gaegu'; font-weight:700; }
+  @media (min-width:760px){ .hint-swipe{ display:none; } }
+
+  @media (max-height:640px){ .brandline{ display:none; } }
+</style>
+
+<div class="dotgrid"></div>
+
+<div class="reader" id="reader">
+  <div class="brandline hand">그린나래<span class="dot"></span>신가1리 필드저널<span class="dot"></span>2026</div>
+
+  <div class="book-frame" id="bookFrame">
+    <div class="endpaper"><div class="seal hand">그린나래<br/>×<br/>신가1리</div></div>
+    <div class="spine-bar"></div>
+    <div class="leafslot" id="leafslot">
+
+      <!-- 0 cover -->
+      <div class="leaf" data-i="0">
+        <div class="face front">
+          <div class="cover-blob"></div>
+          <span class="cover-mark hand">GN · 신가1리</span>
+          <div class="cover-mid">
+            <h1>신가1리<br/>이야기</h1>
+            <p class="sub">2026년 여름, 그린나래와 함께</p>
+          </div>
+          <div class="cover-foot">
+            <span class="cover-date hand">2026.07.06–07</span>
+            <span class="cover-hint">NEXT
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+          <svg class="sprig" viewBox="0 0 100 130" fill="none">
+            <path d="M50 128 C50 90 48 55 46 20" stroke="#2FAE5C" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="58" cy="34" rx="14" ry="8" fill="#2FAE5C" transform="rotate(28 58 34)"/>
+            <ellipse cx="34" cy="52" rx="13" ry="7.5" fill="#2FAE5C" transform="rotate(-24 34 52)"/>
+            <ellipse cx="60" cy="70" rx="13" ry="7.5" fill="#2FAE5C" transform="rotate(22 60 70)"/>
+            <circle cx="46" cy="16" r="9" fill="#F6DE93"/>
+            <circle cx="46" cy="16" r="3.4" fill="#1C7A3E"/>
+          </svg>
+          <div class="corner-fold"></div>
+        </div>
+        <div class="face back"><div class="seal hand">GREEN<br/>NARAE</div></div>
+      </div>
+
+      <!-- 1 prologue -->
+      <div class="leaf" data-i="1">
+        <div class="face front">
+          <div class="p-meta"><span class="p-tag">PROLOGUE</span><span class="p-no">01</span></div>
+          <div class="p-body">
+            <h2 class="display pt">이 기록에 대하여</h2>
+            <p class="lede">2026년 7월 6일부터 7일까지, 상명대학교 그린나래는 충남 천안 신가1리에서 이틀을 보냈습니다. 이 저널은 그 시간의 기록입니다.</p>
+            <ul class="idx" id="tocList">
+              <li><button data-goto="2"><span class="n" style="--tc:var(--sage)">1</span> 신가1리를 소개합니다</button></li>
+              <li><button data-goto="3"><span class="n" style="--tc:var(--butter)">2</span> 한눈에 보는 활동</button></li>
+              <li><button data-goto="4"><span class="n" style="--tc:var(--sky)">3</span> 활동 기록 · Day 1</button></li>
+              <li><button data-goto="5"><span class="n" style="--tc:var(--blush)">4</span> 활동 기록 · Day 2</button></li>
+              <li><button data-goto="6"><span class="n" style="--tc:var(--sage)">5</span> 네 팀의 역할</button></li>
+              <li><button data-goto="7"><span class="n" style="--tc:var(--butter)">6</span> 마을 이야기</button></li>
+              <li><button data-goto="8"><span class="n" style="--tc:var(--sky)">7</span> 함께한 사람들</button></li>
+            </ul>
+          </div>
+          <div class="p-foot"><span>신가1리 마을회관</span><span>page 01</span></div>
+          <div class="corner-fold"></div>
+        </div>
+        <div class="face back"><div class="seal hand">記錄</div></div>
+      </div>
+
+      <!-- 2 village -->
+      <div class="leaf" data-i="2">
+        <div class="face front">
+          <div class="p-meta"><span class="p-tag">VILLAGE</span><span class="p-no">02</span></div>
+          <div class="p-body">
+            <h2 class="display pt">신가1리를 소개합니다</h2>
+            <p class="lede">충남 천안시 서북구 성환읍, 논과 밭이 넓게 펼쳐진 조용한 마을입니다. 2024년부터 그린나래와 인연을 맺어 올해로 세 번째 여름을 함께합니다.</p>
+            <div class="kv">
+              <div class="kv-row"><div class="k" style="--tc:var(--sage)">위치</div><div class="v">충남 천안시 서북구 성환읍 신가1리 마을회관</div></div>
+              <div class="kv-row"><div class="k" style="--tc:var(--butter)">인연</div><div class="v">2024년부터 3년째 교류</div></div>
+              <div class="kv-row"><div class="k" style="--tc:var(--sky)">일정</div><div class="v">2026.7.6.(월) – 7.7.(화), 1박 2일</div></div>
+            </div>
+          </div>
+          <div class="p-foot"><span>성환읍 신가1리</span><span>page 02</span></div>
+          <div class="corner-fold"></div>
+        </div>
+        <div class="face back"><div class="seal hand">신가1리</div></div>
+      </div>
+
+      <!-- 3 stats -->
+      <div class="leaf" data-i="3">
+        <div class="face front">
+          <div class="p-meta"><span class="p-tag">AT A GLANCE</span><span class="p-no">03</span></div>
+          <div class="p-body">
+            <h2 class="display pt">한눈에 보는 활동</h2>
+            <div class="stat-grid">
+              <div class="stat stamp tint" style="--tc:var(--sage)"><div class="n">19</div><div class="l">그린나래 참여 인원(명)</div></div>
+              <div class="stat stamp tint" style="--tc:var(--butter)"><div class="n">22</div><div class="l">함께한 어르신(명)</div></div>
+              <div class="stat stamp tint" style="--tc:var(--sky)"><div class="n">2</div><div class="l">활동 일수(일)</div></div>
+              <div class="stat stamp tint" style="--tc:var(--blush)"><div class="n">6</div><div class="l">진행 프로그램(개)</div></div>
+              <div class="stat stamp tint" style="--tc:var(--sage)"><div class="n">152</div><div class="l">총 활동시간(h)</div></div>
+              <div class="stat stamp tint" style="--tc:var(--butter)"><div class="n">4</div><div class="l">전공 연계 팀(개)</div></div>
+            </div>
+          </div>
+          <div class="p-foot"><span>2026 농촌재능나눔</span><span>page 03</span></div>
+          <div class="corner-fold"></div>
+        </div>
+        <div class="face back"><div class="seal hand">19 / 22</div></div>
+      </div>
+
+      <!-- 4 day1 -->
+      <div class="leaf" data-i="4">
+        <div class="face front">
+          <div class="p-meta"><span class="p-tag">DAY 1 · 07.06</span><span class="p-no">04</span></div>
+          <div class="p-body">
+            <h2 class="display pt" style="font-size:1.18rem">활동 기록 · 첫째 날</h2>
+            <div class="acts">
+              <div class="act">
+                <div class="tile-ico" style="--tc:var(--sage)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><path d="M4 10c4-4 12-4 16 0"/><path d="M4 10v6a8 2 0 0016 0v-6"/></svg></div>
+                <div class="t"><h4>건강 음식 만들기</h4><p>밀푀유 나베를 함께 만들며 저염·저당 식습관을 이야기했어요.</p><span class="team">문화체험팀</span></div>
+              </div>
+              <div class="act">
+                <div class="tile-ico" style="--tc:var(--blush)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><path d="M20 12a8 8 0 11-8-8"/><path d="M12 4v8l5 3"/></svg></div>
+                <div class="t"><h4>건강복지 프로그램</h4><p>건강체조, 혈압·혈당 체크, 족욕·마스크팩으로 몸을 살폈어요.</p><span class="team">건강복지팀</span></div>
+              </div>
+              <div class="act">
+                <div class="tile-ico" style="--tc:var(--butter)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="12" r="3.3"/><path d="M4 6c4 3 12 3 16 0M4 18c4-3 12-3 16 0"/></svg></div>
+                <div class="t"><h4>문화체험 프로그램①</h4><p>왁뿌볼, 스트링아트를 만들며 손끝으로 색을 입혔어요.</p><span class="team">문화체험팀</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="p-foot"><span>신가1리 마을회관</span><span>page 04</span></div>
+          <div class="corner-fold"></div>
+        </div>
+        <div class="face back"><div class="seal hand">DAY 1</div></div>
+      </div>
+
+      <!-- 5 day2 -->
+      <div class="leaf" data-i="5">
+        <div class="face front">
+          <div class="p-meta"><span class="p-tag">DAY 2 · 07.07</span><span class="p-no">05</span></div>
+          <div class="p-body">
+            <h2 class="display pt" style="font-size:1.18rem">활동 기록 · 둘째 날</h2>
+            <div class="acts">
+              <div class="act">
+                <div class="tile-ico" style="--tc:var(--sky)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><rect x="7" y="2.5" width="10" height="18" rx="2"/><path d="M9 8.2l2 2 4-4"/></svg></div>
+                <div class="t"><h4>사이버범죄 예방 교육</h4><p>휴대폰 사용법과 보이스피싱 예방법을 함께 익혔어요.</p><span class="team">디지털교육팀</span></div>
+              </div>
+              <div class="act">
+                <div class="tile-ico" style="--tc:var(--sage)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><rect x="3.5" y="6.5" width="13" height="10.5" rx="1.4"/><circle cx="10" cy="11.6" r="2.5"/><path d="M17 9.5l4-2v9l-4-2"/></svg></div>
+                <div class="t"><h4>마을 이야기 프로젝트</h4><p>어르신 한 분 한 분의 프로필 사진과 인터뷰 영상을 담았어요.</p><span class="team">콘텐츠디자인팀</span></div>
+              </div>
+              <div class="act">
+                <div class="tile-ico" style="--tc:var(--blush)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="10" r="5.5"/><path d="M8.2 15l-1.7 4.5M15.8 15l1.7 4.5"/></svg></div>
+                <div class="t"><h4>문화체험 프로그램②</h4><p>지구비누와 라탄공예 부채를 만들며 마무리했어요.</p><span class="team">콘텐츠디자인팀</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="p-foot"><span>신가1리 마을회관</span><span>page 05</span></div>
+          <div class="corner-fold"></div>
+        </div>
+        <div class="face back"><div class="seal hand">DAY 2</div></div>
+      </div>
+
+      <!-- 6 teams -->
+      <div class="leaf" data-i="6">
+        <div class="face front">
+          <div class="p-meta"><span class="p-tag">TEAMS</span><span class="p-no">06</span></div>
+          <div class="p-body">
+            <h2 class="display pt" style="font-size:1.2rem">네 팀의 역할</h2>
+            <div class="team-list">
+              <div class="team"><span class="team-name" style="--tc:var(--sage)">건강복지팀</span><p>혈압·혈당 측정, 생활습관 개선 교육, 미용봉사(족욕·마스크팩) 준비</p></div>
+              <div class="team"><span class="team-name" style="--tc:var(--sky)">디지털교육팀</span><p>스마트폰 사용법 교육 자료 제작, 보이스피싱·사이버범죄 예방 교육 진행</p></div>
+              <div class="team"><span class="team-name" style="--tc:var(--blush)">콘텐츠디자인팀</span><p>어르신 프로필 촬영·인화, 활동 사진·영상 기록, 인터뷰 기획 및 질문지 제작</p></div>
+              <div class="team"><span class="team-name" style="--tc:var(--butter)">문화체험팀</span><p>건강 음식 만들기, 공예 체험(왁뿌볼·스트링아트·라탄공예 등) 기획·실습</p></div>
+            </div>
+          </div>
+          <div class="p-foot"><span>4개 전공연계 팀</span><span>page 06</span></div>
+          <div class="corner-fold"></div>
+        </div>
+        <div class="face back"><div class="seal hand">TEAMS</div></div>
+      </div>
+
+      <!-- 7 stories -->
+      <div class="leaf" data-i="7">
+        <div class="face front">
+          <div class="p-meta"><span class="p-tag">STORIES</span><span class="p-no">07</span></div>
+          <div class="p-body">
+            <h2 class="display pt" style="font-size:1.18rem">마을 이야기</h2>
+            <p class="lede" style="margin-bottom:6px;">어르신 한 분 한 분을 하나의 개인으로 기록하고, 그 삶의 이야기에 귀 기울인 시간이었어요.</p>
+            <div class="story-grid">
+              <div class="story-card stamp"><div class="tile-ico" style="--tc:var(--sage)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.1 7-6.1s7 2.2 7 6.1"/></svg></div><div class="nm">성함 입력 예정</div><div class="yt">▶ 영상 준비중</div></div>
+              <div class="story-card stamp"><div class="tile-ico" style="--tc:var(--butter)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.1 7-6.1s7 2.2 7 6.1"/></svg></div><div class="nm">성함 입력 예정</div><div class="yt">▶ 영상 준비중</div></div>
+              <div class="story-card stamp"><div class="tile-ico" style="--tc:var(--sky)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.1 7-6.1s7 2.2 7 6.1"/></svg></div><div class="nm">성함 입력 예정</div><div class="yt">▶ 영상 준비중</div></div>
+              <div class="story-card stamp"><div class="tile-ico" style="--tc:var(--blush)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#20301C" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.1 7-6.1s7 2.2 7 6.1"/></svg></div><div class="nm">성함 입력 예정</div><div class="yt">▶ 영상 준비중</div></div>
+            </div>
+            <p class="note-box hand">인터뷰 영상은 그린나래 유튜브 채널에 순차적으로 업로드됩니다 ✎</p>
+          </div>
+          <div class="p-foot"><span>콘텐츠디자인팀</span><span>page 07</span></div>
+          <div class="corner-fold"></div>
+        </div>
+        <div class="face back"><div class="seal hand">STORIES</div></div>
+      </div>
+
+      <!-- 8 credits + closing -->
+      <div class="leaf" data-i="8">
+        <div class="face front">
+          <div class="p-meta"><span class="p-tag">CREDITS</span><span class="p-no">08</span></div>
+          <div class="p-body">
+            <h2 class="display pt" style="font-size:1.18rem">함께한 사람들</h2>
+            <p class="lede">상명사회봉사단 그린나래는 2024년 설립된 상명대학교 사회봉사 동아리로, 간호·스포츠융합·디자인·소프트웨어 등 다양한 전공의 학생 19명이 이번 활동에 함께했습니다.</p>
+            <div class="credit-list">
+              <span style="--tc:var(--sage)">건강복지팀</span><span style="--tc:var(--sky)">디지털교육팀</span><span style="--tc:var(--blush)">콘텐츠디자인팀</span><span style="--tc:var(--butter)">문화체험팀</span>
+            </div>
+            <a class="insta-link" href="https://www.instagram.com/smu_thewings" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+              @smu_thewings
+            </a>
+            <div class="thanks">
+              <p>신가1리 어르신들, 그리고 함께해준 그린나래 모두에게 감사드립니다.</p>
+              <p class="sponsor">농림축산식품부 · 한국농어촌공사 · 한국대학사회봉사협의회</p>
+            </div>
+          </div>
+          <svg class="credits-sprig" viewBox="0 0 100 100" fill="none">
+            <path d="M8 96 C30 80 40 55 42 30" stroke="#2FAE5C" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="50" cy="40" rx="12" ry="7" fill="#2FAE5C" transform="rotate(26 50 40)"/>
+            <ellipse cx="26" cy="60" rx="11" ry="6.5" fill="#2FAE5C" transform="rotate(-20 26 60)"/>
+            <circle cx="42" cy="24" r="7.5" fill="#F6DE93"/>
+          </svg>
+          <div class="p-foot"><span>© 2026 그린나래</span><span>page 08</span></div>
+        </div>
+        <div class="face back"><div class="seal hand">끝</div></div>
+      </div>
+
+    </div>
+    <div class="book-shadow"></div>
+  </div>
+
+  <div class="controls">
+    <button class="ctl-btn" id="prev" aria-label="이전 페이지">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <div class="pageno"><b id="cur">01</b> / <span id="total">09</span></div>
+    <button class="ctl-btn" id="next" aria-label="다음 페이지">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+  <div class="hint-swipe">✎ 넘겨서 보기</div>
+</div>
+
+<script>
+(function(){
+  var leaves = Array.prototype.slice.call(document.querySelectorAll('.leaf'));
+  var total = leaves.length;
+  var current = 0;
+  var animating = false;
+
+  var prevBtn = document.getElementById('prev');
+  var nextBtn = document.getElementById('next');
+  var curEl = document.getElementById('cur');
+  var totalEl = document.getElementById('total');
+  var frame = document.getElementById('bookFrame');
+  totalEl.textContent = String(total).padStart(2,'0');
+
+  function layout(){
+    leaves.forEach(function(leaf, i){
+      var isOpen = leaf.classList.contains('flipped');
+      leaf.style.zIndex = isOpen ? String(2 + i) : String(210 - i);
+    });
+  }
+  function updateUI(){
+    curEl.textContent = String(current+1).padStart(2,'0');
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+  }
+  function doAdvance(withAnim){
+    if(current >= total-1) return;
+    animating = true;
+    leaves[current].classList.add('flipped');
+    layout();
+    current++;
+    updateUI();
+    setTimeout(function(){ animating = false; }, withAnim===false ? 0 : 800);
+  }
+  function doRetreat(withAnim){
+    if(current <= 0) return;
+    animating = true;
+    current--;
+    leaves[current].classList.remove('flipped');
+    layout();
+    updateUI();
+    setTimeout(function(){ animating = false; }, withAnim===false ? 0 : 800);
+  }
+  function next(){ if(!animating) doAdvance(); }
+  function prev(){ if(!animating) doRetreat(); }
+
+  layout();
+  updateUI();
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  window.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight') next();
+    if(e.key === 'ArrowLeft') prev();
+  });
+
+  document.getElementById('tocList').addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-goto]');
+    if(!btn) return;
+    goTo(parseInt(btn.getAttribute('data-goto'),10));
+  });
+  function goTo(target){
+    target = Math.max(0, Math.min(total-1, target));
+    var iv = setInterval(function(){
+      if(current === target){ clearInterval(iv); return; }
+      if(!animating){ if(current<target) doAdvance(); else doRetreat(); }
+    }, 90);
+  }
+
+  /* ---------- drag-to-turn ---------- */
+  var spreadMode = window.matchMedia('(min-width:760px)').matches;
+  window.matchMedia('(min-width:760px)').addEventListener('change', function(e){ spreadMode = e.matches; });
+
+  var dragLeaf=null, dragDir=null, dragStartX=0, dragW=1, dragProg=0;
+
+  function onDown(e){
+    if(animating) return;
+    var p = e.touches ? e.touches[0] : e;
+    var rect = frame.getBoundingClientRect();
+    var relX = p.clientX - rect.left;
+    var onRight = !spreadMode || relX > rect.width/2;
+    if(onRight && current < total-1){ dragLeaf = leaves[current]; dragDir='fwd'; }
+    else if(!onRight && spreadMode && current > 0){ dragLeaf = leaves[current-1]; dragDir='back'; }
+    else return;
+    dragStartX = p.clientX;
+    dragW = dragLeaf.getBoundingClientRect().width || 1;
+    dragLeaf.classList.add('dragging');
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('touchend', onUp);
+  }
+  function onMove(e){
+    if(!dragLeaf) return;
+    if(e.cancelable) e.preventDefault();
+    var p = e.touches ? e.touches[0] : e;
+    var dx = p.clientX - dragStartX;
+    if(dragDir==='fwd'){
+      dragProg = Math.min(1, Math.max(0, -dx / dragW));
+      dragLeaf.style.transform = 'rotateY(' + (-dragProg*176) + 'deg)';
+    } else {
+      dragProg = Math.min(1, Math.max(0, 1 + dx/dragW));
+      dragLeaf.style.transform = 'rotateY(' + (-176 + dragProg*176) + 'deg)';
+    }
+  }
+  function onUp(){
+    if(!dragLeaf) return;
+    var leaf = dragLeaf, dir = dragDir, prog = dragProg;
+    dragLeaf = null;
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', onUp);
+    leaf.classList.remove('dragging');
+    leaf.style.transform = '';
+    if(dir==='fwd' && prog > 0.32){ doAdvance(); }
+    else if(dir==='back' && prog > 0.32){ doRetreat(); }
+    else { animating = false; }
+  }
+  frame.addEventListener('mousedown', onDown);
+  frame.addEventListener('touchstart', onDown, {passive:true});
+})();
+</script>
