@@ -32,13 +32,20 @@
 폰트: 제목 `Jua`, 본문 `Gowun Dodum`, 손글씨 `Gaegu` / `Nanum Pen Script`.
 
 ## 톤
-리소 프린트 / 플랫 컷페이퍼 셰이프 (전주도서관 여행 포스터 레퍼런스). 크림 종이 + 리소 그레인 오버레이(`.grain`), 제한 팔레트(green/blue/yellow/coral/black), 손글씨(Gaegu·Nanum Pen Script). 셰이프는 `<svg><use href="#sh-...">` (treecloud/tree/book/pencil/aster/flower/drop/blob/arrow/face/camera).
-- 표지: 크림 배경에 플랫 셰이프 산개 배치(`.cv-s1`~`.cv-s7` 위치 조정), 큰 손글씨 제목
+리소 프린트 / 플랫 컷페이퍼 셰이프 (전주도서관 여행 포스터 레퍼런스). 크림 종이 + 리소 그레인 오버레이(`.grain`), 제한 팔레트(green/blue/yellow/coral/black), 손글씨(Gaegu·Nanum Pen Script).
+- 본문 기준 폰트 18px(넓은 화면 19.5px). 크기는 `.ch-*`, `.act *`, `.face *` 등에서 조정
+- 표지: 크림 배경에 플랫 셰이프 산개(`.cv-s1`~`.cv-s7` 로 위치·크기·색), 큰 손글씨 제목
 - 사진(`figure.shot`): 뒤에 컬러 블록(`--mount`) 깔린 플랫 인화 (폴라로이드·그림자 없음)
+
+## 도형(아이콘) 교체 — 직접 만든 소스 넣기
+`<body>` 상단 `<svg><defs>` 블록에 `sh-tree / sh-treecloud / sh-book / sh-pencil / sh-aster / sh-flower / sh-drop / sh-blob / sh-arrow / sh-home / sh-face / sh-camera` 가 있습니다.
+- 여기 `<path id="sh-XXX">` 또는 `<g id="sh-XXX">` 를 **직접 만든 SVG 로 교체하면** 표지·챕터·플레이스홀더에 전부 반영됨
+- 규칙: `viewBox 0 0 100 100` 기준, 채우기형은 `fill="currentColor"` 유지(색은 CSS `.cv-sN{ color: }` / `.ch-shape` 에서)
+- 어느 셰이프를 어디에 쓸지: 표지 = `.cv-s1`~`.cv-s7` 의 `<use href>`, 챕터 헤더 = 각 `.ch-shape` 의 `<use href>`
 
 ## 마을 이야기 — 3 x 5 = 15명
 스크립트 `STORIES` 배열 15개. 각 항목 `{ name, photo, video }`.
-- `photo` 있으면 원형 프레임에 사진, 없으면 실루엣 플레이스홀더
+- `photo` 있으면 세로 직사각형(4:5, 굵은 검정 테두리) 프레임에 사진, 없으면 실루엣 플레이스홀더
 - `video` 있으면 카드 전체가 링크(사진 클릭 → 영상), 없으면 "영상 준비중"
 - `YT_CHANNEL` 채우면 하단 노트가 채널 링크로 바뀜
 
