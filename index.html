@@ -38,7 +38,18 @@
 
   *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   html{ scroll-behavior:smooth; }
-  html.locked, html.locked body{ overflow:hidden; height:100%; }
+  html.locked, html.locked body{ overflow:hidden; height:100%; overscroll-behavior:none; }
+  button, a, select, summary{ touch-action:manipulation; }
+  /* visible keyboard focus everywhere */
+  a:focus-visible, button:focus-visible, select:focus-visible, [tabindex]:focus-visible{
+    outline:3px solid var(--green-deep); outline-offset:2px; border-radius:2px;
+  }
+  .skip{
+    position:absolute; left:12px; top:-60px; z-index:400;
+    background:var(--ink); color:#fff; font-family:'Gaegu'; font-weight:700;
+    padding:8px 16px; border-radius:8px; text-decoration:none; transition:top .15s ease;
+  }
+  .skip:focus{ top:12px; }
   body{
     margin:0; min-height:100%;
     background:var(--cream);
@@ -94,7 +105,7 @@
   .cover-mid h1{
     margin:0; font-family:'Gaegu'; font-weight:700;
     font-size:clamp(3rem,15vw,4.6rem); line-height:1.04; color:var(--black);
-    letter-spacing:-.01em;
+    letter-spacing:-.01em; text-wrap:balance;
   }
   .cover-mid .tag{ margin-top:18px; font-family:'Nanum Pen Script'; font-size:1.7rem; color:var(--ink-soft); }
   .cover-foot{ position:relative; z-index:2; display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }
@@ -103,7 +114,9 @@
     color:#fff; background:var(--green-deep); padding:12px 26px; border-radius:999px;
     display:inline-flex; align-items:center; gap:10px;
   }
-  .cover-open:active{ background:var(--black); }
+  .cover-open{ transition:background .15s ease, transform .1s ease; }
+  .cover-open:hover{ background:var(--black); }
+  .cover-open:active{ background:var(--black); transform:scale(.97); }
   .cover-date{ font-family:'Nanum Pen Script'; font-size:1.35rem; color:var(--ink-soft); }
 
   /* cover shapes — flank the centred title: 4 corners + 1 top accent */
@@ -129,7 +142,8 @@
     background:rgba(244,239,224,.9); backdrop-filter:blur(6px);
     border-bottom:1.5px solid var(--ink);
   }
-  .j-bar .home{ display:inline-flex; align-items:center; gap:8px; font-family:'Gaegu'; font-weight:700; font-size:1.1rem; color:var(--ink); background:none; border:0; cursor:pointer; }
+  .j-bar .home{ display:inline-flex; align-items:center; gap:8px; font-family:'Gaegu'; font-weight:700; font-size:1.1rem; color:var(--ink); background:none; border:0; cursor:pointer; transition:opacity .12s ease; }
+  .j-bar .home:hover{ opacity:.6; }
   .j-bar .home svg{ width:19px; height:19px; }
   .j-bar select{
     font-family:'Gaegu'; font-weight:700; font-size:1rem; color:var(--ink);
@@ -141,6 +155,7 @@
     max-width:var(--maxw); margin:0 auto;
     padding:clamp(46px,10vw,78px) clamp(20px,6vw,30px) clamp(30px,7vw,52px);
     position:relative;
+    scroll-margin-top:64px;
   }
   .chapter + .chapter{ border-top:1.5px solid var(--ink); }
 
@@ -153,7 +168,7 @@
   .chapter:nth-of-type(3n+1) .ch-kicker{ background:var(--blue-deep); }
   .ch-title{
     font-family:'Gaegu'; font-weight:700; font-size:clamp(2.15rem,7vw,2.9rem);
-    line-height:1.22; margin:14px 0 0; color:var(--black);
+    line-height:1.22; margin:14px 0 0; color:var(--black); text-wrap:balance;
   }
   .ch-lede{ font-size:1.14rem; line-height:1.75; color:var(--ink-soft); margin:20px 0 0; }
   .ch-body{ margin-top:26px; }
@@ -201,7 +216,7 @@
   /* stats */
   .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   .stat{ text-align:center; padding:24px 10px; border:1.6px solid var(--ink); border-radius:4px; background:var(--tc,var(--cream-2)); }
-  .stat .n{ font-family:'Jua'; font-size:2.9rem; line-height:1; color:var(--black); }
+  .stat .n{ font-family:'Jua'; font-size:2.9rem; line-height:1; color:var(--black); font-variant-numeric:tabular-nums; }
   .stat .l{ font-family:'Gaegu'; font-weight:700; font-size:.92rem; color:var(--ink-soft); margin-top:9px; }
 
   /* teams */
@@ -223,12 +238,16 @@
   .face-img .ph svg{ width:38%; height:38%; opacity:.45; }
   .face .nm{ display:block; margin-top:9px; font-family:'Nanum Pen Script'; font-size:1.34rem; color:var(--ink); line-height:1.15; }
   .face .play{ display:inline-block; margin-top:2px; font-family:'Gaegu'; font-weight:700; font-size:.82rem; color:var(--green-deep); }
+  a.face .face-img{ transition:border-color .12s ease, transform .12s ease; }
+  a.face:hover .face-img{ border-color:var(--green-deep); transform:translateY(-3px); }
   a.face:active .face-img{ border-color:var(--green); }
   .note{
     margin-top:28px; display:block; text-decoration:none;
     font-family:'Gaegu'; font-weight:700; font-size:1.08rem; color:var(--ink);
     background:var(--yellow); border:1.6px solid var(--ink); border-radius:4px; padding:15px 18px;
   }
+  a.note{ transition:filter .12s ease; }
+  a.note:hover{ filter:brightness(.96); }
 
   /* credits */
   .chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
@@ -237,7 +256,9 @@
     margin-top:22px; display:inline-flex; align-items:center; gap:8px;
     font-family:'Gaegu'; font-weight:700; font-size:1.12rem; color:var(--ink); text-decoration:none;
     border:1.6px solid var(--ink); border-radius:999px; padding:8px 18px;
+    transition:background .12s ease, color .12s ease;
   }
+  .insta:hover{ background:var(--ink); color:var(--cream); }
   .thanks{ margin-top:28px; padding-top:22px; border-top:1.5px solid var(--ink); }
   .thanks .big{ font-family:'Nanum Pen Script'; font-size:1.65rem; color:var(--ink); margin:0 0 10px; line-height:1.35; }
   .thanks .sponsor{ font-size:.92rem; color:var(--ink-soft); margin:0; }
@@ -247,7 +268,9 @@
     display:block; margin:16px auto 0; border:1.6px solid var(--ink); background:var(--cream);
     font-family:'Gaegu'; font-weight:700; font-size:1.05rem; color:var(--ink);
     border-radius:999px; padding:9px 22px; cursor:pointer;
+    transition:background .12s ease, color .12s ease;
   }
+  .j-end button:hover{ background:var(--ink); color:var(--cream); }
 
   .ch-shape{ position:absolute; right:clamp(10px,5vw,26px); top:clamp(54px,11vw,82px); width:54px; height:54px; pointer-events:none; opacity:.92; }
   @media (max-width:520px){ .ch-shape{ width:44px; height:44px; } }
@@ -255,6 +278,7 @@
 </head>
 <body>
 
+<a class="skip" href="#c-prologue">본문 바로가기</a>
 <div class="grain" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"><i id="bar"></i></div>
 <p class="sr-only" aria-live="polite" id="live"></p>
@@ -308,13 +332,13 @@
 <!-- ============ COVER ============ -->
 <section class="cover" id="cover">
  <div class="cover-stage">
-  <div class="shape cv-s1"><svg viewBox="0 0 100 100"><use href="#sh-treecloud"/></svg></div>
-  <div class="shape cv-s2"><svg viewBox="0 0 100 100"><use href="#sh-book"/></svg></div>
-  <div class="shape cv-s3"><svg viewBox="0 0 100 100"><use href="#sh-aster"/></svg></div>
-  <div class="shape cv-s4"><svg viewBox="0 0 100 100"><use href="#sh-pencil"/></svg></div>
-  <div class="shape cv-s5"><svg viewBox="0 0 100 100"><use href="#sh-tree"/></svg></div>
-  <div class="shape cv-s6"><svg viewBox="0 0 100 100"><use href="#sh-drop"/></svg></div>
-  <div class="shape cv-s7"><svg viewBox="0 0 100 100"><use href="#sh-flower"/></svg></div>
+  <div aria-hidden="true" class="shape cv-s1"><svg viewBox="0 0 100 100"><use href="#sh-treecloud"/></svg></div>
+  <div aria-hidden="true" class="shape cv-s2"><svg viewBox="0 0 100 100"><use href="#sh-book"/></svg></div>
+  <div aria-hidden="true" class="shape cv-s3"><svg viewBox="0 0 100 100"><use href="#sh-aster"/></svg></div>
+  <div aria-hidden="true" class="shape cv-s4"><svg viewBox="0 0 100 100"><use href="#sh-pencil"/></svg></div>
+  <div aria-hidden="true" class="shape cv-s5"><svg viewBox="0 0 100 100"><use href="#sh-tree"/></svg></div>
+  <div aria-hidden="true" class="shape cv-s6"><svg viewBox="0 0 100 100"><use href="#sh-drop"/></svg></div>
+  <div aria-hidden="true" class="shape cv-s7"><svg viewBox="0 0 100 100"><use href="#sh-flower"/></svg></div>
   <div class="cover-inner">
     <div class="cover-top">그린나래 &times; 신가1리 &nbsp;·&nbsp; 농촌재능나눔 필드저널</div>
     <div class="cover-mid">
@@ -323,7 +347,7 @@
     </div>
     <div class="cover-foot">
       <button class="cover-open" id="openBtn">펼쳐보기
-        <svg width="16" height="12" viewBox="0 0 100 100" style="width:18px;height:14px"><use href="#sh-arrow"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 100 100" style="width:18px;height:14px"><use href="#sh-arrow"/></svg>
       </button>
       <span class="cover-date">2026.07.06&ndash;07</span>
     </div>
@@ -335,7 +359,7 @@
 <main class="journal" id="journal">
   <div class="j-bar">
     <button class="home" id="homeBtn" type="button">
-      <svg viewBox="0 0 100 100"><use href="#sh-home"/></svg>
+      <svg aria-hidden="true" viewBox="0 0 100 100"><use href="#sh-home"/></svg>
       신가1리 이야기
     </button>
     <select id="jump" aria-label="장 이동">
@@ -351,21 +375,21 @@
   </div>
 
   <section class="chapter" id="c-prologue">
-    <span class="shape ch-shape" style="color:var(--yellow)"><svg viewBox="0 0 100 100"><use href="#sh-aster"/></svg></span>
+    <span aria-hidden="true" class="shape ch-shape" style="color:var(--yellow)"><svg viewBox="0 0 100 100"><use href="#sh-aster"/></svg></span>
     <span class="ch-kicker">PROLOGUE</span>
     <h2 class="ch-title">이 기록에 대하여</h2>
     <p class="ch-lede">2026년 7월 6일부터 7일까지, 상명대학교 그린나래는 충남 천안 신가1리에서 이틀을 보냈습니다. 건강복지·디지털교육·콘텐츠디자인·문화체험, 네 팀이 함께한 1박 2일의 기록입니다.</p>
     <figure class="shot" style="--mount:var(--green)" data-photo="cover" data-cap="신가1리 마을회관 앞에서">
-      <div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>표지 사진</div>
+      <div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>표지 사진</div>
     </figure>
   </section>
 
   <section class="chapter" id="c-village">
-    <span class="shape ch-shape" style="color:var(--green)"><svg viewBox="0 0 100 100"><use href="#sh-tree"/></svg></span>
+    <span aria-hidden="true" class="shape ch-shape" style="color:var(--green)"><svg viewBox="0 0 100 100"><use href="#sh-tree"/></svg></span>
     <span class="ch-kicker">VILLAGE</span>
     <h2 class="ch-title">신가1리를 소개합니다</h2>
     <figure class="shot" style="--mount:var(--blue)" data-photo="village" data-cap="논밭이 넓게 펼쳐진 성환읍 신가1리">
-      <div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>마을 풍경 사진</div>
+      <div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>마을 풍경 사진</div>
     </figure>
     <p class="ch-lede">충남 천안시 서북구 성환읍, 논과 밭이 넓게 펼쳐진 조용한 마을입니다.</p>
     <div class="ch-body">
@@ -377,7 +401,7 @@
   </section>
 
   <section class="chapter" id="c-glance">
-    <span class="shape ch-shape" style="color:var(--coral)"><svg viewBox="0 0 100 100"><use href="#sh-pencil"/></svg></span>
+    <span aria-hidden="true" class="shape ch-shape" style="color:var(--coral)"><svg viewBox="0 0 100 100"><use href="#sh-pencil"/></svg></span>
     <span class="ch-kicker">AT A GLANCE</span>
     <h2 class="ch-title">한눈에 보는 활동</h2>
     <p class="ch-lede">이틀 동안 있었던 일을 숫자로 옮겨 보았습니다.</p>
@@ -394,22 +418,22 @@
   </section>
 
   <section class="chapter" id="c-day1">
-    <span class="shape ch-shape" style="color:var(--blue)"><svg viewBox="0 0 100 100"><use href="#sh-drop"/></svg></span>
+    <span aria-hidden="true" class="shape ch-shape" style="color:var(--blue)"><svg viewBox="0 0 100 100"><use href="#sh-drop"/></svg></span>
     <span class="ch-kicker">DAY 1 · 07.06</span>
     <h2 class="ch-title">활동 기록 · 첫째 날</h2>
     <div class="ch-body">
       <div class="act">
-        <figure class="shot" style="--mount:var(--yellow)" data-photo="day1-1" data-cap="밀푀유 나베 만들기"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--yellow)" data-photo="day1-1" data-cap="밀푀유 나베 만들기"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <h3>건강 음식 만들기</h3><span class="team">문화체험팀</span>
         <p>밀푀유 나베를 함께 만들며 저염·저당 식습관을 이야기했어요.</p>
       </div>
       <div class="act">
-        <figure class="shot" style="--mount:var(--coral)" data-photo="day1-2" data-cap="혈압·혈당 체크"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--coral)" data-photo="day1-2" data-cap="혈압·혈당 체크"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <h3>건강복지 프로그램</h3><span class="team">건강복지팀</span>
         <p>건강체조, 혈압·혈당 체크, 족욕·마스크팩으로 몸을 살폈어요.</p>
       </div>
       <div class="act">
-        <figure class="shot" style="--mount:var(--green)" data-photo="day1-3" data-cap="스트링아트 만들기"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--green)" data-photo="day1-3" data-cap="스트링아트 만들기"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <h3>문화체험 프로그램 ①</h3><span class="team">문화체험팀</span>
         <p>왁뿌볼, 스트링아트를 만들며 손끝으로 색을 입혔어요.</p>
       </div>
@@ -418,22 +442,22 @@
   </section>
 
   <section class="chapter" id="c-day2">
-    <span class="shape ch-shape" style="color:var(--green)"><svg viewBox="0 0 100 100"><use href="#sh-blob"/></svg></span>
+    <span aria-hidden="true" class="shape ch-shape" style="color:var(--green)"><svg viewBox="0 0 100 100"><use href="#sh-blob"/></svg></span>
     <span class="ch-kicker">DAY 2 · 07.07</span>
     <h2 class="ch-title">활동 기록 · 둘째 날</h2>
     <div class="ch-body">
       <div class="act">
-        <figure class="shot" style="--mount:var(--blue)" data-photo="day2-1" data-cap="사이버범죄 예방 교육"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--blue)" data-photo="day2-1" data-cap="사이버범죄 예방 교육"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <h3>사이버범죄 예방 교육</h3><span class="team">디지털교육팀</span>
         <p>휴대폰 사용법과 보이스피싱 예방법을 함께 익혔어요.</p>
       </div>
       <div class="act">
-        <figure class="shot" style="--mount:var(--green)" data-photo="day2-2" data-cap="어르신 인터뷰 촬영"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--green)" data-photo="day2-2" data-cap="어르신 인터뷰 촬영"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <h3>마을 이야기 프로젝트</h3><span class="team">콘텐츠디자인팀</span>
         <p>어르신 한 분 한 분의 프로필 사진과 인터뷰 영상을 담았어요.</p>
       </div>
       <div class="act">
-        <figure class="shot" style="--mount:var(--yellow)" data-photo="day2-3" data-cap="라탄공예 부채 만들기"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--yellow)" data-photo="day2-3" data-cap="라탄공예 부채 만들기"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <h3>문화체험 프로그램 ②</h3><span class="team">콘텐츠디자인팀</span>
         <p>지구비누와 라탄공예 부채를 만들며 마무리했어요.</p>
       </div>
@@ -442,28 +466,28 @@
   </section>
 
   <section class="chapter" id="c-teams">
-    <span class="shape ch-shape" style="color:var(--yellow)"><svg viewBox="0 0 100 100"><use href="#sh-flower"/></svg></span>
+    <span aria-hidden="true" class="shape ch-shape" style="color:var(--yellow)"><svg viewBox="0 0 100 100"><use href="#sh-flower"/></svg></span>
     <span class="ch-kicker">TEAMS</span>
     <h2 class="ch-title">네 팀의 역할</h2>
     <p class="ch-lede">전공을 살려 네 팀으로 나누어 준비했습니다.</p>
     <div class="ch-body">
       <div class="team">
-        <figure class="shot" style="--mount:var(--green)" data-photo="team-1"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--green)" data-photo="team-1"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <span class="team-name" style="--tc:var(--green-deep)">건강복지팀</span>
         <p>혈압·혈당 측정, 생활습관 개선 교육, 미용봉사(족욕·마스크팩) 준비</p>
       </div>
       <div class="team">
-        <figure class="shot" style="--mount:var(--blue)" data-photo="team-2"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--blue)" data-photo="team-2"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <span class="team-name" style="--tc:var(--blue-deep)">디지털교육팀</span>
         <p>스마트폰 사용법 교육 자료 제작, 보이스피싱·사이버범죄 예방 교육 진행</p>
       </div>
       <div class="team">
-        <figure class="shot" style="--mount:var(--coral)" data-photo="team-3"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--coral)" data-photo="team-3"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <span class="team-name" style="--tc:var(--coral-deep)">콘텐츠디자인팀</span>
         <p>어르신 프로필 촬영·인화, 활동 사진·영상 기록, 인터뷰 기획 및 질문지 제작</p>
       </div>
       <div class="team">
-        <figure class="shot" style="--mount:var(--yellow)" data-photo="team-4"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
+        <figure class="shot" style="--mount:var(--yellow)" data-photo="team-4"><div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
         <span class="team-name" style="--tc:var(--yellow);color:var(--ink)">문화체험팀</span>
         <p>건강 음식 만들기, 공예 체험(왁뿌볼·스트링아트·라탄공예 등) 기획·실습</p>
       </div>
@@ -471,7 +495,7 @@
   </section>
 
   <section class="chapter" id="c-stories">
-    <span class="shape ch-shape" style="color:var(--coral)"><svg viewBox="0 0 100 100"><use href="#sh-blob"/></svg></span>
+    <span aria-hidden="true" class="shape ch-shape" style="color:var(--coral)"><svg viewBox="0 0 100 100"><use href="#sh-blob"/></svg></span>
     <span class="ch-kicker">STORIES</span>
     <h2 class="ch-title">마을 이야기</h2>
     <p class="ch-lede">어르신 한 분 한 분을 하나의 개인으로 기록하고, 그 삶의 이야기에 귀 기울인 시간이었어요. 사진을 누르면 인터뷰 영상으로 이어집니다.</p>
@@ -482,11 +506,11 @@
   </section>
 
   <section class="chapter" id="c-credits">
-    <span class="shape ch-shape" style="color:var(--green)"><svg viewBox="0 0 100 100"><use href="#sh-treecloud"/></svg></span>
+    <span aria-hidden="true" class="shape ch-shape" style="color:var(--green)"><svg viewBox="0 0 100 100"><use href="#sh-treecloud"/></svg></span>
     <span class="ch-kicker">CREDITS</span>
     <h2 class="ch-title">함께한 사람들</h2>
     <figure class="shot" style="--mount:var(--coral)" data-photo="credits" data-cap="그린나래 19명 + 신가1리 어르신들">
-      <div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-face"/></svg>단체 사진</div>
+      <div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-face"/></svg>단체 사진</div>
     </figure>
     <p class="ch-lede">상명사회봉사단 그린나래는 2024년 설립된 상명대학교 사회봉사 동아리로, 간호·스포츠융합·디자인·소프트웨어 등 다양한 전공의 학생 19명이 이번 활동에 함께했습니다.</p>
     <div class="ch-body">
@@ -494,8 +518,8 @@
         <span style="--tc:var(--green-deep)">건강복지팀</span><span style="--tc:var(--blue-deep)">디지털교육팀</span><span style="--tc:var(--coral-deep)">콘텐츠디자인팀</span><span style="--tc:var(--yellow);color:var(--ink)">문화체험팀</span>
       </div>
       <a class="insta" href="https://www.instagram.com/smu_thewings" target="_blank" rel="noopener">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-        @smu_thewings
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        인스타그램 @smu_thewings
       </a>
       <div class="thanks">
         <p class="big">신가1리 어르신들, 그리고 함께해준 그린나래 모두에게 감사드립니다.</p>
@@ -550,7 +574,7 @@
   document.querySelectorAll('figure.shot[data-photo]').forEach(function(fig){
     var src = PHOTOS[fig.getAttribute('data-photo')];
     if(!src) return;
-    var img = new Image(); img.src = src; img.alt = fig.getAttribute('data-cap')||''; img.loading='lazy';
+    var img = new Image(1200, 900); img.src = src; img.alt = fig.getAttribute('data-cap')||''; img.loading='lazy'; img.decoding='async';
     var ph = fig.querySelector('.ph'); if(ph) ph.replaceWith(img);
     if(fig.getAttribute('data-cap') && !fig.querySelector('figcaption')){
       var cap = document.createElement('figcaption'); cap.textContent = fig.getAttribute('data-cap'); fig.appendChild(cap);
@@ -561,8 +585,8 @@
     var wrap = document.getElementById('faces'); if(!wrap) return;
     wrap.innerHTML = STORIES.map(function(s){
       // 실루엣을 항상 깔고, 사진이 로드되면 그 위를 덮음. 파일이 없으면(404) 실루엣이 그대로 보임.
-      var media = '<span class="ph"><svg viewBox="0 0 100 100"><use href="#sh-face"/></svg></span>'
-        + (s.photo ? '<img class="ovr" src="'+esc(s.photo)+'" alt="'+esc(s.name||'어르신 사진')+'" loading="lazy" onerror="this.remove()">' : '');
+      var media = '<span class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-face"/></svg></span>'
+        + (s.photo ? '<img class="ovr" width="800" height="1000" src="'+esc(s.photo)+'" alt="'+esc(s.name||'어르신 사진')+'" loading="lazy" decoding="async" onerror="this.remove()">' : '');
       var inner = '<span class="face-img">'+media+'</span>'
         + (s.name ? '<span class="nm">'+esc(s.name)+'</span>' : '')
         + '<span class="play">'+(s.video?'▶ 영상 보기':'▶ 영상 준비중')+'</span>';
