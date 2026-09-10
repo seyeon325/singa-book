@@ -23,10 +23,12 @@
     --ink:#211F1B;
     --ink-soft:#5c574a;
     --green:#5BA85C;
-    --green-deep:#3C8746;
+    --green-deep:#367A40;
     --blue:#86AEC9;
+    --blue-deep:#4E86A6;
     --yellow:#EBC64C;
     --coral:#DC6E4C;
+    --coral-deep:#B9502F;
     --black:#1b1a17;
     --maxw:640px;
 
@@ -67,8 +69,10 @@
   .sr-only{ position:absolute!important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
   /* ============ shapes ============ */
+  /* .shape / .ch-shape 도형에 크레용(리소) 질감 — 가장자리 살짝 우글, 안쪽 종이 알갱이 */
   .shape{ position:absolute; pointer-events:none; }
-  .shape svg{ width:100%; height:100%; display:block; }
+  .shape svg, .ch-shape svg{ width:100%; height:100%; display:block; filter:url(#crayon); }
+  @media (prefers-reduced-motion:reduce){ .shape svg, .ch-shape svg{ filter:none; } }
 
   /* ============ COVER ============ */
   .cover{
@@ -95,10 +99,10 @@
   .cover-foot{ position:relative; z-index:2; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
   .cover-open{
     border:0; cursor:pointer; font-family:'Gaegu'; font-weight:700; font-size:1.18rem;
-    color:#fff; background:var(--green); padding:12px 26px; border-radius:999px;
+    color:#fff; background:var(--green-deep); padding:12px 26px; border-radius:999px;
     display:inline-flex; align-items:center; gap:10px;
   }
-  .cover-open:active{ background:var(--green-deep); }
+  .cover-open:active{ background:var(--black); }
   .cover-date{ font-family:'Nanum Pen Script'; font-size:1.35rem; color:var(--ink-soft); }
 
   /* cover shape placement */
@@ -142,11 +146,11 @@
 
   .ch-kicker{
     display:inline-block;
-    font-family:'Gaegu'; font-weight:700; font-size:.92rem; letter-spacing:.05em;
-    color:#fff; background:var(--green); padding:4px 16px; border-radius:999px;
+    font-family:'Gaegu'; font-weight:700; font-size:1rem; letter-spacing:.05em;
+    color:#fff; background:var(--green-deep); padding:4px 16px; border-radius:999px;
   }
-  .chapter:nth-of-type(3n) .ch-kicker{ background:var(--coral); }
-  .chapter:nth-of-type(3n+1) .ch-kicker{ background:var(--blue); }
+  .chapter:nth-of-type(3n) .ch-kicker{ background:var(--coral-deep); }
+  .chapter:nth-of-type(3n+1) .ch-kicker{ background:var(--blue-deep); }
   .ch-title{
     font-family:'Gaegu'; font-weight:700; font-size:clamp(2.15rem,7vw,2.9rem);
     line-height:1.22; margin:14px 0 0; color:var(--black);
@@ -261,6 +265,15 @@
      - viewBox 는 0 0 100 100 기준
      ───────────────────────────────────────────────────────────── -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <!-- 크레용/리소 질감 필터: 가장자리 우글 + 안쪽 흰 알갱이 -->
+  <filter id="crayon" x="-15%" y="-15%" width="130%" height="130%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="7" result="w"/>
+    <feDisplacementMap in="SourceGraphic" in2="w" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="edge"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.62" numOctaves="2" seed="3" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.22 0" result="gw"/>
+    <feComposite in="gw" in2="edge" operator="in" result="grain"/>
+    <feMerge><feMergeNode in="edge"/><feMergeNode in="grain"/></feMerge>
+  </filter>
   <!-- 나무 (둥근 수관 + 기둥) -->
   <g id="sh-tree" fill="currentColor"><rect x="43" y="52" width="14" height="42" rx="3"/><circle cx="50" cy="34" r="30"/></g>
   <!-- 구름 나무 (뭉게뭉게) -->
@@ -338,7 +351,7 @@
     <span class="shape ch-shape" style="color:var(--yellow)"><svg viewBox="0 0 100 100"><use href="#sh-aster"/></svg></span>
     <span class="ch-kicker">PROLOGUE</span>
     <h2 class="ch-title">이 기록에 대하여</h2>
-    <p class="ch-lede">2026년 7월 6일부터 7일까지, 상명대학교 그린나래는 충남 천안 신가1리에서 이틀을 보냈습니다. 이 저널은 그 시간의 기록입니다 — 건강복지·디지털교육·콘텐츠디자인·문화체험, 네 팀이 함께한 1박 2일.</p>
+    <p class="ch-lede">2026년 7월 6일부터 7일까지, 상명대학교 그린나래는 충남 천안 신가1리에서 이틀을 보냈습니다. 건강복지·디지털교육·콘텐츠디자인·문화체험, 네 팀이 함께한 1박 2일의 기록입니다.</p>
     <figure class="shot" style="--mount:var(--green)" data-photo="cover" data-cap="신가1리 마을회관 앞에서">
       <div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>표지 사진</div>
     </figure>
@@ -354,8 +367,8 @@
     <p class="ch-lede">충남 천안시 서북구 성환읍, 논과 밭이 넓게 펼쳐진 조용한 마을입니다.</p>
     <div class="ch-body">
       <div class="kv">
-        <div class="kv-row"><span class="k" style="--tc:var(--green)">위치</span><span class="v">충남 천안시 서북구 성환읍 신가1리 마을회관</span></div>
-        <div class="kv-row"><span class="k" style="--tc:var(--blue)">일정</span><span class="v">2026. 7. 6.(월) – 7. 7.(화), 1박 2일</span></div>
+        <div class="kv-row"><span class="k" style="--tc:var(--green-deep)">위치</span><span class="v">충남 천안시 서북구 성환읍 신가1리 마을회관</span></div>
+        <div class="kv-row"><span class="k" style="--tc:var(--blue-deep)">일정</span><span class="v">2026. 7. 6.(월) ~ 7. 7.(화), 1박 2일</span></div>
       </div>
     </div>
   </section>
@@ -433,17 +446,17 @@
     <div class="ch-body">
       <div class="team">
         <figure class="shot" style="--mount:var(--green)" data-photo="team-1"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
-        <span class="team-name" style="--tc:var(--green)">건강복지팀</span>
+        <span class="team-name" style="--tc:var(--green-deep)">건강복지팀</span>
         <p>혈압·혈당 측정, 생활습관 개선 교육, 미용봉사(족욕·마스크팩) 준비</p>
       </div>
       <div class="team">
         <figure class="shot" style="--mount:var(--blue)" data-photo="team-2"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
-        <span class="team-name" style="--tc:var(--blue)">디지털교육팀</span>
+        <span class="team-name" style="--tc:var(--blue-deep)">디지털교육팀</span>
         <p>스마트폰 사용법 교육 자료 제작, 보이스피싱·사이버범죄 예방 교육 진행</p>
       </div>
       <div class="team">
         <figure class="shot" style="--mount:var(--coral)" data-photo="team-3"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
-        <span class="team-name" style="--tc:var(--coral)">콘텐츠디자인팀</span>
+        <span class="team-name" style="--tc:var(--coral-deep)">콘텐츠디자인팀</span>
         <p>어르신 프로필 촬영·인화, 활동 사진·영상 기록, 인터뷰 기획 및 질문지 제작</p>
       </div>
       <div class="team">
@@ -475,7 +488,7 @@
     <p class="ch-lede">상명사회봉사단 그린나래는 2024년 설립된 상명대학교 사회봉사 동아리로, 간호·스포츠융합·디자인·소프트웨어 등 다양한 전공의 학생 19명이 이번 활동에 함께했습니다.</p>
     <div class="ch-body">
       <div class="chips">
-        <span style="--tc:var(--green)">건강복지팀</span><span style="--tc:var(--blue)">디지털교육팀</span><span style="--tc:var(--coral)">콘텐츠디자인팀</span><span style="--tc:var(--yellow);color:var(--ink)">문화체험팀</span>
+        <span style="--tc:var(--green-deep)">건강복지팀</span><span style="--tc:var(--blue-deep)">디지털교육팀</span><span style="--tc:var(--coral-deep)">콘텐츠디자인팀</span><span style="--tc:var(--yellow);color:var(--ink)">문화체험팀</span>
       </div>
       <a class="insta" href="https://www.instagram.com/smu_thewings" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
@@ -489,7 +502,7 @@
   </section>
 
   <div class="j-end">
-    — 끝 —
+· 끝 ·
     <button id="topBtn" type="button">처음으로 돌아가기</button>
   </div>
 </main>
