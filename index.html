@@ -56,8 +56,8 @@
   /* riso grain + paper fibre, over everything */
   .grain{
     position:fixed; inset:0; z-index:300; pointer-events:none;
-    background:var(--grain); background-size:150px;
-    opacity:.18; mix-blend-mode:multiply;
+    background:var(--grain); background-size:160px;
+    opacity:.12; mix-blend-mode:multiply;
   }
   .journal, .cover{ background-image:var(--fiber); background-size:300px; background-blend-mode:multiply; }
 
@@ -157,25 +157,24 @@
   .margin-note{ font-family:'Nanum Pen Script'; font-size:1.5rem; color:var(--ink-soft); margin:28px 0 0; }
   .margin-note::before{ content:"✎ "; }
 
-  /* photo: flat print on an offset colour block */
-  .shot{ position:relative; margin:24px 0 0; }
+  /* photo: clean flat print with a thick outline + a small colour tab */
+  .shot{ position:relative; margin:26px 0 0; }
   .shot::before{
-    content:""; position:absolute; left:-10px; top:12px; right:14px; bottom:-12px;
-    background:var(--mount,var(--green)); z-index:0; border-radius:3px;
+    content:""; position:absolute; left:0; top:-9px; width:74px; height:16px;
+    background:var(--mount,var(--green)); border-radius:2px;
   }
   .shot img, .shot .ph{
-    position:relative; z-index:1;
-    width:100%; aspect-ratio:4/3; object-fit:cover;
-    border:1.5px solid var(--ink); border-radius:2px;
-    filter:saturate(.92) contrast(.98);
+    display:block; width:100%; aspect-ratio:4/3; object-fit:cover;
+    border:2.5px solid var(--ink); border-radius:0; background:#fff;
   }
+  .shot img{ filter:saturate(.94) contrast(.98); }
   .shot.tall img, .shot.tall .ph{ aspect-ratio:1/1; }
   .shot .ph{
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
-    background:var(--cream-2); color:var(--ink-soft);
-    font-family:'Gaegu'; font-weight:700; font-size:1rem; filter:none;
+    color:var(--ink-soft);
+    font-family:'Gaegu'; font-weight:700; font-size:1rem;
   }
-  .shot .ph svg{ width:34px; height:34px; opacity:.42; }
+  .shot .ph svg{ width:34px; height:34px; opacity:.4; }
   .shot figcaption{ margin-top:12px; font-family:'Nanum Pen Script'; font-size:1.3rem; color:var(--ink-soft); text-align:center; }
 
   /* key / value */
@@ -270,8 +269,12 @@
   <path id="sh-book" fill="currentColor" d="M9 22c13-7 27-7 41 1 14-8 28-8 41-1v55c-13-6-27-6-41 1-14-7-28-7-41-1z"/>
   <!-- 연필 -->
   <path id="sh-pencil" fill="currentColor" d="M36 12a3 3 0 013-3h22a3 3 0 013 3v58L50 91 36 70z"/>
-  <!-- 별표 (6갈래) -->
-  <path id="sh-aster" fill="currentColor" d="M50 6c4 0 7 3 7 7l-1 18 13-13a7 7 0 0110 10L73 48h18a7 7 0 010 14H73l13 13a7 7 0 01-10 10L63 72l1 18a7 7 0 01-14 0l1-18-13 13a7 7 0 01-10-10l13-13H23a7 7 0 010-14h18L28 35a7 7 0 0110-10l13 13-1-18c0-4 3-7 7-7z"/>
+  <!-- 별표 (6갈래, 겹친 둥근 막대 3개) -->
+  <g id="sh-aster" fill="currentColor">
+    <rect x="42" y="8" width="16" height="84" rx="8"/>
+    <rect x="42" y="8" width="16" height="84" rx="8" transform="rotate(60 50 50)"/>
+    <rect x="42" y="8" width="16" height="84" rx="8" transform="rotate(120 50 50)"/>
+  </g>
   <!-- 꽃 (데이지, 원 5장 + 심) -->
   <g id="sh-flower" fill="currentColor"><circle cx="50" cy="27" r="16"/><circle cx="75" cy="44" r="16"/><circle cx="66" cy="74" r="16"/><circle cx="34" cy="74" r="16"/><circle cx="25" cy="44" r="16"/><circle cx="50" cy="52" r="14"/></g>
   <!-- 물방울 -->
