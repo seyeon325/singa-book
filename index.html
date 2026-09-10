@@ -82,21 +82,22 @@
     transition:opacity .55s ease;
   }
   body.opened .cover{ opacity:0; pointer-events:none; }
+  /* the whole cover is a bounded "poster" centred in the viewport */
+  .cover-stage{ position:absolute; inset:0; width:min(560px,100%); margin:0 auto; }
   .cover-inner{
     position:absolute; inset:0;
-    max-width:520px; margin:0 auto;
-    padding:clamp(28px,7vw,54px);
-    display:flex; flex-direction:column;
+    padding:clamp(28px,7vw,52px);
+    display:flex; flex-direction:column; align-items:center; text-align:center;
   }
-  .cover-top{ font-family:'Gaegu'; font-weight:700; font-size:1.08rem; color:var(--ink-soft); letter-spacing:.01em; }
-  .cover-mid{ flex:1; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
+  .cover-top{ font-family:'Gaegu'; font-weight:700; font-size:1.06rem; color:var(--ink-soft); letter-spacing:.01em; position:relative; z-index:2; }
+  .cover-mid{ flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; z-index:2; }
   .cover-mid h1{
     margin:0; font-family:'Gaegu'; font-weight:700;
     font-size:clamp(3rem,15vw,4.6rem); line-height:1.04; color:var(--black);
     letter-spacing:-.01em;
   }
-  .cover-mid .tag{ margin-top:18px; font-family:'Nanum Pen Script'; font-size:1.78rem; color:var(--ink-soft); }
-  .cover-foot{ position:relative; z-index:2; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .cover-mid .tag{ margin-top:18px; font-family:'Nanum Pen Script'; font-size:1.7rem; color:var(--ink-soft); }
+  .cover-foot{ position:relative; z-index:2; display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }
   .cover-open{
     border:0; cursor:pointer; font-family:'Gaegu'; font-weight:700; font-size:1.18rem;
     color:#fff; background:var(--green-deep); padding:12px 26px; border-radius:999px;
@@ -105,16 +106,15 @@
   .cover-open:active{ background:var(--black); }
   .cover-date{ font-family:'Nanum Pen Script'; font-size:1.35rem; color:var(--ink-soft); }
 
-  /* cover shape placement */
-  .cv-s1{ top:5%;   right:-5%;  width:42%; color:var(--green); }
-  .cv-s2{ top:19%;  left:-7%;   width:34%; color:var(--blue); }
-  .cv-s3{ top:8%;   left:42%;   width:12%; color:var(--black); }
-  .cv-s4{ bottom:22%; right:5%;  width:15%; color:var(--coral); }
-  .cv-s5{ bottom:23%; left:-3%;  width:26%; color:var(--green); }
-  .cv-s6{ bottom:30%; left:36%;  width:9%;  color:var(--yellow); }
-  .cv-s7{ top:41%;   right:14%;  width:8%;  color:var(--black); }
+  /* cover shapes — flank the centred title: 4 corners + 1 top accent */
+  .cv-s2{ top:12%;    left:-8%;   width:24%;  color:var(--blue); }    /* book, top-left */
+  .cv-s1{ top:6%;     right:-8%;  width:32%;  color:var(--green); }   /* tree-cloud, top-right */
+  .cv-s5{ bottom:5%;  left:-4%;   width:21%;  color:var(--green); }   /* tree, bottom-left */
+  .cv-s4{ bottom:9%;  right:2%;   width:12%;  color:var(--coral); }   /* pencil, bottom-right */
+  .cv-s3{ top:-1%;    left:50%;   width:7%;   color:var(--black); transform:translateX(-50%); }  /* asterisk, top-centre */
+  .cv-s6, .cv-s7{ display:none; }
   @media (max-width:520px){
-    .cv-s1{ width:50%; } .cv-s2{ width:42%; } .cv-s5{ width:34%; bottom:26%; }
+    .cv-s1{ width:42%; right:-12%; } .cv-s2{ width:32%; left:-12%; } .cv-s5{ width:28%; }
   }
 
   /* ============ JOURNAL ============ */
@@ -168,17 +168,18 @@
     background:var(--mount,var(--green)); border-radius:2px;
   }
   .shot img, .shot .ph{
-    display:block; width:100%; aspect-ratio:4/3; object-fit:cover;
+    display:block; width:100%; object-fit:cover;
     border:2.5px solid var(--ink); border-radius:0; background:#fff;
   }
-  .shot img{ filter:saturate(.94) contrast(.98); }
-  .shot.tall img, .shot.tall .ph{ aspect-ratio:1/1; }
+  .shot img{ aspect-ratio:4/3; filter:saturate(.94) contrast(.98); }
+  .shot.tall img{ aspect-ratio:1/1; }
   .shot .ph{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
-    color:var(--ink-soft);
-    font-family:'Gaegu'; font-weight:700; font-size:1rem;
+    aspect-ratio:16/9;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+    background:var(--cream-2); color:var(--ink-soft);
+    font-family:'Gaegu'; font-weight:700; font-size:1.05rem;
   }
-  .shot .ph svg{ width:34px; height:34px; opacity:.4; }
+  .shot .ph svg{ width:44px; height:44px; opacity:.4; }
   .shot figcaption{ margin-top:12px; font-family:'Nanum Pen Script'; font-size:1.3rem; color:var(--ink-soft); text-align:center; }
 
   /* key / value */
@@ -306,6 +307,7 @@
 
 <!-- ============ COVER ============ -->
 <section class="cover" id="cover">
+ <div class="cover-stage">
   <div class="shape cv-s1"><svg viewBox="0 0 100 100"><use href="#sh-treecloud"/></svg></div>
   <div class="shape cv-s2"><svg viewBox="0 0 100 100"><use href="#sh-book"/></svg></div>
   <div class="shape cv-s3"><svg viewBox="0 0 100 100"><use href="#sh-aster"/></svg></div>
@@ -326,6 +328,7 @@
       <span class="cover-date">2026.07.06&ndash;07</span>
     </div>
   </div>
+ </div>
 </section>
 
 <!-- ============ JOURNAL ============ -->
