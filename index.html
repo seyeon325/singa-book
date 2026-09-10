@@ -42,9 +42,10 @@
     background:var(--cream);
     color:var(--ink);
     font-family:'Gowun Dodum','Malgun Gothic',sans-serif;
-    font-size:17px; line-height:1.78;
+    font-size:18px; line-height:1.8;
     -webkit-font-smoothing:antialiased;
   }
+  @media (min-width:720px){ body{ font-size:19.5px; } }
   .hand{ font-family:'Gaegu','Gowun Dodum',sans-serif; font-weight:700; }
   .pen{ font-family:'Nanum Pen Script','Gaegu',cursive; }
   ::selection{ background:var(--green); color:#fff; }
@@ -83,33 +84,33 @@
     padding:clamp(28px,7vw,54px);
     display:flex; flex-direction:column;
   }
-  .cover-top{ font-family:'Gaegu'; font-weight:700; font-size:.95rem; color:var(--ink-soft); letter-spacing:.01em; }
+  .cover-top{ font-family:'Gaegu'; font-weight:700; font-size:1.08rem; color:var(--ink-soft); letter-spacing:.01em; }
   .cover-mid{ flex:1; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
   .cover-mid h1{
     margin:0; font-family:'Gaegu'; font-weight:700;
     font-size:clamp(3rem,15vw,4.6rem); line-height:1.04; color:var(--black);
     letter-spacing:-.01em;
   }
-  .cover-mid .tag{ margin-top:16px; font-family:'Nanum Pen Script'; font-size:1.5rem; color:var(--ink-soft); }
-  .cover-foot{ position:relative; z-index:2; display:flex; align-items:center; gap:14px; }
+  .cover-mid .tag{ margin-top:18px; font-family:'Nanum Pen Script'; font-size:1.78rem; color:var(--ink-soft); }
+  .cover-foot{ position:relative; z-index:2; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
   .cover-open{
-    border:0; cursor:pointer; font-family:'Gaegu'; font-weight:700; font-size:1.05rem;
-    color:#fff; background:var(--green); padding:11px 24px; border-radius:999px;
-    display:inline-flex; align-items:center; gap:9px;
+    border:0; cursor:pointer; font-family:'Gaegu'; font-weight:700; font-size:1.18rem;
+    color:#fff; background:var(--green); padding:12px 26px; border-radius:999px;
+    display:inline-flex; align-items:center; gap:10px;
   }
   .cover-open:active{ background:var(--green-deep); }
-  .cover-date{ font-family:'Nanum Pen Script'; font-size:1.2rem; color:var(--ink-soft); }
+  .cover-date{ font-family:'Nanum Pen Script'; font-size:1.35rem; color:var(--ink-soft); }
 
   /* cover shape placement */
-  .cv-s1{ top:6%;  right:-4%;  width:44%;  color:var(--green); }
-  .cv-s2{ top:20%; left:-6%;   width:36%;  color:var(--blue); }
-  .cv-s3{ top:9%;  left:44%;   width:12%;  color:var(--black); }
-  .cv-s4{ bottom:20%; right:6%; width:16%; color:var(--coral); }
-  .cv-s5{ bottom:6%;  left:2%;  width:30%; color:var(--green); }
-  .cv-s6{ bottom:14%; left:40%; width:10%; color:var(--yellow); }
-  .cv-s7{ top:40%;  right:16%;  width:9%;  color:var(--black); }
+  .cv-s1{ top:5%;   right:-5%;  width:42%; color:var(--green); }
+  .cv-s2{ top:19%;  left:-7%;   width:34%; color:var(--blue); }
+  .cv-s3{ top:8%;   left:42%;   width:12%; color:var(--black); }
+  .cv-s4{ bottom:22%; right:5%;  width:15%; color:var(--coral); }
+  .cv-s5{ bottom:23%; left:-3%;  width:26%; color:var(--green); }
+  .cv-s6{ bottom:30%; left:36%;  width:9%;  color:var(--yellow); }
+  .cv-s7{ top:41%;   right:14%;  width:8%;  color:var(--black); }
   @media (max-width:520px){
-    .cv-s1{ width:52%; } .cv-s2{ width:44%; } .cv-s5{ width:38%; }
+    .cv-s1{ width:50%; } .cv-s2{ width:42%; } .cv-s5{ width:34%; bottom:26%; }
   }
 
   /* ============ JOURNAL ============ */
@@ -124,12 +125,12 @@
     background:rgba(244,239,224,.9); backdrop-filter:blur(6px);
     border-bottom:1.5px solid var(--ink);
   }
-  .j-bar .home{ display:inline-flex; align-items:center; gap:7px; font-family:'Gaegu'; font-weight:700; font-size:1rem; color:var(--ink); background:none; border:0; cursor:pointer; }
-  .j-bar .home svg{ width:17px; height:17px; }
+  .j-bar .home{ display:inline-flex; align-items:center; gap:8px; font-family:'Gaegu'; font-weight:700; font-size:1.1rem; color:var(--ink); background:none; border:0; cursor:pointer; }
+  .j-bar .home svg{ width:19px; height:19px; }
   .j-bar select{
-    font-family:'Gaegu'; font-weight:700; font-size:.92rem; color:var(--ink);
+    font-family:'Gaegu'; font-weight:700; font-size:1rem; color:var(--ink);
     background:var(--cream); border:1.6px solid var(--ink); border-radius:999px;
-    padding:5px 12px; max-width:54vw;
+    padding:6px 13px; max-width:54vw;
   }
 
   .chapter{
@@ -141,18 +142,19 @@
 
   .ch-kicker{
     display:inline-block;
-    font-family:'Gaegu'; font-weight:700; font-size:.82rem; letter-spacing:.05em;
-    color:#fff; background:var(--green); padding:3px 14px; border-radius:999px;
+    font-family:'Gaegu'; font-weight:700; font-size:.92rem; letter-spacing:.05em;
+    color:#fff; background:var(--green); padding:4px 16px; border-radius:999px;
   }
   .chapter:nth-of-type(3n) .ch-kicker{ background:var(--coral); }
   .chapter:nth-of-type(3n+1) .ch-kicker{ background:var(--blue); }
   .ch-title{
-    font-family:'Gaegu'; font-weight:700; font-size:clamp(1.9rem,6.5vw,2.6rem);
-    line-height:1.2; margin:14px 0 0; color:var(--black);
+    font-family:'Gaegu'; font-weight:700; font-size:clamp(2.15rem,7vw,2.9rem);
+    line-height:1.22; margin:14px 0 0; color:var(--black);
   }
-  .ch-lede{ font-size:1.05rem; color:var(--ink-soft); margin:18px 0 0; }
-  .ch-body{ margin-top:24px; }
-  .margin-note{ font-family:'Nanum Pen Script'; font-size:1.35rem; color:var(--ink-soft); margin:26px 0 0; }
+  .ch-lede{ font-size:1.14rem; line-height:1.75; color:var(--ink-soft); margin:20px 0 0; }
+  .ch-body{ margin-top:26px; }
+  .ch-body p, .act p, .team p, .kv-row .v{ font-size:1.06rem; }
+  .margin-note{ font-family:'Nanum Pen Script'; font-size:1.5rem; color:var(--ink-soft); margin:28px 0 0; }
   .margin-note::before{ content:"✎ "; }
 
   /* photo: flat print on an offset colour block */
@@ -169,39 +171,39 @@
   }
   .shot.tall img, .shot.tall .ph{ aspect-ratio:1/1; }
   .shot .ph{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
     background:var(--cream-2); color:var(--ink-soft);
-    font-family:'Gaegu'; font-weight:700; font-size:.9rem; filter:none;
+    font-family:'Gaegu'; font-weight:700; font-size:1rem; filter:none;
   }
-  .shot .ph svg{ width:30px; height:30px; opacity:.5; }
-  .shot figcaption{ margin-top:10px; font-family:'Nanum Pen Script'; font-size:1.15rem; color:var(--ink-soft); text-align:center; }
+  .shot .ph svg{ width:34px; height:34px; opacity:.42; }
+  .shot figcaption{ margin-top:12px; font-family:'Nanum Pen Script'; font-size:1.3rem; color:var(--ink-soft); text-align:center; }
 
   /* key / value */
   .kv{ display:flex; flex-direction:column; gap:14px; }
   .kv-row{ display:flex; gap:13px; align-items:flex-start; }
   .kv-row .k{
-    flex:0 0 auto; font-family:'Gaegu'; font-weight:700; font-size:.85rem; color:#fff;
-    background:var(--tc,var(--green)); padding:3px 13px; border-radius:999px; margin-top:2px;
+    flex:0 0 auto; font-family:'Gaegu'; font-weight:700; font-size:.94rem; color:#fff;
+    background:var(--tc,var(--green)); padding:3px 14px; border-radius:999px; margin-top:3px;
   }
   .kv-row .v{ padding-top:2px; }
 
   /* activities */
-  .act{ margin-top:34px; }
+  .act{ margin-top:36px; }
   .act:first-child{ margin-top:22px; }
-  .act h3{ font-family:'Gaegu'; font-weight:700; font-size:1.3rem; margin:16px 0 3px; color:var(--black); }
-  .act .team{ font-family:'Nanum Pen Script'; font-size:1.2rem; color:var(--green-deep); }
-  .act p{ margin:5px 0 0; color:var(--ink-soft); }
+  .act h3{ font-family:'Gaegu'; font-weight:700; font-size:1.5rem; margin:16px 0 3px; color:var(--black); }
+  .act .team{ font-family:'Nanum Pen Script'; font-size:1.32rem; color:var(--green-deep); }
+  .act p{ margin:6px 0 0; color:var(--ink-soft); }
 
   /* stats */
   .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-  .stat{ text-align:center; padding:22px 10px; border:1.6px solid var(--ink); border-radius:4px; background:var(--tc,var(--cream-2)); }
-  .stat .n{ font-family:'Jua'; font-size:2.5rem; line-height:1; color:var(--black); }
-  .stat .l{ font-family:'Gaegu'; font-weight:700; font-size:.8rem; color:var(--ink-soft); margin-top:8px; }
+  .stat{ text-align:center; padding:24px 10px; border:1.6px solid var(--ink); border-radius:4px; background:var(--tc,var(--cream-2)); }
+  .stat .n{ font-family:'Jua'; font-size:2.9rem; line-height:1; color:var(--black); }
+  .stat .l{ font-family:'Gaegu'; font-weight:700; font-size:.92rem; color:var(--ink-soft); margin-top:9px; }
 
   /* teams */
-  .team{ margin-top:26px; }
+  .team{ margin-top:28px; }
   .team:first-child{ margin-top:10px; }
-  .team-name{ display:inline-block; font-family:'Gaegu'; font-weight:700; font-size:1rem; color:#fff; background:var(--tc,var(--green)); padding:2px 14px; border-radius:999px; margin-bottom:7px; }
+  .team-name{ display:inline-block; font-family:'Gaegu'; font-weight:700; font-size:1.14rem; color:#fff; background:var(--tc,var(--green)); padding:2px 15px; border-radius:999px; margin-bottom:8px; }
   .team p{ margin:0; color:var(--ink-soft); }
 
   /* ---- 마을 이야기: 3 x 5 얼굴 그리드 ---- */
@@ -215,32 +217,32 @@
   .face-img img{ width:100%; height:100%; object-fit:cover; filter:saturate(.92) contrast(.98); }
   .face-img .ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--ink-soft); }
   .face-img .ph svg{ width:38%; height:38%; opacity:.45; }
-  .face .nm{ display:block; margin-top:8px; font-family:'Nanum Pen Script'; font-size:1.12rem; color:var(--ink); line-height:1.2; }
-  .face .play{ display:inline-block; margin-top:1px; font-family:'Gaegu'; font-weight:700; font-size:.68rem; color:var(--green-deep); }
+  .face .nm{ display:block; margin-top:9px; font-family:'Nanum Pen Script'; font-size:1.34rem; color:var(--ink); line-height:1.15; }
+  .face .play{ display:inline-block; margin-top:2px; font-family:'Gaegu'; font-weight:700; font-size:.82rem; color:var(--green-deep); }
   a.face:active .face-img{ border-color:var(--green); }
   .note{
-    margin-top:26px; display:block; text-decoration:none;
-    font-family:'Gaegu'; font-weight:700; font-size:.95rem; color:var(--ink);
-    background:var(--yellow); border:1.6px solid var(--ink); border-radius:4px; padding:13px 16px;
+    margin-top:28px; display:block; text-decoration:none;
+    font-family:'Gaegu'; font-weight:700; font-size:1.08rem; color:var(--ink);
+    background:var(--yellow); border:1.6px solid var(--ink); border-radius:4px; padding:15px 18px;
   }
 
   /* credits */
-  .chips{ display:flex; flex-wrap:wrap; gap:9px; margin-top:18px; }
-  .chips span{ font-family:'Gaegu'; font-weight:700; font-size:.84rem; color:#fff; background:var(--tc,var(--green)); border-radius:999px; padding:3px 13px; }
+  .chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+  .chips span{ font-family:'Gaegu'; font-weight:700; font-size:.94rem; color:#fff; background:var(--tc,var(--green)); border-radius:999px; padding:3px 14px; }
   .insta{
-    margin-top:20px; display:inline-flex; align-items:center; gap:8px;
-    font-family:'Gaegu'; font-weight:700; font-size:1rem; color:var(--ink); text-decoration:none;
-    border:1.6px solid var(--ink); border-radius:999px; padding:7px 16px;
+    margin-top:22px; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Gaegu'; font-weight:700; font-size:1.12rem; color:var(--ink); text-decoration:none;
+    border:1.6px solid var(--ink); border-radius:999px; padding:8px 18px;
   }
-  .thanks{ margin-top:26px; padding-top:20px; border-top:1.5px solid var(--ink); }
-  .thanks .big{ font-family:'Nanum Pen Script'; font-size:1.5rem; color:var(--ink); margin:0 0 8px; line-height:1.35; }
-  .thanks .sponsor{ font-size:.82rem; color:var(--ink-soft); margin:0; }
+  .thanks{ margin-top:28px; padding-top:22px; border-top:1.5px solid var(--ink); }
+  .thanks .big{ font-family:'Nanum Pen Script'; font-size:1.65rem; color:var(--ink); margin:0 0 10px; line-height:1.35; }
+  .thanks .sponsor{ font-size:.92rem; color:var(--ink-soft); margin:0; }
 
-  .j-end{ text-align:center; padding:46px 20px 64px; border-top:1.5px solid var(--ink); font-family:'Nanum Pen Script'; font-size:1.4rem; color:var(--ink-soft); }
+  .j-end{ text-align:center; padding:48px 20px 66px; border-top:1.5px solid var(--ink); font-family:'Nanum Pen Script'; font-size:1.55rem; color:var(--ink-soft); }
   .j-end button{
-    display:block; margin:14px auto 0; border:1.6px solid var(--ink); background:var(--cream);
-    font-family:'Gaegu'; font-weight:700; font-size:.95rem; color:var(--ink);
-    border-radius:999px; padding:8px 20px; cursor:pointer;
+    display:block; margin:16px auto 0; border:1.6px solid var(--ink); background:var(--cream);
+    font-family:'Gaegu'; font-weight:700; font-size:1.05rem; color:var(--ink);
+    border-radius:999px; padding:9px 22px; cursor:pointer;
   }
 
   .ch-shape{ position:absolute; right:clamp(10px,5vw,26px); top:clamp(54px,11vw,82px); width:54px; height:54px; pointer-events:none; opacity:.92; }
@@ -253,26 +255,44 @@
 <div class="progress" aria-hidden="true"><i id="bar"></i></div>
 <p class="sr-only" aria-live="polite" id="live"></p>
 
-<!-- flat cut-paper shape set -->
+<!-- ─────────────────────────────────────────────────────────────
+     장식 도형 세트.  각 <path>/<g> 를 직접 만든 SVG 로 교체하면
+     사이트 전체(표지·챕터·플레이스홀더)에 바로 반영됩니다.
+     - 채우기형: fill="currentColor" 유지 (색은 CSS 에서 지정)
+     - viewBox 는 0 0 100 100 기준
+     ───────────────────────────────────────────────────────────── -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <path id="sh-treecloud" fill="currentColor" d="M50 4C34 4 26 15 27 27 14 30 8 41 12 52 4 60 6 76 18 82c8 12 30 12 40 2 14 6 32-2 34-16 12-6 14-24 4-33 2-15-10-27-24-25C68 0 58 4 50 4z"/>
-  <path id="sh-tree" fill="currentColor" d="M50 3C34 3 22 15 22 31c0 10 5 18 13 23-3 3-5 8-5 13 0 12 9 20 20 20s20-8 20-20c0-5-2-10-5-13 8-5 13-13 13-23C78 15 66 3 50 3z"/>
-  <path id="sh-book" fill="currentColor" d="M6 20c14-8 30-8 44 2 14-10 30-10 44-2v58c-14-7-30-7-44 2-14-9-30-9-44-2z"/>
-  <path id="sh-pencil" fill="currentColor" d="M35 10c0-4 30-4 30 0v66c0 6-6 16-15 24-9-8-15-18-15-24z"/>
-  <path id="sh-aster" fill="currentColor" d="M50 4c5 0 8 3 8 8l-1 20 14-14c4-4 9-4 12 0 4 4 4 9 0 12L81 44l20-1c5 0 8 3 8 8s-3 8-8 8l-20-1 14 14c4 4 4 9 0 12-4 4-9 4-12 0L69 82l1 20c0 5-3 8-8 8s-8-3-8-8l1-20-14 14c-4 4-9 4-12 0-4-4-4-9 0-12L45 58l-20 1c-5 0-8-3-8-8s3-8 8-8l20 1L31 30c-4-4-4-9 0-12 4-4 9-4 12 0l14 14-1-20c0-5 3-8 8-8z" transform="translate(-9 -3) scale(1.02)"/>
-  <path id="sh-flower" fill="currentColor" d="M50 6c9 0 16 7 16 16 8-4 18-1 22 7 4 8 1 18-7 22 8 4 11 14 7 22-4 8-14 11-22 7 0 9-7 16-16 16s-16-7-16-16c-8 4-18 1-22-7-4-8-1-18 7-22-8-4-11-14-7-22 4-8 14-11 22-7 0-9 7-16 16-16z"/>
-  <path id="sh-drop" fill="currentColor" d="M50 4C50 4 84 44 84 68c0 20-15 30-34 30S16 88 16 68C16 44 50 4 50 4z"/>
-  <path id="sh-blob" fill="currentColor" d="M52 6C39 4 28 12 25 24 12 25 4 36 6 49-4 58 2 76 16 80c6 14 28 18 40 8 14 8 34 0 37-15 13-4 18-22 9-33 5-15-6-30-21-30-8-8-19-9-29-4z"/>
-  <path id="sh-arrow" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" d="M10 50h74M60 26l26 24-26 24"/>
-  <g id="sh-face"><circle cx="50" cy="38" r="18" fill="currentColor"/><path d="M18 92c0-20 14-32 32-32s32 12 32 32z" fill="currentColor"/></g>
-  <g id="sh-camera" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"><path d="M10 30c0-4 3-7 8-7h10l5-8h34l5 8h10c5 0 8 3 8 7v42c0 4-3 7-8 7H18c-5 0-8-3-8-7z"/><circle cx="50" cy="50" r="15"/></g>
+  <!-- 나무 (둥근 수관 + 기둥) -->
+  <g id="sh-tree" fill="currentColor"><rect x="43" y="52" width="14" height="42" rx="3"/><circle cx="50" cy="34" r="30"/></g>
+  <!-- 구름 나무 (뭉게뭉게) -->
+  <path id="sh-treecloud" fill="currentColor" d="M30 80a19 19 0 01-6-37 22 22 0 013-16 21 21 0 0135-4 20 20 0 0126 8 17 17 0 01-3 30 16 16 0 01-16 19 20 20 0 01-19 0 19 19 0 01-15 0z"/>
+  <!-- 펼친 책 -->
+  <path id="sh-book" fill="currentColor" d="M9 22c13-7 27-7 41 1 14-8 28-8 41-1v55c-13-6-27-6-41 1-14-7-28-7-41-1z"/>
+  <!-- 연필 -->
+  <path id="sh-pencil" fill="currentColor" d="M36 12a3 3 0 013-3h22a3 3 0 013 3v58L50 91 36 70z"/>
+  <!-- 별표 (6갈래) -->
+  <path id="sh-aster" fill="currentColor" d="M50 6c4 0 7 3 7 7l-1 18 13-13a7 7 0 0110 10L73 48h18a7 7 0 010 14H73l13 13a7 7 0 01-10 10L63 72l1 18a7 7 0 01-14 0l1-18-13 13a7 7 0 01-10-10l13-13H23a7 7 0 010-14h18L28 35a7 7 0 0110-10l13 13-1-18c0-4 3-7 7-7z"/>
+  <!-- 꽃 (데이지, 원 5장 + 심) -->
+  <g id="sh-flower" fill="currentColor"><circle cx="50" cy="27" r="16"/><circle cx="75" cy="44" r="16"/><circle cx="66" cy="74" r="16"/><circle cx="34" cy="74" r="16"/><circle cx="25" cy="44" r="16"/><circle cx="50" cy="52" r="14"/></g>
+  <!-- 물방울 -->
+  <path id="sh-drop" fill="currentColor" d="M50 6c0 0 34 38 34 62a34 34 0 01-68 0C16 44 50 6 50 6z"/>
+  <!-- 구름 -->
+  <path id="sh-blob" fill="currentColor" d="M28 80a20 20 0 01-3-39 24 24 0 0145-10 18 18 0 0117 27 16 16 0 01-14 22z"/>
+  <!-- 화살표 -->
+  <path id="sh-arrow" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M14 50h68M56 26l28 24-28 24"/>
+  <!-- 집 -->
+  <path id="sh-home" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 47L50 16l36 31M24 40v42h52V40M42 82V58h16v24"/>
+  <!-- 인물 실루엣 (사진 자리) -->
+  <path id="sh-face" fill="currentColor" d="M50 16a17 17 0 110 34 17 17 0 010-34zM50 56c17 0 31 10 34 25 1 4-2 7-6 7H22c-4 0-7-3-6-7 3-15 17-25 34-25z"/>
+  <!-- 카메라 (사진 자리) -->
+  <path id="sh-camera" fill="currentColor" fill-rule="evenodd" d="M18 28a7 7 0 00-7 7v42a7 7 0 007 7h64a7 7 0 007-7V35a7 7 0 00-7-7H70l-4-8a4 4 0 00-4-2H38a4 4 0 00-4 2l-4 8zM50 40a16 16 0 100 32 16 16 0 000-32z"/>
 </defs></svg>
 
 <!-- ============ COVER ============ -->
 <section class="cover" id="cover">
   <div class="shape cv-s1"><svg viewBox="0 0 100 100"><use href="#sh-treecloud"/></svg></div>
   <div class="shape cv-s2"><svg viewBox="0 0 100 100"><use href="#sh-book"/></svg></div>
-  <div class="shape cv-s3"><svg viewBox="0 0 100 110"><use href="#sh-aster"/></svg></div>
+  <div class="shape cv-s3"><svg viewBox="0 0 100 100"><use href="#sh-aster"/></svg></div>
   <div class="shape cv-s4"><svg viewBox="0 0 100 100"><use href="#sh-pencil"/></svg></div>
   <div class="shape cv-s5"><svg viewBox="0 0 100 100"><use href="#sh-tree"/></svg></div>
   <div class="shape cv-s6"><svg viewBox="0 0 100 100"><use href="#sh-drop"/></svg></div>
@@ -296,7 +316,7 @@
 <main class="journal" id="journal">
   <div class="j-bar">
     <button class="home" id="homeBtn" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l8-8 8 8M6 10v10h12V10"/></svg>
+      <svg viewBox="0 0 100 100"><use href="#sh-home"/></svg>
       신가1리 이야기
     </button>
     <select id="jump" aria-label="장 이동">
@@ -312,7 +332,7 @@
   </div>
 
   <section class="chapter" id="c-prologue">
-    <span class="shape ch-shape" style="color:var(--yellow)"><svg viewBox="0 0 100 110"><use href="#sh-aster"/></svg></span>
+    <span class="shape ch-shape" style="color:var(--yellow)"><svg viewBox="0 0 100 100"><use href="#sh-aster"/></svg></span>
     <span class="ch-kicker">PROLOGUE</span>
     <h2 class="ch-title">이 기록에 대하여</h2>
     <p class="ch-lede">2026년 7월 6일부터 7일까지, 상명대학교 그린나래는 충남 천안 신가1리에서 이틀을 보냈습니다. 이 저널은 그 시간의 기록입니다 — 건강복지·디지털교육·콘텐츠디자인·문화체험, 네 팀이 함께한 1박 2일.</p>
