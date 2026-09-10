@@ -42,10 +42,10 @@
     background:var(--cream);
     color:var(--ink);
     font-family:'Gowun Dodum','Malgun Gothic',sans-serif;
-    font-size:18px; line-height:1.8;
+    font-size:20px; line-height:1.8;
     -webkit-font-smoothing:antialiased;
   }
-  @media (min-width:720px){ body{ font-size:19.5px; } }
+  @media (min-width:720px){ body{ font-size:21.5px; } }
   .hand{ font-family:'Gaegu','Gowun Dodum',sans-serif; font-weight:700; }
   .pen{ font-family:'Nanum Pen Script','Gaegu',cursive; }
   ::selection{ background:var(--green); color:#fff; }
@@ -213,7 +213,7 @@
     border:2.5px solid var(--ink); border-radius:0;
     background:#fff;
   }
-  .face-img img{ width:100%; height:100%; object-fit:cover; filter:saturate(.92) contrast(.98); }
+  .face-img .ovr{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(.94) contrast(.98); }
   .face-img .ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--ink-soft); }
   .face-img .ph svg{ width:38%; height:38%; opacity:.45; }
   .face .nm{ display:block; margin-top:9px; font-family:'Nanum Pen Script'; font-size:1.34rem; color:var(--ink); line-height:1.15; }
@@ -351,11 +351,10 @@
     <figure class="shot" style="--mount:var(--blue)" data-photo="village" data-cap="논밭이 넓게 펼쳐진 성환읍 신가1리">
       <div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>마을 풍경 사진</div>
     </figure>
-    <p class="ch-lede">충남 천안시 서북구 성환읍, 논과 밭이 넓게 펼쳐진 조용한 마을입니다. 2024년부터 그린나래와 인연을 맺어 올해로 세 번째 여름을 함께합니다.</p>
+    <p class="ch-lede">충남 천안시 서북구 성환읍, 논과 밭이 넓게 펼쳐진 조용한 마을입니다.</p>
     <div class="ch-body">
       <div class="kv">
         <div class="kv-row"><span class="k" style="--tc:var(--green)">위치</span><span class="v">충남 천안시 서북구 성환읍 신가1리 마을회관</span></div>
-        <div class="kv-row"><span class="k" style="--tc:var(--coral)">인연</span><span class="v">2024년부터 3년째 교류</span></div>
         <div class="kv-row"><span class="k" style="--tc:var(--blue)">일정</span><span class="v">2026. 7. 6.(월) – 7. 7.(화), 1박 2일</span></div>
       </div>
     </div>
@@ -449,7 +448,7 @@
       </div>
       <div class="team">
         <figure class="shot" style="--mount:var(--yellow)" data-photo="team-4"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sh-camera"/></svg>사진</div></figure>
-        <span class="team-name" style="--tc:var(--green)">문화체험팀</span>
+        <span class="team-name" style="--tc:var(--yellow);color:var(--ink)">문화체험팀</span>
         <p>건강 음식 만들기, 공예 체험(왁뿌볼·스트링아트·라탄공예 등) 기획·실습</p>
       </div>
     </div>
@@ -476,7 +475,7 @@
     <p class="ch-lede">상명사회봉사단 그린나래는 2024년 설립된 상명대학교 사회봉사 동아리로, 간호·스포츠융합·디자인·소프트웨어 등 다양한 전공의 학생 19명이 이번 활동에 함께했습니다.</p>
     <div class="ch-body">
       <div class="chips">
-        <span style="--tc:var(--green)">건강복지팀</span><span style="--tc:var(--blue)">디지털교육팀</span><span style="--tc:var(--coral)">콘텐츠디자인팀</span><span style="--tc:var(--green)">문화체험팀</span>
+        <span style="--tc:var(--green)">건강복지팀</span><span style="--tc:var(--blue)">디지털교육팀</span><span style="--tc:var(--coral)">콘텐츠디자인팀</span><span style="--tc:var(--yellow);color:var(--ink)">문화체험팀</span>
       </div>
       <a class="insta" href="https://www.instagram.com/smu_thewings" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
@@ -510,16 +509,23 @@
     // 'day1-1':'photos/day1-1.jpg', ... 'team-1'..'team-4', 'credits':'photos/credits.jpg'
   };
   var YT_CHANNEL = '';
+  // photos/story-01.jpg ~ story-15.jpg 로 넣으면 자동 연결됩니다. name·video 만 채우세요.
   var STORIES = [
-    // { name:'김○○ 어르신', photo:'photos/story-01.jpg', video:'https://youtu.be/xxxx' },
-    { name:'성함 입력 예정', photo:'', video:'' }, { name:'성함 입력 예정', photo:'', video:'' },
-    { name:'성함 입력 예정', photo:'', video:'' }, { name:'성함 입력 예정', photo:'', video:'' },
-    { name:'성함 입력 예정', photo:'', video:'' }, { name:'성함 입력 예정', photo:'', video:'' },
-    { name:'성함 입력 예정', photo:'', video:'' }, { name:'성함 입력 예정', photo:'', video:'' },
-    { name:'성함 입력 예정', photo:'', video:'' }, { name:'성함 입력 예정', photo:'', video:'' },
-    { name:'성함 입력 예정', photo:'', video:'' }, { name:'성함 입력 예정', photo:'', video:'' },
-    { name:'성함 입력 예정', photo:'', video:'' }, { name:'성함 입력 예정', photo:'', video:'' },
-    { name:'성함 입력 예정', photo:'', video:'' }
+    { name:'', photo:'photos/story-01.jpg', video:'' },
+    { name:'', photo:'photos/story-02.jpg', video:'' },
+    { name:'', photo:'photos/story-03.jpg', video:'' },
+    { name:'', photo:'photos/story-04.jpg', video:'' },
+    { name:'', photo:'photos/story-05.jpg', video:'' },
+    { name:'', photo:'photos/story-06.jpg', video:'' },
+    { name:'', photo:'photos/story-07.jpg', video:'' },
+    { name:'', photo:'photos/story-08.jpg', video:'' },
+    { name:'', photo:'photos/story-09.jpg', video:'' },
+    { name:'', photo:'photos/story-10.jpg', video:'' },
+    { name:'', photo:'photos/story-11.jpg', video:'' },
+    { name:'', photo:'photos/story-12.jpg', video:'' },
+    { name:'', photo:'photos/story-13.jpg', video:'' },
+    { name:'', photo:'photos/story-14.jpg', video:'' },
+    { name:'', photo:'photos/story-15.jpg', video:'' }
   ];
   /* ══════════════════════════════════════════════════════════════ */
 
@@ -538,11 +544,11 @@
   (function faces(){
     var wrap = document.getElementById('faces'); if(!wrap) return;
     wrap.innerHTML = STORIES.map(function(s){
-      var media = s.photo
-        ? '<img src="'+esc(s.photo)+'" alt="'+esc(s.name)+'">'
-        : '<span class="ph"><svg viewBox="0 0 100 100"><use href="#sh-face"/></svg></span>';
+      // 실루엣을 항상 깔고, 사진이 로드되면 그 위를 덮음. 파일이 없으면(404) 실루엣이 그대로 보임.
+      var media = '<span class="ph"><svg viewBox="0 0 100 100"><use href="#sh-face"/></svg></span>'
+        + (s.photo ? '<img class="ovr" src="'+esc(s.photo)+'" alt="'+esc(s.name||'어르신 사진')+'" loading="lazy" onerror="this.remove()">' : '');
       var inner = '<span class="face-img">'+media+'</span>'
-        + '<span class="nm">'+esc(s.name)+'</span>'
+        + (s.name ? '<span class="nm">'+esc(s.name)+'</span>' : '')
         + '<span class="play">'+(s.video?'▶ 영상 보기':'▶ 영상 준비중')+'</span>';
       return s.video
         ? '<a class="face" href="'+esc(encodeURI(s.video))+'" target="_blank" rel="noopener">'+inner+'</a>'
