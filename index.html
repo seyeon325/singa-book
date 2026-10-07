@@ -571,15 +571,28 @@
 
   function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
-  document.querySelectorAll('figure.shot[data-photo]').forEach(function(fig){
-    var src = PHOTOS[fig.getAttribute('data-photo')];
-    if(!src) return;
-    var img = new Image(1200, 900); img.src = src; img.alt = fig.getAttribute('data-cap')||''; img.loading='lazy'; img.decoding='async';
-    var ph = fig.querySelector('.ph'); if(ph) ph.replaceWith(img);
-    if(fig.getAttribute('data-cap') && !fig.querySelector('figcaption')){
-      var cap = document.createElement('figcaption'); cap.textContent = fig.getAttribute('data-cap'); fig.appendChild(cap);
-    }
-  });
+  // 사진 규칙: photos/<키>.jpg 가 있으면 자동으로 들어갑니다 (예: photos/village.jpg).
+  // 다른 확장자·파일명을 쓰고 싶으면 위 PHOTOS 에 '키':'경로' 로 지정. 파일이 없으면 플레이스홀더 유지.
+  function loadShot(fig){
+    var key = fig.getAttribute('data-photo');
+    var src = PHOTOS[key] || ('photos/' + key + '.jpg');
+    var img = new Image(1200, 900);
+    img.alt = fig.getAttribute('data-cap') || ''; img.decoding = 'async';
+    img.onload = function(){
+      var ph = fig.querySelector('.ph'); if(ph) ph.replaceWith(img);
+      if(fig.getAttribute('data-cap') && !fig.querySelector('figcaption')){
+        var cap = document.createElement('figcaption'); cap.textContent = fig.getAttribute('data-cap'); fig.appendChild(cap);
+      }
+    };
+    img.src = src;   // 404 면 onload 가 안 불려 플레이스홀더가 그대로 보임
+  }
+  var shots = document.querySelectorAll('figure.shot[data-photo]');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ io.unobserve(e.target); loadShot(e.target); } });
+    }, {rootMargin:'900px 0px'});          // 화면에 가까워지면 그때 불러옴(느린 망 배려)
+    shots.forEach(function(f){ io.observe(f); });
+  } else { shots.forEach(loadShot); }
 
   (function faces(){
     var wrap = document.getElementById('faces'); if(!wrap) return;
