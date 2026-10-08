@@ -37,17 +37,17 @@
 
 | 역할 | 폰트 | 비고 |
 |---|---|---|
-| 본문 | `Gowun Dodum` | 기준 **20px** / 720px↑ 21.5px, 줄간격 1.8 |
+| 본문·문장형 글(소개 문구·감사 글·캡션) | `Gowun Dodum` | 기준 **24px** / 720px↑ 25.5px, 줄간격 1.75 |
 | 제목·태그·버튼 | `Gaegu` 700 | 손글씨 볼드 |
-| 캡션·이름·메모 | `Nanum Pen Script` | 얇은 펜글씨 — 1.2rem 이상에서만 사용 |
+| 이름·날짜·팀명 등 짧은 라벨 | `Gaegu` 700 | 얇은 펜글씨 폰트는 가독성 때문에 폐기 |
 | 숫자(통계) | `Jua` | |
 
-- 외부 로드는 Google Fonts `<link>` 하나. `display=swap`.
+- 외부 로드는 Google Fonts `<link>` 하나 (Jua·Gaegu·Gowun Dodum). `display=swap`.
 - 제목 `.ch-title` : `clamp(2.15rem, 7vw, 2.9rem)`, 밑줄·형광펜 효과 없음(플랫).
 
 ## 5. 레이아웃
 
-- 콘텐츠 폭 `--maxw: 640px`, 가운데 정렬.
+- 콘텐츠 폭 `--maxw: 680px`, 가운데 정렬.
 - 구조: **표지(고정) → "펼쳐보기" → 세로 스크롤 저널**. 챕터 = `<section class="chapter" id="c-...">`.
 - 챕터 순서: prologue · village · glance · day1 · day2 · teams · stories · credits.
 - 챕터당: 킥커(알약) + 제목 + 큰 사진 + 본문. 한 챕터 = 한 주제.
