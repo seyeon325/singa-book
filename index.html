@@ -186,7 +186,7 @@
     display:block; width:100%; object-fit:cover;
     border:2.5px solid var(--ink); border-radius:0; background:#fff;
   }
-  .shot img{ height:auto; /* 사진 원본 비율 그대로(자르지 않음) */ filter:saturate(.94) contrast(.98); }
+  .shot img{ height:auto; aspect-ratio:auto; object-fit:contain; /* 사진 원본 비율 그대로(자르지 않음) */ filter:saturate(.94) contrast(.98); }
   .shot.tall img{ height:auto; aspect-ratio:1/1; }
   .shot .ph{
     aspect-ratio:16/9;
@@ -583,7 +583,7 @@
   function loadShot(fig){
     var key = fig.getAttribute('data-photo');
     var src = PHOTOS[key] || ('photos/' + key + '.jpg');
-    var img = new Image(1200, 900);
+    var img = new Image();
     img.alt = fig.getAttribute('data-cap') || ''; img.decoding = 'async';
     img.onload = function(){
       var ph = fig.querySelector('.ph'); if(ph) ph.replaceWith(img);
