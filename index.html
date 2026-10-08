@@ -188,6 +188,7 @@
   }
   .shot img{ height:auto; aspect-ratio:4/3; filter:saturate(.94) contrast(.98); }
   .shot.tall img{ height:auto; aspect-ratio:1/1; }
+  .shot.wide img{ aspect-ratio:3/2; }   /* 단체사진: 4:3 으로 자르면 양끝 사람이 잘려서 3:2 */
   .shot .ph{
     aspect-ratio:16/9;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
@@ -510,7 +511,7 @@
     <span aria-hidden="true" class="shape ch-shape" style="color:var(--green)"><svg viewBox="0 0 100 100"><use href="#sh-treecloud"/></svg></span>
     <span class="ch-kicker">CREDITS</span>
     <h2 class="ch-title">함께한 사람들</h2>
-    <figure class="shot" style="--mount:var(--coral)" data-photo="credits" data-cap="그린나래 19명 + 신가1리 어르신들">
+    <figure class="shot wide" style="--mount:var(--coral)" data-photo="credits" data-cap="그린나래 19명 + 신가1리 어르신들">
       <div class="ph" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#sh-face"/></svg>단체 사진</div>
     </figure>
     <p class="ch-lede">상명사회봉사단 그린나래는 2024년 설립된 상명대학교 사회봉사 동아리로, 간호·스포츠융합·디자인·소프트웨어 등 다양한 전공의 학생 19명이 이번 활동에 함께했습니다.</p>
