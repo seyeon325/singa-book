@@ -186,9 +186,8 @@
     display:block; width:100%; object-fit:cover;
     border:2.5px solid var(--ink); border-radius:0; background:#fff;
   }
-  .shot img{ height:auto; aspect-ratio:4/3; filter:saturate(.94) contrast(.98); }
+  .shot img{ height:auto; /* 사진 원본 비율 그대로(자르지 않음) */ filter:saturate(.94) contrast(.98); }
   .shot.tall img{ height:auto; aspect-ratio:1/1; }
-  .shot.wide img{ aspect-ratio:3/2; }   /* 단체사진: 4:3 으로 자르면 양끝 사람이 잘려서 3:2 */
   .shot .ph{
     aspect-ratio:16/9;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
